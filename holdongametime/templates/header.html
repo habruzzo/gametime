@@ -1,0 +1,25 @@
+{% block header %}
+<header class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="logo">
+                    <h2><a href="{% url 'home' %}">holdon Game Time</a></h2>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="menu">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'format' %}">Format</a></li>
+                        <li><a href="{% url 'backlog' %}">Backlog</a></li>
+                        <li><a href="{% url 'posts' %}">Posts</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock header %}

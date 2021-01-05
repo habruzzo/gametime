@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %} posts.html {% endblock title %}
+{% block content %}
+<div class="blog-area">
+    <div class="col-md-8">
+		{% for post in post_list %}
+			<div class="blog-list-item">
+			    <div class="blog-list-title">{{ post.title }}</div>
+			    <p class="blog-list-date">{{ post.author }} | {{ post.created_on}} </p>
+			    <p class="blog-list-blurb">{{ post.content|slice:":200" }}</p>
+			    <a href="{% url 'post_detail' post.slug  %}" class="blog-list-read-more">Read More &rarr;</a>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
+

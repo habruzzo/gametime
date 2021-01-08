@@ -1,5 +1,7 @@
 from django.views import generic
 from .models import Post
+from .models import Game
+from .models import Review
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')

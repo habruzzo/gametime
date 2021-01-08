@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import uuid
 
 POST_STATUS = (
-    (0,"Draft"),
-    (1,"Publish")
+	(0,"Draft"),
+	(1,"Publish")
 )
 
 GAME_STATUS = (
@@ -29,8 +29,8 @@ REVIEW_SEGMENTS = (
 )
 
 class Post(models.Model):
-    post_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=200, unique=True)
+	post_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	title = models.CharField(max_length=200, unique=True)
 	slug = models.SlugField(max_length=200, unique=True)
 	author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
 	updated_on = models.DateTimeField(auto_now= True)
@@ -70,6 +70,7 @@ class Review(models.Model):
 	game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
 	title = models.CharField(max_length=50, unique=True)
 	status = models.IntegerField(choices=POST_STATUS, default=0)
+	overall_rating = models.IntegerField()
 	
 	def __str__(self):
 		return self.title

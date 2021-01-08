@@ -14,7 +14,7 @@ class GameAdmin(admin.ModelAdmin):
 	list_filter = ('status',)
 
 class ReviewAdmin(admin.ModelAdmin):
-	list_display = ('title', 'post_id', 'game_id', 'overall')
+	list_display = ('title', 'post_id', 'game_id', 'overall_rating')
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Game, GameAdmin)

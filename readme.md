@@ -17,7 +17,13 @@ to-do:
 quick
 -add/sort games to lists
 -write reviews
--polish site UI
+-polish site UI 
+	-about
+	-backlog
+	-posts
+	-format
+	-home
+	-faq
 -logo
 
 

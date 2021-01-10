@@ -28,7 +28,6 @@ def main():
 	faq_list = read_faq_list(FAQ_PATH)
 	for faq in faq_list:
 		browser = enter_faq_form(browser, faq)
-		
 
 if __name__ == '__main__':
 	main()

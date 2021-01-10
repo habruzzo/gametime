@@ -94,6 +94,7 @@ def login(browser):
 
 def enter_game_form(browser, game):
 	browser.open("http://127.0.0.1:8000/admin/blog_holdongametime/game/add/")
+	browser.select_form("game_form")
 	i = 0
 	browser["id_title"] = game[KEY_NAMES[i]]
 	i = i + 1

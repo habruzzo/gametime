@@ -13,7 +13,8 @@ GAME_STATUS = (
 	(2, "Started"),
 	(3, "Completed"),
 	(4, "Reviewed"),
-	(5, "Suggested")
+	(5, "Suggested"),
+	(6, "Published")
 )
 
 PLATFORM = (
@@ -53,6 +54,10 @@ class BlogTag(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class MailingList(models.Model):
+	email = models.EmailField(max_length=50)
+	name = models.CharField(max_length=50, default="")
 
 class Game(models.Model):
 	game_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

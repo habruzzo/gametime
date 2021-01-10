@@ -19,3 +19,4 @@ License
 * You can convert our templates on any CMS (like WordPress, Joomla etc.) for your client and personal purposes but cannot resell these templates after the CMS conversion. 
 
 This PSD template copyright by DartThemes.com%      
+color palette: https://www.color-hex.com/color-palette/103501

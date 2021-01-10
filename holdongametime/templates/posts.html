@@ -2,6 +2,7 @@
 {% block title %} posts.html {% endblock title %}
 {% block innercontent %}
 	{% for post in post_list|slice:":10" %}
+	{# TODO SET THIS UP FOR MORE THAN 10 ENTRIES #}
 		<div class="blog-list-item">
 		    <div class="blog-list-title">{{ post.title }}</div>
 		    <p class="blog-list-date">{{ post.author }} | {{ post.created_on}} </p>

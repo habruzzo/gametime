@@ -36,5 +36,3 @@ combination of "personal" blog posts and "reviews"
 
 tool that will get names of all games in my steam library ->
 tool that will take this list -> collect data to fill out "game" object -> fill out "game" object -> add to "game" table
-
-TOOLS:GECKODRIVER FROM https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz

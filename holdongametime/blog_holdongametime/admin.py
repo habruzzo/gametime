@@ -4,6 +4,7 @@ from .models import Game
 from .models import Review
 from .models import FAQ
 from .models import BlogTag
+from .models import MailingList
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -30,8 +31,13 @@ class BlogTagAdmin(admin.ModelAdmin):
 	list_display = ('tag_id', 'name')
 	search_field = ['name']
 
+class MailingListAdmin(admin.ModelAdmin):
+	list_display = ('email', 'name')
+	search_field = ['email', 'name']
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(FAQ, FAQAdmin)
 admin.site.register(BlogTag, BlogTagAdmin)
+admin.site.register(MailingList, MailingListAdmin)

@@ -1,0 +1,548 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"int",
+				"intermediate_end"
+			],
+			[
+				"dow",
+				"download_files_in_sub_dir"
+			],
+			[
+				"auth",
+				"auth_token_encoded"
+			],
+			[
+				"aut",
+				"auth_token_encoded"
+			],
+			[
+				"update",
+				"update-packages"
+			],
+			[
+				"convert_",
+				"convert_letter_to_num"
+			],
+			[
+				"init",
+				"init_point_dict"
+			],
+			[
+				"sid",
+				"side_length"
+			],
+			[
+				"center",
+				"center_point"
+			],
+			[
+				"contr",
+				"contra_found"
+			],
+			[
+				"con",
+				"connect_and_vote"
+			],
+			[
+				"check",
+				"check_page_connection"
+			],
+			[
+				"paper",
+				"papermag"
+			],
+			[
+				"pro",
+				"proxy_driver"
+			],
+			[
+				"ssl",
+				"sslProxy"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			],
+			[
+				"pars",
+				"parse_scheme"
+			],
+			[
+				"RO",
+				"ROY_RED_UPPER"
+			],
+			[
+				"roy",
+				"roy_red_upper_thresholds"
+			],
+			[
+				"cyan",
+				"cyan_thresholds"
+			],
+			[
+				"get",
+				"get_black_mask"
+			],
+			[
+				"mage",
+				"magenta_thresholds"
+			],
+			[
+				"ROY",
+				"ROY_BLUE"
+			],
+			[
+				"ro",
+				"roy_red_thresholds"
+			],
+			[
+				"colo",
+				"color_scheme"
+			],
+			[
+				"color",
+				"colorfill"
+			],
+			[
+				"image",
+				"image"
+			],
+			[
+				"vi",
+				"violet_thresholds"
+			],
+			[
+				"ind",
+				"indigo_thresholds"
+			],
+			[
+				"blu",
+				"blue_thresholds"
+			],
+			[
+				"gre",
+				"green_thresholds"
+			],
+			[
+				"ye",
+				"yellow_thresholds"
+			],
+			[
+				"orang",
+				"orange_thresholds"
+			],
+			[
+				"red",
+				"red_thresholds"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "blog_holdongametime/models.py",
+			"settings":
+			{
+				"buffer_size": 2073,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "{\n\t\"folders\":\n\t[\n\t\t{\n\t\t\t\"path\": \".\"\n\t\t}\n\t]\n}\n",
+			"file": "gametime.sublime-project",
+			"file_size": 45,
+			"file_write_time": 132546489577152059,
+			"settings":
+			{
+				"buffer_size": 45,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "blog_holdongametime/views.py",
+			"settings":
+			{
+				"buffer_size": 791,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "blog_holdongametime/admin.py",
+			"settings":
+			{
+				"buffer_size": 644,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/holden/proj-django/holdongametime"
+	],
+	"file_history":
+	[
+		"/home/holden/proj-django/holdongametime/manage.py",
+		"/home/holden/goals.txt",
+		"/home/holden/alias_list.sh",
+		"/home/holden/plugin_list.sh",
+		"/home/holden/proj-django/reviews/wandersong-review.txt",
+		"/home/holden/proj-callr/readme.md",
+		"/home/holden/local-zsh.sh",
+		"/home/holden/.zshrc",
+		"/home/holden/.bashrc",
+		"/home/holden/proj-callr/src/callr_main.py",
+		"/home/holden/Documents/game notes",
+		"/home/holden/python-venv/dad-AO-download/download_parallel.py",
+		"/home/holden/proj-django/holdongametime/templates/index.html.bak",
+		"/home/holden/proj-django/holdongametime/templates/blog_post.html",
+		"/home/holden/proj-django/holdongametime/templates/backlog.html",
+		"/home/holden/proj-django/holdongametime/templates/footer.html",
+		"/home/holden/proj-django/holdongametime/templates/header.html",
+		"/home/holden/proj-django/holdongametime/templates/about.html",
+		"/home/holden/proj-django/holdongametime/templates/posts.html",
+		"/home/holden/proj-django/holdongametime/templates/index.html",
+		"/home/holden/proj-django/holdongametime/templates/sidebar.html",
+		"/home/holden/proj-django/holdongametime/holdongametime/settings.py",
+		"/home/holden/proj-django/readme.md",
+		"/home/holden/proj-django/holdongametime/static/section.css",
+		"/home/holden/proj-django/holdongametime/static/blog.css",
+		"/home/holden/proj-django/holdongametime/blog_holdongametime/urls.py",
+		"/home/holden/proj-callr/src/templates/login.html",
+		"/home/holden/proj-callr/src/templates/upload.html",
+		"/home/holden/proj-django/holdongametime/templates/format.html",
+		"/home/holden/proj-django/holdongametime/blog_holdongametime/views.py",
+		"/home/holden/proj-django/holdongametime/blog_holdongametime/admin.py",
+		"/home/holden/proj-django/holdongametime/blog_holdongametime/models.py",
+		"/home/holden/proj-callr/src/templates/upload_template.py",
+		"/home/holden/proj-django/reviews/wandersong.txt",
+		"/home/holden/proj-django/holdongametime/static/single.html",
+		"/home/holden/proj-django/holdongametime/templates/contact.html",
+		"/home/holden/proj-django/holdongametime/templates/default.html",
+		"/home/holden/proj-django/holdongametime/templates/base.html",
+		"/home/holden/proj-django/holdongametime/templates/post_detail.html",
+		"/home/holden/proj-django/holdongametime/static/wrapper.css",
+		"/home/holden/proj-django/holdongametime/holdongametime/urls.py",
+		"/home/holden/proj-django/holdongametime/static/style.css",
+		"/home/holden/proj-django/holdongametime/static/css/nice-select.css",
+		"/home/holden/proj-django/holdongametime/static/css/owl.carousel.min.css",
+		"/home/holden/proj-django/holdongametime/static/css/unslider.css",
+		"/home/holden/proj-django/holdongametime/blog_holdongametime/base.html",
+		"/home/holden/proj-django/holdongametime/blog_holdongametime/index.html",
+		"/home/holden/ai/ai_implementation_progress.txt",
+		"/home/holden/ai/novel_ai_project_prelim_notes.txt",
+		"/home/holden/blue-server/spec",
+		"/home/holden/machines/project-spec.txt",
+		"/home/holden/machines/scrubbyspec.txt",
+		"/home/holden/tabs/lover-tab.tab",
+		"/home/holden/tabs/xo-tab.tab",
+		"/home/holden/tabs/when-the-partys-over-tab.txt",
+		"/home/holden/tabs/planetarium-tab.txt",
+		"/home/holden/machines/workoutmachine.txt",
+		"/home/holden/machines/make-machines-that-do-stuff.txt",
+		"/home/holden/python-venv/dad-AO-download/download.py",
+		"/home/holden/tabs/lover-tab.txt",
+		"/home/holden/Documents/ai notes",
+		"/home/holden/python-venv/pic-print/pic.py",
+		"/home/holden/python-venv/sculpture-visualizer/sinewave_ex.py",
+		"/home/holden/python-venv/sculpture-visualizer/sculpture.py",
+		"/home/holden/Documents/docs-2019/tabs/planetarium-tab.txt",
+		"/home/holden/update-packages.sh",
+		"/home/holden/ai/gpt-2/src/sample.py",
+		"/home/holden/Downloads/godot-beginner-2d-platformer-1.1.0/game/src/Actors/Player.gd",
+		"/home/holden/Downloads/godot-beginner-2d-platformer-1.1.0/game/src/Actors/Enemy.gd",
+		"/home/holden/Downloads/godot-beginner-2d-platformer-1.1.0/game/src/Actors/Actor.gd",
+		"/home/holden/Documents/stuff-to-do.txt",
+		"/home/holden/p_and_p/project.godot",
+		"/home/holden/p_and_p/Dialog-System-Example/stories/Example_Story_Baked.tres",
+		"/home/holden/python-venv/metronome.py",
+		"/home/holden/Documents/novel_ai_project_prelim_notes.txt",
+		"/home/holden/Downloads/credentials.csv",
+		"/home/holden/Downloads/algo-master/README.md",
+		"/home/holden/Downloads/algo-master/config.cfg",
+		"/home/holden/blue-server/plan",
+		"/home/holden/Documents/site/index.html",
+		"/home/holden/Downloads/mirage (1).tar.gz",
+		"/home/holden/Documents/haaron-proj/readme",
+		"/home/holden/Documents/site.html",
+		"/home/holden/Documents/python-venv/proxy-vote.py",
+		"/home/holden/Documents/python-venv/pic-print/constants.py",
+		"/home/holden/Documents/python-venv/pic-print/pic.py",
+		"/home/holden/k.config",
+		"/home/holden/Documents/python-venv/pic.py"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 131.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"    "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"\\t",
+			"\"\\t\""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "blog_holdongametime/models.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2073,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								957,
+								957
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "gametime.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 45,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								34,
+								34
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "blog_holdongametime/views.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 791,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								791,
+								791
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "blog_holdongametime/admin.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 644,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								526,
+								526
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "gametime.sublime-project",
+	"replace":
+	{
+		"height": 91.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 398.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}

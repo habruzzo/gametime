@@ -30,7 +30,7 @@ REVIEW_SEGMENTS = (
 
 class Post(models.Model):
 	post_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	title = models.CharField(max_length=200, unique=True)
+	title = models.TextField(max_length=200, unique=True)
 	slug = models.SlugField(max_length=200, unique=True)
 	author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
 	updated_on = models.DateTimeField(auto_now= True)
@@ -50,11 +50,11 @@ class Post(models.Model):
 
 class Game(models.Model):
 	game_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	title = models.CharField(max_length=50, unique=True)
-	creator = models.CharField(max_length=50, unique=False)
-	publisher = models.CharField(max_length=50, unique=False)
+	title = models.TextField(max_length=50, unique=True)
+	creator = models.TextField(max_length=50, unique=False)
+	publisher = models.TextField(max_length=50, unique=False)
 	release_date = models.DateTimeField()
-	steam_link = models.CharField(max_length=200)
+	steam_link = models.URLField(max_length=200)
 	status = models.IntegerField(choices=GAME_STATUS, default=0)
 
 	def __str__(self):
@@ -68,7 +68,7 @@ class Review(models.Model):
 	review_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
 	game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
-	title = models.CharField(max_length=50, unique=True)
+	title = models.TextField(max_length=50, unique=True)
 	status = models.IntegerField(choices=POST_STATUS, default=0)
 	overall_rating = models.IntegerField()
 	
@@ -77,3 +77,10 @@ class Review(models.Model):
 
 	def __id__(self):
 		return self.review_id
+
+class FAQ(models.Model):
+	question = models.TextField(max_length=500, unique=True)
+	answer = models.TextField(max_length=500, unique=True)
+
+	def __str__(self):
+		return str(self.id)

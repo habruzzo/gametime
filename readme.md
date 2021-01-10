@@ -13,13 +13,28 @@ instagram: holdongametime
 django, dart theme
 
 to-do:
--add games to lists
+
+quick
+-add/sort games to lists
 -write reviews
--mailing list
--polish site
--deploy publicly
--claim social accounts
+-polish site UI
 -logo
 
 
+medium
+-create mailing list
+-deploy publicly
+-claim social accounts
+-database migration
+
+
+
+slow
+
+
 combination of "personal" blog posts and "reviews"
+
+tool that will get names of all games in my steam library ->
+tool that will take this list -> collect data to fill out "game" object -> fill out "game" object -> add to "game" table
+
+TOOLS:GECKODRIVER FROM https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz

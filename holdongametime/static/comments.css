@@ -1,0 +1,140 @@
+/*comment part start*/
+.single-blog-area .commententries h3 {
+  color: #191919;
+  font-family: Geometria;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  margin: 0;
+  padding-bottom: 5px;
+  position: relative;
+}
+.single-blog-area .commententries h3::before {
+  background: #191919 none repeat scroll 0 0;
+  content: "";
+  height: 2px;
+  position: absolute;
+  width: 100%;
+  margin-top: 60px;
+}
+.single-blog-area .commententries ul {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.single-blog-area .commententries ul ul {
+  margin-left: 60px;
+}
+.single-blog-area .commententries ul li article.comment {
+  padding-bottom: 13px;
+  padding-top: 30px;
+  position: relative;
+}
+.single-blog-area .commententries ul li article.comment::before {
+  background: #d4dadd none repeat scroll 0 0;
+  content: "";
+  height: 1px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+.single-blog-area .commententries .author-name h5 a {
+  font-family: Geometria;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 10px;
+  color: #191919;
+  text-decoration: none;
+}
+.single-blog-area .commententries .author-name p {
+  color: #191919;
+  font-family: Geometria;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 10px;
+}
+.single-blog-area .commententries .comment-body p {
+  font-family: Geometria;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 25px;
+  color: #191919;
+}
+.single-blog-area .commententries .reply p span {
+  color: #191919;
+  font-family: Geometria;
+  font-size: 18px;
+  font-weight: 500;
+  margin-right: 50px;
+}
+.single-blog-area .commententries .reply p span i {
+  color: #191919;
+  margin-right: 10px;
+}
+.single-blog-area .commententries ul li {
+  list-style: none;
+}
+.commententries .comment-author {
+  border-radius: 50%;
+  float: left;
+  height: 55px;
+  width: 55px;
+}
+.commententries .comment-details {
+  margin-left: 70px;
+}
+.single-blog-area form input {
+  border: 1px solid #191919;
+  margin: 0;
+  border-radius: 5px;
+  width: 100%;
+}
+.single-blog-area form input [placeholder] {
+  color: #191919;
+  font-family: Geometria;
+  font-size: 16px;
+  font-weight: 500;
+}
+.single-blog-area form .name {
+  float: left;
+  margin-bottom: 15px;
+  width: 50%;
+}
+.single-blog-area form .name input {
+  width: 95%;
+}
+.single-blog-area form .name .name {
+  margin-right: 20px;
+}
+.single-blog-area form .email {
+  width: 50%;
+  float: right;
+}
+.single-blog-area form .email input {
+  width: 95%;
+}
+.single-blog-area form .comment {
+  margin-right: 150px;
+}
+.single-blog-area form .post {
+  bottom: 0;
+  position: absolute;
+  right: 0;
+}
+.single-blog-area form .post input[type="submit"] {
+  background: #191919 none repeat scroll 0 0;
+  bottom: 0;
+  color: #d4dadd;
+  font-family: Geometria;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 38px;
+  right: -150px;
+  text-transform: uppercase;
+  width: auto;
+}
+.single-blog-area form {
+  margin: 50px 0 0;
+  position: relative;
+}
+/*comment part end*/

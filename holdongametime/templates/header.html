@@ -1,10 +1,11 @@
 {% block header %}
 <header class="header">
     <div class="container">
+        <div class="spacer"></div>
         <div class="row">
             <div class="col-md-3">
                 <div class="logo">
-                    <h2><a href="{% url 'home' %}">holdon Game Time</a></h2>
+                    <h2><a href="{% url 'home' %}">holdon \n Game Time</a></h2>
                 </div>
             </div>
             <div class="col-md-9">
@@ -15,11 +16,12 @@
                         <li><a href="{% url 'format' %}">Format</a></li>
                         <li><a href="{% url 'backlog' %}">Backlog</a></li>
                         <li><a href="{% url 'posts' %}">Posts</a></li>
-                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                        <li><a href="{% url 'contact' %}">FAQ + Contact</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+        <div class="spacer"></div>
     </div>
 </header>
 {% endblock header %}

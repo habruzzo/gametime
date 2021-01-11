@@ -1,23 +1,26 @@
 {% block header %}
 <header class="header">
-    <div class="container">
-        <div class="spacer"></div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="logo">
-                    <h2><a href="{% url 'home' %}">holdon \n Game Time</a></h2>
+    <div class="container-fluid">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-9">
+            <div class="spacer"></div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="logo">
+                        <h2><a href="{% url 'home' %}">holdon \n Game Time</a></h2>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-9">
-                <div class="menu">
-                    <ul>
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="{% url 'about' %}">About</a></li>
-                        <li><a href="{% url 'format' %}">Format</a></li>
-                        <li><a href="{% url 'backlog' %}">Backlog</a></li>
-                        <li><a href="{% url 'posts' %}">Posts</a></li>
-                        <li><a href="{% url 'contact' %}">FAQ + Contact</a></li>
-                    </ul>
+                <div class="col-md-9">
+                    <div class="menu">
+                        <ul>
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li><a href="{% url 'format' %}">Format</a></li>
+                            <li><a href="{% url 'backlog' %}">Backlog</a></li>
+                            <li><a href="{% url 'posts' %}">Posts</a></li>
+                            <li><a href="{% url 'contact' %}">FAQ + Contact</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

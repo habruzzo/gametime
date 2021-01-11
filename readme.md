@@ -18,12 +18,15 @@ quick
 -add/sort games to lists
 -write reviews
 -polish site UI 
-	-about
-	-backlog
-	-posts
-	-format
-	-home
-	-faq
+	-about MVP
+	-backlog not MVP/maybe MVP
+	-posts MVP
+	-format not MVP/maybe MVP
+	-home MVP
+	-faq not MVP
+	-add main title to pages MVP
+	-why did footer icons disappear? MVP
+	-fix comments format -> not MVP
 -logo
 
 
@@ -31,7 +34,7 @@ medium
 -create mailing list
 -deploy publicly
 -claim social accounts
--database migration
+-database migration MVP
 
 
 

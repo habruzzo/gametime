@@ -7,6 +7,11 @@ POST_STATUS = (
 	(1,"Publish")
 )
 
+BUG_STATUS = (
+	(0,"Logged"),
+	(1,"Fixed")
+)
+
 GAME_STATUS = (
 	(0, "Unknown"),
 	(1, "Acquired"),
@@ -58,6 +63,10 @@ class BlogTag(models.Model):
 class MailingList(models.Model):
 	email = models.EmailField(max_length=50)
 	name = models.CharField(max_length=50, default="")
+
+class Bug(models.Model):
+	description = models.TextField(max_length=100)
+	status = models.IntegerField(choices=POST_STATUS, default=0)
 
 class Game(models.Model):
 	game_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

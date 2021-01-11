@@ -1,3 +1,4 @@
+/*comment*/
 body {
   background-color: #d4dadd;
   color: #191919;
@@ -13,6 +14,8 @@ body {
   text-decoration: none;
   padding: 22px 0;
   text-transform: uppercase;
+  font-size: 36px;
+  line-height: 30px;
 }
 .wrapper header.header .menu {
   margin: 0;
@@ -21,7 +24,6 @@ body {
   float: right;
   margin: 0;
   padding: 0;
-  margin-right: 30px;
 }
 .wrapper header.header .menu ul li {
   display: inline-block;
@@ -71,6 +73,7 @@ body {
 }
 .wrapper footer.footer {
   height: 130px;
+  clear: both;
 }
 .footer-bg {
   background-color: #283618;

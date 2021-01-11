@@ -1,6 +1,8 @@
 {% extends "default.html" %}
 {% block title %} posts.html {% endblock title %}
 {% block innercontent %}
+<div class="spacer2"></div>
+<h2 class="page-title">posts</h2>
 	{% for post in post_list|slice:":10" %}
 	{# TODO SET THIS UP FOR MORE THAN 10 ENTRIES #}
 		<div class="blog-list-item">

@@ -106,8 +106,8 @@
 .single-blog-area img {
   width: 100%;
 }
-.single-blog-area .blog-area {
-  margin-right: 40px;
+.page-title {
+  margin-left: 40px;
 }
 .single-blog-area .ads-area {
   border-top: 1px solid #283618;

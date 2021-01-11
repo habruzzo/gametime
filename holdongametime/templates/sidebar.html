@@ -3,7 +3,7 @@
 {% block sidebar %}
 
     <div class="col-md-3 sidebar">
-        <div class="spacer"></div>
+        <div class="spacer2"></div>
         <h2 class="sidebar-title">Recent</h2>
         <div class="grid" style="position: relative; height: 1221.93px;">
             {% for post in post_list|slice:":2" %}
@@ -19,11 +19,13 @@
             <img src="{% static 'img/sidebar-ads.jpg' %}" alt="">
             <p>Place For Your <br> Ad Banner</p>
         </div>
+        {% if need_tags == True %}
         <div class="tags">
             <h2 class="sidebar-title">Tags</h2>
             <p><a href="#">Adventure</a></p>
             <p><a href="#">Animals</a></p>
         </div>
+        {% endif %}
         <div class="newsletter">
             <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
             <form action="#" method="post">

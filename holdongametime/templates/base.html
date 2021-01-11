@@ -17,16 +17,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
-    {# <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> #}
-    {# <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"> #}
-    {# <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}"> #}
-    {# <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}"> #}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'responsive.css' %}">
-    <link rel="stylesheet" href="{% static 'wrapper.css' %}">
     <link rel="stylesheet" href="{% static 'blog.css' %}">
     <link rel="stylesheet" href="{% static 'sidebar.css' %}">
     <link rel="stylesheet" href="{% static 'comments.css' %}">
+    <link rel="stylesheet" href="{% static 'wrapper.css' %}?{% now ' u'='' %}">
+    <link rel="stylesheet" href="{% static 'common.css' %}">
+
 
 </head>
 
@@ -34,12 +32,15 @@
     <div class="wrapper">
         {% block header %} {% include 'header.html' %} {% endblock header %}
         <section class="single-blog-area">
-            <div class="container">
-                <div class="border-top">
-                    <div class="row">
-                       <div class="col-md-12">
-                        {% block content %} 
-                        {% endblock content %}
+            <div class="col-lg-1"> </div>
+            <div class="col-lg-10">
+                <div class="container-fluid">
+                    <div class="border-top">
+                        <div class="row">
+                           <div class="col-md-12">
+                            {% block content %} 
+                            {% endblock content %}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ from .models import Review
 from .models import FAQ
 from .models import BlogTag
 from .models import MailingList
-
+from .models import Bug
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'status','created_on')
@@ -35,9 +35,14 @@ class MailingListAdmin(admin.ModelAdmin):
 	list_display = ('email', 'name')
 	search_field = ['email', 'name']
 
+class BugAdmin(admin.ModelAdmin):
+	list_display = ('id', 'status')
+	list_filter = ("status",)
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(FAQ, FAQAdmin)
 admin.site.register(BlogTag, BlogTagAdmin)
 admin.site.register(MailingList, MailingListAdmin)
+admin.site.register(Bug, BugAdmin)

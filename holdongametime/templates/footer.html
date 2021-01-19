@@ -6,33 +6,23 @@
 
 <footer class="footer">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10">
-                <div class="spacer"></div>
-                <div class="footer-bg">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="footer-menu">
-                                <ul>
-                                    <li class="active"><a href="{% url 'home' %}">Home</a></li>
-                                    <li><a href="{% url 'about' %}">About</a></li>
-                                    <li><a href="{% url 'format' %}">Format</a></li>
-                                    <li><a href="{% url 'backlog' %}">Backlog</a></li>
-                                    <li><a href="{% url 'posts' %}">Posts</a></li>
-                                    <li><a href="{% url 'contact' %}">FAQ + Contact</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="footer-icon">
-                                <p><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></p>
-                            </div>
-                        </div>
-
-                    </div>
+        <div class="footer-bg row ">
+            <div class="col-sm offset-sm-1">
+                <div class="d-flex justify-content-sm-start card-group footer-menu">
+                    <ul class="row">
+                        <li class="col-xs-1"><a class="card" href="{% url 'home' %}">Home</a></li>
+                        <li class="col-xs-1"><a class="card" href="{% url 'about' %}">About</a></li>
+                        <li class="col-xs-1"><a class="card" href="{% url 'format' %}">Format</a></li>
+                        <li class="col-xs-1"><a class="card" href="{% url 'backlog' %}">Backlog</a></li>
+                        <li class="col-xs-1"><a class="card" href="{% url 'posts' %}">Posts</a></li>
+                        <li class="col-xs-1"><a class="card" href="{% url 'contact' %}">FAQ + Contact</a></li>
+                    </ul>
                 </div>
-                <p>THEME CREDIT <a href="{{ readme }}">HERE</a></p>
+            </div>
+            <div class="justify-content-xs-center col-xs-3">
+                <div class="footer-icon">
+                    <p><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></p>
+                </div>
             </div>
         </div>
     </div>

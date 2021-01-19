@@ -176,11 +176,11 @@
 	},
 	"expanded_folders":
 	[
-		"/home/holden/proj-django/holdongametime",
-		"/home/holden/proj-django/holdongametime/holdongametime"
+		"/home/holden/proj-gametime"
 	],
 	"file_history":
 	[
+		"/home/holden/proj-callr/requirements.txt",
 		"/home/holden/proj-django/holdongametime/manage.py",
 		"/home/holden/goals.txt",
 		"/home/holden/alias_list.sh",
@@ -276,7 +276,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 131.0,
+		"height": 133.0,
 		"where_history":
 		[
 		]

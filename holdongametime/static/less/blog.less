@@ -1,4 +1,5 @@
 @import 'colors.less';
+@import 'fonts.less';
 
 .blog-post-area .single-post {
     h3 a {
@@ -55,14 +56,18 @@
     border-top: 1px solid @border-color;
 }
 .single-blog-area {
-    margin-bottom: 100px;
     h2 {
         color: @post-heading-title-color;
         font-family: Geometria;
         font-size: 38px;
         font-weight: 500;
         margin-bottom: 60px;
-        margin-top: 45px;
+        padding-top: 12vh;
+        z-index:10;
+        @media (max-width:@screen-sm) {
+            font-size: 30px;
+            position: relative;
+        }
     }
     p {
         font-family: Geometria;
@@ -231,7 +236,7 @@ section.blog-post-area h4 span.author-name {
 }
 
 .spacer {
-    height: 15px;
+    height: 10px;
 }
 
 .spacer2 {

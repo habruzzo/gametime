@@ -1,7 +1,7 @@
 
 {% load static %}
 {% block blog_post %}
-    <div class="blog-area-part">
+    <div class="card bottom-wrapper blog-area-part">
         <h2 class="page-title">{% block title %} {{ object.title }} {% endblock title %}</h2>
         <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
 

@@ -1,5 +1,6 @@
 https://djangocentral.com/building-a-blog-application-with-django/
 
+https://modwsgi.readthedocs.io/en/develop/user-guides/configuration-guidelines.html#defining-application-groups
 "holdon Game Time"
 
 holdongametime.com
@@ -18,21 +19,21 @@ quick
 -add/sort games to lists
 -write reviews
 -polish site UI 
-	-about MVP
+	-about MVP --mostly done
 	-backlog not MVP/maybe MVP
-	-posts MVP
+	-posts MVP --mostly done
 	-format not MVP/maybe MVP
 	-home MVP
 	-faq not MVP
-	-add main title to pages MVP
 	-why did footer icons disappear? MVP
-	-fix comments format -> not MVP
+	-fix comments format -> not MVP <--add comments back, create comment db
 -logo
 
 
 medium
 -create mailing list
--deploy publicly
+-deploy publicly MVP ---done!
+	-hook up DNS, not done yet i think
 -claim social accounts
 -database migration MVP
 

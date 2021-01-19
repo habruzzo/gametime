@@ -2,15 +2,14 @@
 {% extends 'base.html' %}
 {% block title %} index.html {% endblock title %}
 {% block content %}
-
 <div class="blog-area">
-    <div class="col-md-8">
+	<div class="card top-wrapper">
+		<h2 class="card-img-overlay page-title">{% block page_title %} {% endblock page_title %}</h2>
+	</div>
         {% block blog_post %}
         {% include 'blog_post.html' %}
         {% endblock blog_post %}
-    </div>
-    <div class="col-md-1"></div>
-    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+  {#  {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %} #}
     {# {% block comments %} {% include 'comments.html' %} {% endblock comments %} #}
 </div>
 

@@ -1,16 +1,17 @@
 {% extends 'default.html' %}
 {% block title %} contact.html {% endblock title %}
-{% block innercontent %}
-<div class="spacer2"></div>
-<h2 class="page-title">faq + contact</h2>
-<h4>
-	FAQ:
-	<div class="question">
-		<p class="question">Why does this site look kinda ugly?</p>
-		<div class="answer">
-			<p class="answer">It looks kinda bad because I made it myself as a hobby. I'm not that great at UI because I don't like it very much. I think this looks good. If you are nice to me and offer kindly, I will happily take your suggestions for improvements. I reserve the right to reject them.</p>
-		</div>
-	</div>
-</h5>
+{% block page_title %} faq + contact {% endblock page_title %}
 
+{% block innercontent %}
+<div class="card bottom-wrapper">
+	<h4>
+		FAQ:
+		<div class="question">
+			<p class="question">Why does this site look kinda ugly?</p>
+			<div class="answer">
+				<p class="answer">It looks kinda bad because I made it myself as a hobby. I'm not that great at UI because I don't like it very much. I think this looks good. If you are nice to me and offer kindly, I will happily take your suggestions for improvements. I reserve the right to reject them.</p>
+			</div>
+		</div>
+	</h4>
+</div>
 {% endblock %}

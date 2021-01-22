@@ -8,6 +8,8 @@
 	<p>
 		BACKLOG
 		<table>
+			{% for game in game_review_list %}
+			{% endfor %}
 			game review backlog
 		</table>
 		<br>
@@ -17,14 +19,20 @@
 		<br>
 		BACKLOG
 		<table>
+			{% for game in game_play_list %}
+			{% endfor %}
 			game play backlog
+			}
 		</table>
 
 		<br>
 		<br>
 		BACKLOG
 		<table>
+			{% for bug in bug_list %}
+			{% endfor %}
 			site bug backlog
+			}
 		</table>
 	</p>
 </div>

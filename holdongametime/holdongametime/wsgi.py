@@ -18,7 +18,7 @@ os.environ.setdefault('PYTHONHOME', '/opt/gametime/django')
 import django
 
 from django.core.wsgi import get_wsgi_application
-#from django.contrib.auth.handlers.modwsgi import check_password
+from django.contrib.auth.handlers.modwsgi import check_password
 
 
 application = get_wsgi_application()

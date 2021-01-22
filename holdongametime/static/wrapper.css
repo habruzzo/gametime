@@ -111,7 +111,7 @@ body {
   display: inline;
   list-style: outside none none;
   margin: 0;
-  padding: 30px 0px;
+  padding: 20px 0px;
 }
 .footer-menu ul li a {
   color: #d4dadd;
@@ -147,11 +147,16 @@ body {
   padding: 10px;
 }
 .top-wrapper {
-  background-image: url(img/citrus.jpg);
+  background-image: url(img/bin-color.png);
+  background-repeat: no-repeat;
+  background-size: cover;
   max-height: 70vh;
   border: none;
   margin-top: -18vh;
   height: 80vw;
+}
+.page-title-bg {
+  background: white;
 }
 .bottom-wrapper {
   color: #191919;

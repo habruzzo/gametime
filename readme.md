@@ -11,8 +11,7 @@ draw something on krita nbd
 twitter: holdongametime
 instagram: holdongametime
 
-django, dart theme
-
+django
 to-do:
 
 quick
@@ -40,6 +39,36 @@ medium
 
 
 slow
+
+TO-DO:
+V1:
+finish game tool
+site versioning
+write wandersong review
+finish format page
+finish contact page
+finish home page
+finish posts page
+finish blog page
+amazon lightsail basic setup (no django, just mysql and apache and linux)
+
+V2
+finish backlog page
+finish review tool
+finish faq tool
+finish mailing list 
+write 4 more reviews
+finish ads
+amazon lightsail (maybe django)
+
+V3:
+finish bug tool
+finish comments section
+finish social media bot
+improve ui
+
+
+V4:
 
 
 combination of "personal" blog posts and "reviews"

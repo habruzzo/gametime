@@ -1,3 +1,5 @@
 holdongametime/conf/remote-aws
 
 reviews
+node_modules
+package-lock.json

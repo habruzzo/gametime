@@ -10,10 +10,9 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/wsgi/
 import os
 import sys
 
-sys.path.append('/opt/gametime/holdongametime')
+sys.path.append('/opt/holdongametime')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'holdongametime.settings')
-os.environ.setdefault('PYTHONPATH', '/opt/gametime/holdongametime')
-os.environ.setdefault('PYTHONHOME', '/opt/gametime/django')
+os.environ.setdefault('PYTHONPATH', '/opt/holdongametime')
 
 import django
 

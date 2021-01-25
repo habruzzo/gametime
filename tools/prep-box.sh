@@ -10,6 +10,15 @@ KEY_LOC=/home/holden/.ssh/us-west-2-lightsail-default.pem
 REMOTE_KEY_LOC=/opt/gametime/conf/remote-aws
 SCRIPT_NAME=prep-box.sh
 
+
+reboot_box ()
+{
+	user=centos
+	#read -ep "What user do you want to access?" user
+	ip_addr=$1
+	ssh -i $KEY_LOC $user@$ip_addr "sudo reboot"
+}
+
 reload ()
 {
 	user=centos
@@ -23,7 +32,6 @@ copy_conf_files ()
 	cd /etc/httpd/conf
 	sudo chmod 755 *
 	sudo cp /home/centos/conf/httpd.conf /etc/httpd/conf/httpd.conf
-	sudo cp /home/centos/conf/httpd-app.conf /etc/httpd/conf.d
 
 	sudo service httpd restart
 }
@@ -67,7 +75,7 @@ setup_deps ()
 	sudo yum -y install gcc
 	sudo yum -y install mod_wsgi
     sudo yum -y install python3-devel
-
+    sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
 }
 
 fix_python ()
@@ -112,6 +120,7 @@ case $1 in
 		##fix_python
 		install_git_deps
 		copy_conf_files
+		sudo reboot
 	;;
 	reload)
 		prep $2
@@ -119,6 +128,9 @@ case $1 in
 	;;
 	copy)
 		copy_conf_files
+	;;
+	reboot)
+		reboot_box $2
 	;;
 	*)
 		exit

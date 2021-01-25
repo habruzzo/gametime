@@ -14,9 +14,12 @@ copy_conf_files ()
 	cd /etc/httpd/conf
 	sudo chmod 755 *
 	sudo cp /home/centos/gametime/conf/httpd.conf /etc/httpd/conf/httpd.conf
+	sudo cp /home/centos/gametime/conf/httpd-app.conf /etc/httpd/conf.d
 
 	cd /srv
-	sudo ln -s /home/centos/gametime/holdongametime http
+	sudo mkdir http
+	sudo ln -s /home/centos/gametime/holdongametime/static http/static
+	sudo ln -s /home/centos/gametime/holdongametime/templates http/templates
 	cd -
 	sudo service httpd restart
 }
@@ -85,7 +88,7 @@ case $1 in
 	;;
 	pickup)
 		echo "Starting pickup"
-		#setup_deps
+		setup_deps
 		get_git_stuff
 		##fix_python
 		install_git_deps

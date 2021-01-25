@@ -7,13 +7,13 @@ CONTAINER_PATH=containerd.io_1.4.3-1_amd64.deb
 DOCKER_CLI_PATH=docker-ce-cli_20.10.2~3-0~debian-buster_amd64.deb
 DOCKER_CE_PATH=docker-ce_20.10.2~3-0~debian-buster_amd64.deb
 KEY_LOC=/home/holden/.ssh/us-west-2-lightsail-default.pem
-REMOTE_KEY_LOC=/opt/gametime/holdongametime/conf/remote-aws
+REMOTE_KEY_LOC=/opt/gametime/conf/remote-aws
 
 copy_conf_files ()
 {
 	cd /etc/httpd/conf
 	sudo chmod 755 *
-	sudo cp /home/centos/gametime/holdongametime/conf/httpd.conf /etc/httpd/conf/httpd.conf
+	sudo cp /home/centos/gametime/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
 	cd /srv
 	sudo ln -s /home/centos/gametime/holdongametime http

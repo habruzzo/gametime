@@ -21,9 +21,11 @@ reboot_box ()
 
 reload ()
 {
+	pushd /opt/gametime/holdongametime
 	user=centos
 	#read -ep "What user do you want to access?" user
 	ip_addr=$1
+	scp -i $KEY_LOC holdongametime/wsgi.py $user@$ip_addr:/opt/holdongametime/holdongametime/wsgi.py
 	ssh -i $KEY_LOC $user@$ip_addr "./$SCRIPT_NAME copy"
 }
 
@@ -67,10 +69,11 @@ setup_deps ()
 {
 	sudo yum -y install docker
 	sudo yum -y install httpd
+	sudo yum -y install httpd-devel
 	sudo yum -y install git
 	sudo yum -y install python3
 	sudo yum -y install epel-release
-	sudo yum -y install python-pip
+	sudo yum -y install python3-pip
 	sudo yum -y install npm
 	sudo yum -y install gcc
 	sudo yum -y install mod_wsgi
@@ -120,6 +123,7 @@ case $1 in
 		##fix_python
 		install_git_deps
 		copy_conf_files
+		fix_python
 		sudo reboot
 	;;
 	reload)

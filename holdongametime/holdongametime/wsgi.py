@@ -13,6 +13,7 @@ import sys
 sys.path.append('/opt/holdongametime')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'holdongametime.settings')
 os.environ.setdefault('PYTHONPATH', '/opt/holdongametime')
+print(sys.version_info[0])
 
 import django
 

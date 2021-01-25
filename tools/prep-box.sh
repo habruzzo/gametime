@@ -24,7 +24,7 @@ copy_conf_files ()
 install_git_deps ()
 {
 	cd /home/centos/gametime
-	pip install --user -r requirements.txt
+	pip3 install --user -r requirements.txt
 	
 	npm install lessc
 }
@@ -87,9 +87,9 @@ case $1 in
 		echo "Starting pickup"
 		setup_deps
 		get_git_stuff
-		fix_python
+		##fix_python
 		install_git_deps
-		#copy_conf_files
+		copy_conf_files
 	;;
 	*)
 		exit

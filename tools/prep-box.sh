@@ -85,7 +85,7 @@ case $1 in
 	;;
 	pickup)
 		echo "Starting pickup"
-		setup_deps
+		#setup_deps
 		get_git_stuff
 		##fix_python
 		install_git_deps

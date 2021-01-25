@@ -24,7 +24,7 @@ copy_conf_files ()
 install_git_deps ()
 {
 	cd /home/centos/gametime
-	pip3 install --user -r requirements.txt
+	pip install --user -r requirements.txt
 	
 	npm install lessc
 }
@@ -65,7 +65,8 @@ fix_python ()
 
 prep ()
 {
-	read -ep "What user do you want to access?" user
+	user=centos
+	#read -ep "What user do you want to access?" user
 	ip_addr=$1
 	if [ $1 == "" ]
 	then
@@ -84,11 +85,11 @@ case $1 in
 	;;
 	pickup)
 		echo "Starting pickup"
-		#setup_deps
-		#get_git_stuff
-		#fix_python
-		#install_git_deps
-		copy_conf_files
+		setup_deps
+		get_git_stuff
+		fix_python
+		install_git_deps
+		#copy_conf_files
 	;;
 	*)
 		exit

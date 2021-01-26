@@ -6,109 +6,111 @@ DOCKER_CE_URL=https://download.docker.com/linux/debian/dists/buster/pool/stable/
 CONTAINER_PATH=containerd.io_1.4.3-1_amd64.deb
 DOCKER_CLI_PATH=docker-ce-cli_20.10.2~3-0~debian-buster_amd64.deb
 DOCKER_CE_PATH=docker-ce_20.10.2~3-0~debian-buster_amd64.deb
-KEY_LOC=/home/holden/.ssh/us-west-2-lightsail-default.pem
+KEY_LOC=~/.ssh/LightsailDefaultKey-us-west-2.pem
 REMOTE_KEY_LOC=/opt/gametime/conf/remote-aws
 SCRIPT_NAME=prep-box.sh
-
+USER=ec2-user
 
 reboot_box ()
 {
-	user=centos
-	#read -ep "What user do you want to access?" user
 	ip_addr=$1
-	ssh -i $KEY_LOC $user@$ip_addr "sudo reboot"
+	ssh -i $KEY_LOC $USER@$ip_addr "sudo reboot"
 }
 
 reload ()
 {
 	pushd /opt/gametime/holdongametime
-	user=centos
-	#read -ep "What user do you want to access?" user
 	ip_addr=$1
-	scp -i $KEY_LOC holdongametime/wsgi.py $user@$ip_addr:/opt/holdongametime/holdongametime/wsgi.py
-	ssh -i $KEY_LOC $user@$ip_addr "./$SCRIPT_NAME copy"
+	scp -i $KEY_LOC holdongametime/wsgi.py $USER@$ip_addr:/opt/holdongametime/holdongametime/wsgi.py
+	ssh -i $KEY_LOC $USER@$ip_addr "./$SCRIPT_NAME copy"
+	popd
 }
 
 copy_conf_files ()
 {
 	cd /etc/httpd/conf
 	sudo chmod 755 *
-	sudo cp /home/centos/conf/httpd.conf /etc/httpd/conf/httpd.conf
+	sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
 	sudo service httpd restart
 }
 
 install_git_deps ()
-{
-	pip3 install --user -r gametime/requirements.txt
-	
-	npm install lessc
+{	
+	pushd /opt/holdongametime
+	python3 -m venv django
+	source django/bin/activate
+	pip install -r /home/$USER/gametime/requirements.txt
+	sudo chgrp -R ec2-user /usr/lib64/httpd/
+	sudo chmod -R g+w /usr/lib64/httpd/modules
+
+
+	curl -L -O https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz
+	tar -xvzf 4.7.1.tar.gz
+	cd mod_wsgi-4.7.1
+	./configure --with-apxs=/etc/httpd
+	make
+	sudo make install
+	deactivate
+	#npm install lessc
+	popd
 }
 
 get_git_stuff ()
 {
-	cd /home/centos
+	pushd /home/$USER
 	eval `ssh-agent -s`
-	ssh-add remote-aws/id_ed25519
-	ssh-keyscan -t rsa -H github.com >> /home/centos/.ssh/known_hosts	
+	ssh-add conf/remote-aws/id_ed25519
+	ssh-keyscan -t rsa -H github.com >> /home/$USER/.ssh/known_hosts	
 	sleep 5
 	
 	git clone git@github.com:habruzzo/gametime.git
 	
 	sudo mv gametime/holdongametime /opt
-	sudo ln -s /opt/holdongametime gametime/holdongametime
 	sudo chmod -R 775 /opt
-	sudo chgrp -R apache /opt
+
+	sudo ln -s /opt/holdongametime gametime/holdongametime
+	#sudo chgrp -R apache /opt
 
 	sudo mkdir /srv/http
-	sudo ln -s /home/centos/gametime/holdongametime/static /srv/http/static
-	sudo ln -s /home/centos/gametime/holdongametime/templates /srv/http/templates
+	sudo chmod -R 775 /srv
+	sudo ln -s /opt/holdongametime/static /srv/http/static
+	sudo ln -s /opt/holdongametime/templates /srv/http/templates
+	popd
 }
 
 setup_deps ()
 {
-	sudo yum -y install docker
-	sudo yum -y install httpd
-	sudo yum -y install httpd-devel
-	sudo yum -y install git
-	sudo yum -y install python3
-	sudo yum -y install epel-release
-	sudo yum -y install python3-pip
-	sudo yum -y install npm
-	sudo yum -y install gcc
-	sudo yum -y install mod_wsgi
-    sudo yum -y install python3-devel
-    sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
+	sudo yum -y -q install docker httpd httpd-devel git npm gcc python3 python3-devel python3-pip
+	sudo yum -y -q update
+	#sudo yum -y install epel-release
+    #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
 }
 
 fix_python ()
 {
-	sudo unlink /bin/python
-	sudo unlink /bin/pip
-	sudo ln -s /bin/python3 /bin/python
-	sudo ln -s /bin/pip3 /bin/pip
+	sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+	sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+
 }	
 
 prep ()
 {
-	user=centos
-	#read -ep "What user do you want to access?" user
 	ip_addr=$1
 	if [ $1 == "" ]
 	then
 		read -ep "What IP do you want to access?" ip_addr
 	fi
 	echo "$0"
-	scp -i $KEY_LOC $0 $user@$ip_addr:/home/centos/$SCRIPT_NAME
-	scp -r -i $KEY_LOC $REMOTE_KEY_LOC $user@$ip_addr:/home/centos/remote-aws
-	scp -r -i $KEY_LOC conf $user@$ip_addr:/home/centos/conf
+	scp -i $KEY_LOC $0 $USER@$ip_addr:~/$SCRIPT_NAME
+	scp -r -i $KEY_LOC conf $USER@$ip_addr:~/conf
 
 }
 
 cycle ()
 {
 	prep $1
-	ssh -i $KEY_LOC $user@$ip_addr "chmod u+x $SCRIPT_NAME;./$SCRIPT_NAME pickup"
+	ssh -i $KEY_LOC $USER@$ip_addr "chmod u+x $SCRIPT_NAME;./$SCRIPT_NAME pickup"
 }
 
 case $1 in
@@ -120,10 +122,9 @@ case $1 in
 		echo "Starting pickup"
 		setup_deps
 		get_git_stuff
-		##fix_python
+		#fix_python
 		install_git_deps
 		copy_conf_files
-		fix_python
 		sudo reboot
 	;;
 	reload)

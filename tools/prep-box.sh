@@ -11,6 +11,16 @@ REMOTE_KEY_LOC=/opt/gametime/conf/remote-aws
 SCRIPT_NAME=prep-box.sh
 USER=ec2-user
 
+
+finish_server_startup ()
+{
+	pushd /opt/holdongametime
+	source django/bin/activate
+	python manage.py runserver 0.0.0.0:8000 &
+	sudo service httpd start
+	deactivate
+}
+
 reboot_box ()
 {
 	ip_addr=$1
@@ -110,13 +120,13 @@ prep ()
 cycle ()
 {
 	prep $1
-	ssh -i $KEY_LOC $USER@$ip_addr "chmod u+x $SCRIPT_NAME;./$SCRIPT_NAME pickup"
+	ssh -i $KEY_LOC $USER@$ip_addr "chmod u+x $SCRIPT_NAME;./$SCRIPT_NAME $2"
 }
 
 case $1 in
 	start)
 		echo "Starting prep"
-		cycle $2
+		cycle $2 "pickup"
 	;;
 	pickup)
 		echo "Starting pickup"
@@ -137,6 +147,13 @@ case $1 in
 	;;
 	reboot)
 		reboot_box $2
+	;;
+	finish)
+		cycle $2 "pickup-finish"
+	;;
+	# TODO: (26 Jan 20201) Fix terrible names
+	pickup-finish)
+		finish_server_startup
 	;;
 	*)
 		exit

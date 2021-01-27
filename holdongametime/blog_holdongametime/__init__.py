@@ -1,1 +1,1 @@
-default_app_config = 'blog_holdongametime.apps.BlogHoldongametime'
+default_app_config = 'blog_holdongametime.apps.BlogHoldongametimeConfig'

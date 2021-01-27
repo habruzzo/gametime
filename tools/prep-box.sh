@@ -21,7 +21,7 @@ reload ()
 {
 	pushd /opt/gametime/holdongametime
 	ip_addr=$1
-	scp -i $KEY_LOC holdongametime/wsgi.py $USER@$ip_addr:/opt/holdongametime/holdongametime/wsgi.py
+	scp -i $KEY_LOC holdongametime/* $USER@$ip_addr:/opt/holdongametime/holdongametime
 	ssh -i $KEY_LOC $USER@$ip_addr "./$SCRIPT_NAME copy"
 	popd
 }
@@ -48,7 +48,7 @@ install_git_deps ()
 	curl -L -O https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz
 	tar -xvzf 4.7.1.tar.gz
 	cd mod_wsgi-4.7.1
-	./configure --with-apxs=/etc/httpd
+	./configure --with-python=/opt/holdongametime/django/bin/python
 	make
 	sudo make install
 	deactivate
@@ -126,6 +126,7 @@ case $1 in
 		install_git_deps
 		copy_conf_files
 		sudo reboot
+		exit
 	;;
 	reload)
 		prep $2

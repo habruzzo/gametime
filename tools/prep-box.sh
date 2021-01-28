@@ -14,6 +14,7 @@ USER=ec2-user
 
 finish_server_startup ()
 {
+	reload
 	pushd /opt/holdongametime
 	source django/bin/activate
 	python manage.py runserver 0.0.0.0:8000 &
@@ -32,7 +33,6 @@ reload ()
 	pushd /opt/gametime/holdongametime
 	ip_addr=$1
 	scp -i $KEY_LOC holdongametime/* $USER@$ip_addr:/opt/holdongametime/holdongametime
-	ssh -i $KEY_LOC $USER@$ip_addr "./$SCRIPT_NAME copy"
 	popd
 }
 
@@ -139,8 +139,8 @@ case $1 in
 		exit
 	;;
 	reload)
-		prep $2
 		reload $2
+		cycle $1 "copy"
 	;;
 	copy)
 		copy_conf_files

@@ -36,7 +36,8 @@ class AboutView(SidebarView):
 
 class BacklogView(BugAndSidebarView):
 	model = Game
-	queryset = Game.objects.order_by('status')
+	queryset = Game.objects.filter(status=2).order_by('title')
+	
 	template_name = 'backlog.html'
 
 class ContactView(SidebarView):

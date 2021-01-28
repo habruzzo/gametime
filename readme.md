@@ -43,14 +43,14 @@ slow
 TO-DO:
 V1:
 finish game tool
-site versioning
+site versioning-
 write wandersong review
-finish format page
+finish format page-
 finish contact page
 finish home page
 finish posts page
 finish blog page
-amazon lightsail basic setup (no django, just mysql and apache and linux)
+amazon lightsail basic setup-
 
 V2
 finish backlog page

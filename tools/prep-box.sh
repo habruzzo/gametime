@@ -16,6 +16,7 @@ finish_server_startup ()
 {
 	pushd /opt/holdongametime
 	source django/bin/activate
+
 	#python manage.py runserver 0.0.0.0:8000 &
 	sudo service httpd start
 	deactivate
@@ -36,12 +37,16 @@ reload ()
 }
 
 copy_conf_files ()
-{
-	cd /etc/httpd/conf
+{	
+	pushd /opt/holdongametime
+	sed -i "s/%IP_ADDR%/$1/g" holdongametime/settings.py
+	popd
+	pushd /etc/httpd/conf
 	sudo chmod 755 *
 	sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
 	sudo service httpd restart
+	popd
 }
 
 install_git_deps ()
@@ -118,13 +123,13 @@ prep ()
 
 cycle ()
 {
-	prep $1
-	ssh -i $KEY_LOC $USER@$ip_addr "chmod u+x $SCRIPT_NAME;./$SCRIPT_NAME $2"
+	ssh -i $KEY_LOC $USER@$1 "chmod u+x $SCRIPT_NAME;./$SCRIPT_NAME $2"
 }
 
 case $1 in
 	start)
 		echo "Starting prep"
+		prep $2
 		cycle $2 "pickup"
 	;;
 	pickup)
@@ -139,21 +144,23 @@ case $1 in
 	;;
 	reload)
 		reload $2
-		cycle $1 "copy"
+		prep $2
+		cycle $2 "copy $2"
 	;;
 	copy)
-		copy_conf_files
+		copy_conf_files $2
 	;;
 	reboot)
 		reboot_box $2
 	;;
 	finish)
 		reload $2
-		cycle $2 "pickup-finish"
+		prep $2
+		cycle $2 "pickup-finish $2" 
 	;;
 	# TODO: (26 Jan 20201) Fix terrible names
 	pickup-finish)
-		finish_server_startup
+		finish_server_startup $2
 	;;
 	*)
 		exit

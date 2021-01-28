@@ -14,10 +14,9 @@ USER=ec2-user
 
 finish_server_startup ()
 {
-	reload
 	pushd /opt/holdongametime
 	source django/bin/activate
-	python manage.py runserver 0.0.0.0:8000 &
+	#python manage.py runserver 0.0.0.0:8000 &
 	sudo service httpd start
 	deactivate
 }
@@ -91,7 +90,7 @@ get_git_stuff ()
 
 setup_deps ()
 {
-	sudo yum -y -q install docker httpd httpd-devel git npm gcc python3 python3-devel python3-pip
+	sudo yum -y -q install docker httpd httpd-devel mod_ssl openssl git npm gcc python3 python3-devel python3-pip
 	sudo yum -y -q update
 	#sudo yum -y install epel-release
     #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
@@ -149,6 +148,7 @@ case $1 in
 		reboot_box $2
 	;;
 	finish)
+		reload $2
 		cycle $2 "pickup-finish"
 	;;
 	# TODO: (26 Jan 20201) Fix terrible names

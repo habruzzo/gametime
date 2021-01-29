@@ -12,9 +12,23 @@ SCRIPT_NAME=prep-box.sh
 USER=ec2-user
 
 
+spin ()
+{
+	for i in {1..12}
+	do
+		for j in {1..5}
+		do
+			sleep 1
+		done	
+		echo "."
+	done
+}
+
 finish_server_startup ()
 {
+	copy_conf_files
 	pushd /opt/holdongametime
+	sudo chgrp apache logs/django.log
 	source django/bin/activate
 
 	#python manage.py runserver 0.0.0.0:8000 &
@@ -154,6 +168,7 @@ case $1 in
 		reboot_box $2
 	;;
 	finish)
+		spin $2
 		reload $2
 		prep $2
 		cycle $2 "pickup-finish $2" 

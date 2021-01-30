@@ -41,11 +41,10 @@ medium
 slow
 
 TO-DO:
-ssl/vhost/https
 
 
 V1:
-finish game tool
+ssl/vhost/https
 write wandersong review
 finish format page-
 finish contact page
@@ -54,6 +53,7 @@ finish posts page
 finish blog page
 
 V2
+finish game tool
 finish backlog page
 finish review tool
 finish faq tool

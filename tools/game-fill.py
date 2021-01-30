@@ -1,20 +1,32 @@
+#!/bin/python
+
 #tool that will take this list -> collect data to fill out "game" object -> fill out "game" object -> add to "game" table
 #given a list of game titles, collect "publisher" "creator" "release date" "steam link"
 #read from html
+
 import bs4
 import mechanicalsoup
 import urllib.parse
 import pudb
 import sys
 
-KEY_NAMES=["title","creator","publisher","release","platform","steam_link","status"]
+KEY_NAMES = ["title","creator","publisher","release_date","platform","steam_link","status"]
+PLATFORMS = ["pc", "gameboy", "playstation", "xbox", "wii", "switch", "mobile", "other"]
+IP = "52.37.133.146"
+
+def normalize_platform(platform):
+	plat = platform.strip().lower()
+	for p in PLATFORMS:
+		if p in plat:
+			return PLATFORMS.index(p)
+	return 8
 
 def read_title_list():
-	with open("game_list.xml") as f:
-		soup = bs4.BeautifulSoup(f, "xml")
-		print(soup.text)
-		title_list = soup.find_all("title")
-		return title_list
+	f = open("game_list.xml")
+	soup = bs4.BeautifulSoup(f, "xml")
+	print(soup.text)
+	title_list = soup.find_all("title")
+	return title_list
 
 def sanitize(title):
 	return urllib.parse.quote(bytes(title, "utf-8"))
@@ -59,7 +71,7 @@ def report_game_info(game):
 	if "publisher" in game.keys():
 		print("publisher= " + game["publisher"])
 	if "release" in game.keys():
-		print("release= " + game["release"])
+		print("release= " + game["release_date"])
 	if "platform" in game.keys():
 		print("platform= " + game["platform"])
 	if "steam_link" in game.keys():
@@ -77,7 +89,7 @@ def query_continue(game):
 		if b !="e":
 			game = {}
 		else:
-			k = input("enter key:0=title,1=creator,2=publisher,3=release,4=platform,5=steam_link,6=status,7=exit")
+			k = input("enter key:0=title,1=creator,2=publisher,3=release_date,4=platform,5=steam_link,6=status,7=exit")
 			if k != "7":
 				v = input("enter value for {}, or enter # to exit".format(k))
 				if v != "#":
@@ -86,30 +98,39 @@ def query_continue(game):
 	return game
 
 def login(browser):
-	browser.open("http://127.0.0.1:8000/admin")
+	url = "http://{}/admin".format(IP)
+	browser.open(url)
 	username="bot"
 	password="bot"
-	browser.select_form('form[id="game_form"')
+	browser.select_form("#login-form")
+	browser["username"] = username
+	browser["password"] = password
+	response = browser.submit_selected()
+	print(response)
 	return browser
 
 def enter_game_form(browser, game):
-	browser.open("http://127.0.0.1:8000/admin/blog_holdongametime/game/add/")
-	browser.select_form("game_form")
+	url = "http://{}/admin/blog_holdongametime/game/add/".format(IP)
+	print(browser.open(url))
+	form = browser.select_form("#game_form")
 	i = 0
-	browser["id_title"] = game[KEY_NAMES[i]]
+	browser["title"] = game[KEY_NAMES[i]]
 	i = i + 1
-	browser["id_creator"] = game[KEY_NAMES[i]]
+	browser["creator"] = game[KEY_NAMES[i]]
 	i = i + 1
-	browser["id_publisher"] = game[KEY_NAMES[i]]
+	browser["publisher"] = game[KEY_NAMES[i]]
 	i = i + 1
-	browser["id_release"] = game[KEY_NAMES[i]]
+	browser["release_date"] = game[KEY_NAMES[i]]
 	i = i + 1
-	browser["id_platform"] = game[KEY_NAMES[i]]
+	platform = normalize_platform(game[KEY_NAMES[i]])
+	print(platform)
+	browser["platform"] = platform
 	i = i + 1
-	browser["id_steam_link"] = game[KEY_NAMES[i]]
+	browser["steam_link"] = game[KEY_NAMES[i]]
 	i = i + 1
-	browser["id_status"] = game[KEY_NAMES[i]]
+	browser["status"] = game[KEY_NAMES[i]]
 	i = i + 1
+	form.choose_submit("_add_another")
 	response = browser.submit_selected()
 	print(response.text)
 	return browser
@@ -120,14 +141,23 @@ def main():
 	else:
 		print("scraping and inserting game info")
 		title_list = read_title_list()
+		game_list = []
 		browser = mechanicalsoup.StatefulBrowser()
-		#login(browser)
 		for title in title_list:
 			print(title.text)
 			game = research_basic_game(browser, title.text)
 			report_game_info(game)
 			game = query_continue(game)
-			#enter_game_form(browser, game)
+			game_list.append(game)
+		print(game_list)
+		browser = login(browser)
+		for game in game_list:
+			try:
+				enter_game_form(browser, game)
+			except KeyError:
+				print()
+				print(browser.page)
+				print(game_list)
 
 
 if __name__ == '__main__':

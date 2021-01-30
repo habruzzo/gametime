@@ -25,3 +25,4 @@ urwid==2.1.2
 xlwt==1.3.0
 #mod_wsgi
 psycopg2-binary
+django-extensions

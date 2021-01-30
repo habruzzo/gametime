@@ -30,7 +30,8 @@ PLATFORM = (
 	(4, "Nintendo DS"),
 	(5, "Wii"),
 	(6, "Switch"),
-	(7, "Mobile")
+	(7, "Mobile"),
+	(8, "Other")
 )
 
 

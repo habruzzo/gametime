@@ -26,7 +26,7 @@ spin ()
 
 finish_server_startup ()
 {
-	copy_conf_files
+	copy_conf_files $1
 	pushd /opt/holdongametime
 	sudo chmod 774 logs/django.log
 	sudo chgrp apache logs/django.log
@@ -178,6 +178,7 @@ case $1 in
 	;;
 	# TODO: (26 Jan 20201) Fix terrible names
 	pickup-finish)
+		
 		finish_server_startup $2
 	;;
 	*)

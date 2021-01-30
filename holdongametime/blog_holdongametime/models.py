@@ -69,8 +69,8 @@ class Bug(models.Model):
 	status = models.IntegerField(choices=POST_STATUS, default=0)
 
 class Game(models.Model):
-	game_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	title = models.TextField(max_length=50, unique=True)
+	slug = models.SlugField(max_length=200, unique=True)
 	creator = models.TextField(max_length=50, unique=False)
 	publisher = models.TextField(max_length=50, unique=False)
 	release_date = models.DateField()
@@ -79,45 +79,35 @@ class Game(models.Model):
 	platform = models.IntegerField(choices=PLATFORM, default=0)
 
 	def __str__(self):
-		return self.title
-
-	def __id__(self):
-		return self.game_id
+		return self.slug
 
 class Review(models.Model):
-	review_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	#post_id = models.OneToOneField(Post, on_delete=models.CASCADE)
 	title = models.TextField(max_length=50, unique=True)
+	slug = models.SlugField(max_length=200, unique=True)
 	status = models.IntegerField(choices=POST_STATUS, default=0)
-	game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
+	game_id = models.ForeignKey(Game, on_delete=models.SET_DEFAULT, default=-1)
 	overall_rating = models.IntegerField()
 	
 	def __str__(self):
-		return self.title
+		return self.slug
 
-	def __id__(self):
-		return self.review_id
 
 class Post(models.Model):
-	post_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	title = models.TextField(max_length=200, unique=True)
 	slug = models.SlugField(max_length=200, unique=True)
-	author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
+	author = models.ForeignKey(User, on_delete=models.CASCADE,related_name='blog_posts')
 	updated_on = models.DateTimeField(auto_now= True)
 	content = models.TextField()
 	created_on = models.DateTimeField(auto_now_add=True)
 	status = models.IntegerField(choices=POST_STATUS, default=0)
-	review_id = models.ForeignKey(Review, on_delete=models.CASCADE)
-	game_id = models.ForeignKey(Game, on_delete=models.CASCADE)
+	review_id = models.ForeignKey(Review, on_delete=models.SET_DEFAULT, default=-1)
+	game_id = models.ForeignKey(Game, on_delete=models.SET_DEFAULT, default=-1)
 
 	class Meta:
 		ordering = ['-created_on']
 
 	def __str__(self):
 		return self.title
-
-	def __id__(self):
-		return self.post_id
-
 
 

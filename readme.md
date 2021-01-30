@@ -46,14 +46,12 @@ ssl/vhost/https
 
 V1:
 finish game tool
-site versioning-
 write wandersong review
 finish format page-
 finish contact page
 finish home page
 finish posts page
 finish blog page
-amazon lightsail basic setup-
 
 V2
 finish backlog page
@@ -62,14 +60,14 @@ finish faq tool
 finish mailing list 
 write 4 more reviews
 finish ads
-amazon lightsail (maybe django)
+finish tags
 
-V3:
+V3
 finish bug tool
 finish comments section
 finish social media bot
 improve ui
-
+site versioning
 
 V4:
 

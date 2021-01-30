@@ -28,6 +28,7 @@ finish_server_startup ()
 {
 	copy_conf_files
 	pushd /opt/holdongametime
+	sudo chmod 774 logs/django.log
 	sudo chgrp apache logs/django.log
 	source django/bin/activate
 
@@ -53,7 +54,9 @@ reload ()
 copy_conf_files ()
 {	
 	pushd /opt/holdongametime
+	grep "ALLOWED_HOSTS" holdongametime/settings.py
 	sed -i "s/%IP_ADDR%/$1/g" holdongametime/settings.py
+	grep "ALLOWED_HOSTS" holdongametime/settings.py
 	popd
 	pushd /etc/httpd/conf
 	sudo chmod 755 *

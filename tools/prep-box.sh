@@ -64,7 +64,7 @@ copy_conf_files ()
 	#sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
 	#sudo service httpd restart
-	popd
+	#popd
 }
 
 install_git_deps ()
@@ -76,13 +76,6 @@ install_git_deps ()
 	#sudo chgrp -R ec2-user /usr/lib64/httpd/
 	#sudo chmod -R g+w /usr/lib64/httpd/modules
 
-
-	#curl -L -O https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz
-	#tar -xvzf 4.7.1.tar.gz
-	#cd mod_wsgi-4.7.1
-	#./configure --with-python=/opt/holdongametime/django/bin/python
-	#make
-	#sudo make install
 	deactivate
 	#npm install lessc
 	popd

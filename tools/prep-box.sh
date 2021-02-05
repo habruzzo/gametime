@@ -29,9 +29,9 @@ finish_server_startup ()
 	copy_conf_files $1
 	pushd /opt/holdongametime
 	sudo chmod 774 logs/django.log
-	sudo chgrp apache logs/django.log
+	#sudo chgrp apache logs/django.log
 	source django/bin/activate
-	gunicorn -b "127.0.0.1:8000" holdongametime.wsgi
+	gunicorn -b "127.0.0.1:8000" holdongametime.wsgi &
 
 	#python manage.py runserver 0.0.0.0:8000 &
 	sudo service caddy start
@@ -106,9 +106,9 @@ get_git_stuff ()
 
 setup_deps ()
 {
-	sudo yum install yum-plugin-copr
-	yum copr enable @caddy/caddy
-	yum install caddy
+	sudo yum -y -q install yum-plugin-copr
+	sudo yum -y -q copr enable @caddy/caddy
+	sudo yum -y -q install caddy
 	sudo yum -y -q install docker git npm gcc python3 python3-devel python3-pip #httpd httpd-devel mod_ssl openssl 
 	sudo yum -y -q update
 	#sudo yum -y install epel-release
@@ -168,12 +168,12 @@ case $1 in
 		reboot_box $2
 	;;
 	finish)
-		spin $2
+		#spin $2
 		reload $2
 		prep $2
 		cycle $2 "pickup-finish $2" 
 	;;
-	# TODO: (26 Jan 20201) Fix terrible names
+	# TODO: (26 Jan 2021) Fix terrible names
 	pickup-finish)
 		
 		finish_server_startup $2

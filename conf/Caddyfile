@@ -1,0 +1,6 @@
+domain.tld {
+    root /srv/http/holdongametime/folder
+    proxy / localhost:8000 {
+        transparent
+    }
+}

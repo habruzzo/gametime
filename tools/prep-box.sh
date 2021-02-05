@@ -31,9 +31,10 @@ finish_server_startup ()
 	sudo chmod 774 logs/django.log
 	sudo chgrp apache logs/django.log
 	source django/bin/activate
+	gunicorn -b "127.0.0.1:8000" holdongametime.wsgi
 
 	#python manage.py runserver 0.0.0.0:8000 &
-	sudo service httpd start
+	sudo service caddy start
 	deactivate
 }
 
@@ -58,11 +59,11 @@ copy_conf_files ()
 	sed -i "s/%IP_ADDR%/$1/g" holdongametime/settings.py
 	grep "ALLOWED_HOSTS" holdongametime/settings.py
 	popd
-	pushd /etc/httpd/conf
-	sudo chmod 755 *
-	sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
+	#pushd /etc/httpd/conf
+	#sudo chmod 755 *
+	#sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
-	sudo service httpd restart
+	#sudo service httpd restart
 	popd
 }
 
@@ -72,16 +73,16 @@ install_git_deps ()
 	python3 -m venv django
 	source django/bin/activate
 	pip install -r /home/$USER/gametime/requirements.txt
-	sudo chgrp -R ec2-user /usr/lib64/httpd/
-	sudo chmod -R g+w /usr/lib64/httpd/modules
+	#sudo chgrp -R ec2-user /usr/lib64/httpd/
+	#sudo chmod -R g+w /usr/lib64/httpd/modules
 
 
-	curl -L -O https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz
-	tar -xvzf 4.7.1.tar.gz
-	cd mod_wsgi-4.7.1
-	./configure --with-python=/opt/holdongametime/django/bin/python
-	make
-	sudo make install
+	#curl -L -O https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz
+	#tar -xvzf 4.7.1.tar.gz
+	#cd mod_wsgi-4.7.1
+	#./configure --with-python=/opt/holdongametime/django/bin/python
+	#make
+	#sudo make install
 	deactivate
 	#npm install lessc
 	popd
@@ -104,7 +105,7 @@ get_git_stuff ()
 	#sudo chgrp -R apache /opt
 
 	sudo mkdir /srv/http
-	sudo chmod -R 775 /srv
+	sudo chmod -R 775 /srv/http
 	sudo ln -s /opt/holdongametime/static /srv/http/static
 	sudo ln -s /opt/holdongametime/templates /srv/http/templates
 	popd
@@ -112,7 +113,10 @@ get_git_stuff ()
 
 setup_deps ()
 {
-	sudo yum -y -q install docker httpd httpd-devel mod_ssl openssl git npm gcc python3 python3-devel python3-pip
+	sudo yum install yum-plugin-copr
+	yum copr enable @caddy/caddy
+	yum install caddy
+	sudo yum -y -q install docker git npm gcc python3 python3-devel python3-pip #httpd httpd-devel mod_ssl openssl 
 	sudo yum -y -q update
 	#sudo yum -y install epel-release
     #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
@@ -153,7 +157,7 @@ case $1 in
 		echo "Starting pickup"
 		setup_deps
 		get_git_stuff
-		#fix_python
+		fix_python
 		install_git_deps
 		copy_conf_files
 		sudo reboot

@@ -44,7 +44,7 @@ TO-DO:
 
 
 V1:
-ssl/vhost/https
+https
 write wandersong review
 finish format page-
 finish contact page

@@ -1,6 +1,5 @@
-domain.tld {
-    root /srv/http
-    proxy / localhost:8000 {
-        transparent
-    }
+:80 {
+    root * /srv/http
+    file_server browse
+    reverse_proxy * localhost:8000 
 }

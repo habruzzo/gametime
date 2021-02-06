@@ -5,3 +5,4 @@ package-lock.json
 mod_wsgi-4.7.1
 holdongametime/holdongametime/settings.py
 django
+tools/manifests.txt

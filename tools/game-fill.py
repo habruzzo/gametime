@@ -135,7 +135,7 @@ def enter_game_form(browser, game):
 	print(response.text)
 	return browser
 
-def main():
+def main_nope():
 	if len(sys.argv) > 1 and sys.argv[1] == "build":
 		print("building game list")
 	else:
@@ -159,6 +159,10 @@ def main():
 				print(browser.page)
 				print(game_list)
 
+def main():
+	title_list = read_title_list()
+	print(len(title_list))
+	print(title_list)
 
 if __name__ == '__main__':
 	main()

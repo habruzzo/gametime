@@ -59,12 +59,13 @@ copy_conf_files ()
 	sed -i "s/%IP_ADDR%/$1/g" holdongametime/settings.py
 	grep "ALLOWED_HOSTS" holdongametime/settings.py
 	popd
-	#pushd /etc/httpd/conf
-	#sudo chmod 755 *
-	#sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
+	pushd /etc/caddy
+	sudo chmod 755 *
 
+
+	sudo cp -v /home/$USER/conf/Caddyfile /etc/caddy
 	#sudo service httpd restart
-	#popd
+	popd
 }
 
 install_git_deps ()
@@ -131,7 +132,7 @@ prep ()
 	fi
 	echo "$0"
 	scp -i $KEY_LOC $0 $USER@$ip_addr:~/$SCRIPT_NAME
-	scp -r -i $KEY_LOC conf $USER@$ip_addr:~/conf
+	scp -r -i $KEY_LOC conf $USER@$ip_addr:~
 
 }
 

@@ -19,7 +19,8 @@ GAME_STATUS = (
 	(3, "Completed"),
 	(4, "Reviewed"),
 	(5, "Suggested"),
-	(6, "Published")
+	(6, "Published"),
+	(7, "Discarded")
 )
 
 PLATFORM = (

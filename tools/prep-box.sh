@@ -29,12 +29,11 @@ finish_server_startup ()
 	copy_conf_files $1
 	pushd /opt/holdongametime
 	sudo chmod 774 logs/django.log
-	#sudo chgrp apache logs/django.log
+	sudo chgrp apache logs/django.log
 	source django/bin/activate
-	gunicorn -b "127.0.0.1:8000" holdongametime.wsgi &
 
 	#python manage.py runserver 0.0.0.0:8000 &
-	sudo service caddy start
+	sudo service httpd start
 	deactivate
 }
 
@@ -59,12 +58,11 @@ copy_conf_files ()
 	sed -i "s/%IP_ADDR%/$1/g" holdongametime/settings.py
 	grep "ALLOWED_HOSTS" holdongametime/settings.py
 	popd
-	pushd /etc/caddy
+	pushd /etc/httpd/conf
 	sudo chmod 755 *
+	sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
-
-	sudo cp -v /home/$USER/conf/Caddyfile /etc/caddy
-	#sudo service httpd restart
+	sudo service httpd restart
 	popd
 }
 
@@ -74,9 +72,16 @@ install_git_deps ()
 	python3 -m venv django
 	source django/bin/activate
 	pip install -r /home/$USER/gametime/requirements.txt
-	#sudo chgrp -R ec2-user /usr/lib64/httpd/
-	#sudo chmod -R g+w /usr/lib64/httpd/modules
+	sudo chgrp -R ec2-user /usr/lib64/httpd/
+	sudo chmod -R g+w /usr/lib64/httpd/modules
 
+
+	curl -L -O https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz
+	tar -xvzf 4.7.1.tar.gz
+	cd mod_wsgi-4.7.1
+	./configure --with-python=/opt/holdongametime/django/bin/python
+	make
+	sudo make install
 	deactivate
 	#npm install lessc
 	popd
@@ -99,7 +104,7 @@ get_git_stuff ()
 	#sudo chgrp -R apache /opt
 
 	sudo mkdir /srv/http
-	sudo chmod -R 775 /srv/http
+	sudo chmod -R 775 /srv
 	sudo ln -s /opt/holdongametime/static /srv/http/static
 	sudo ln -s /opt/holdongametime/templates /srv/http/templates
 	popd
@@ -107,10 +112,7 @@ get_git_stuff ()
 
 setup_deps ()
 {
-	sudo yum -y -q install yum-plugin-copr
-	sudo yum -y -q copr enable @caddy/caddy
-	sudo yum -y -q install caddy
-	sudo yum -y -q install docker git npm gcc python3 python3-devel python3-pip #httpd httpd-devel mod_ssl openssl 
+	sudo yum -y -q install docker httpd httpd-devel mod_ssl openssl git npm gcc python3 python3-devel python3-pip
 	sudo yum -y -q update
 	#sudo yum -y install epel-release
     #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
@@ -132,7 +134,7 @@ prep ()
 	fi
 	echo "$0"
 	scp -i $KEY_LOC $0 $USER@$ip_addr:~/$SCRIPT_NAME
-	scp -r -i $KEY_LOC conf $USER@$ip_addr:~
+	scp -r -i $KEY_LOC conf $USER@$ip_addr:~/conf
 
 }
 
@@ -151,7 +153,7 @@ case $1 in
 		echo "Starting pickup"
 		setup_deps
 		get_git_stuff
-		fix_python
+		#fix_python
 		install_git_deps
 		copy_conf_files
 		sudo reboot
@@ -169,12 +171,12 @@ case $1 in
 		reboot_box $2
 	;;
 	finish)
-		#spin $2
+		spin $2
 		reload $2
 		prep $2
 		cycle $2 "pickup-finish $2" 
 	;;
-	# TODO: (26 Jan 2021) Fix terrible names
+	# TODO: (26 Jan 20201) Fix terrible names
 	pickup-finish)
 		
 		finish_server_startup $2

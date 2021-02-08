@@ -29,12 +29,12 @@ finish_server_startup ()
 	copy_conf_files $1
 	pushd /opt/holdongametime
 	sudo chmod 774 logs/django.log
-	#sudo chgrp apache logs/django.log
+	sudo chgrp apache logs/django.log
 	source django/bin/activate
-	gunicorn -b "127.0.0.1:8000" holdongametime.wsgi &
+	#gunicorn -D -b "127.0.0.1:8000" holdongametime.wsgi --log-level DEBUG --log-file error.log
 
-	#python manage.py runserver 0.0.0.0:8000 &
-	sudo service caddy start
+	python manage.py runserver 0.0.0.0:8000 &
+	sudo service httpd start
 	deactivate
 }
 
@@ -63,8 +63,9 @@ copy_conf_files ()
 	sudo chmod 755 *
 
 
-	sudo cp -v /home/$USER/conf/Caddyfile /etc/caddy
-	#sudo service httpd restart
+	sudo cp -v /home/$USER/conf/httpd.conf /etc/httpd/conf
+	#sudo cp -v /home/$USER/conf/Caddyfile /etc/caddy
+	sudo service httpd restart
 	popd
 }
 
@@ -74,8 +75,8 @@ install_git_deps ()
 	python3 -m venv django
 	source django/bin/activate
 	pip install -r /home/$USER/gametime/requirements.txt
-	#sudo chgrp -R ec2-user /usr/lib64/httpd/
-	#sudo chmod -R g+w /usr/lib64/httpd/modules
+	sudo chgrp -R ec2-user /usr/lib64/httpd/
+	sudo chmod -R g+w /usr/lib64/httpd/modules
 
 	deactivate
 	#npm install lessc
@@ -96,7 +97,7 @@ get_git_stuff ()
 	sudo chmod -R 775 /opt
 
 	sudo ln -s /opt/holdongametime gametime/holdongametime
-	#sudo chgrp -R apache /opt
+	sudo chgrp -R apache /opt
 
 	sudo mkdir /srv/http
 	sudo chmod -R 775 /srv/http
@@ -107,10 +108,10 @@ get_git_stuff ()
 
 setup_deps ()
 {
-	sudo yum -y -q install yum-plugin-copr
-	sudo yum -y -q copr enable @caddy/caddy
-	sudo yum -y -q install caddy
-	sudo yum -y -q install docker git npm gcc python3 python3-devel python3-pip #httpd httpd-devel mod_ssl openssl 
+	#sudo yum -y -q install yum-plugin-copr
+	#sudo yum -y -q copr enable @caddy/caddy
+	#sudo yum -y -q install caddy
+	sudo yum -y -q install docker git npm gcc python3 python3-devel python3-pip httpd httpd-devel mod_ssl openssl 
 	sudo yum -y -q update
 	#sudo yum -y install epel-release
     #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux

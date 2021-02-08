@@ -31,8 +31,9 @@ finish_server_startup ()
 	sudo chmod 774 logs/django.log
 	sudo chgrp apache logs/django.log
 	source django/bin/activate
+	#gunicorn -D -b "127.0.0.1:8000" holdongametime.wsgi --log-level DEBUG --log-file error.log
 
-	#python manage.py runserver 0.0.0.0:8000 &
+	python manage.py runserver 0.0.0.0:8000 &
 	sudo service httpd start
 	deactivate
 }
@@ -62,6 +63,9 @@ copy_conf_files ()
 	sudo chmod 755 *
 	sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
+
+	sudo cp -v /home/$USER/conf/httpd.conf /etc/httpd/conf
+	#sudo cp -v /home/$USER/conf/Caddyfile /etc/caddy
 	sudo service httpd restart
 	popd
 }
@@ -74,7 +78,6 @@ install_git_deps ()
 	pip install -r /home/$USER/gametime/requirements.txt
 	sudo chgrp -R ec2-user /usr/lib64/httpd/
 	sudo chmod -R g+w /usr/lib64/httpd/modules
-
 
 	curl -L -O https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz
 	tar -xvzf 4.7.1.tar.gz
@@ -101,7 +104,7 @@ get_git_stuff ()
 	sudo chmod -R 775 /opt
 
 	sudo ln -s /opt/holdongametime gametime/holdongametime
-	#sudo chgrp -R apache /opt
+	sudo chgrp -R apache /opt
 
 	sudo mkdir /srv/http
 	sudo chmod -R 775 /srv
@@ -112,7 +115,10 @@ get_git_stuff ()
 
 setup_deps ()
 {
-	sudo yum -y -q install docker httpd httpd-devel mod_ssl openssl git npm gcc python3 python3-devel python3-pip
+	#sudo yum -y -q install yum-plugin-copr
+	#sudo yum -y -q copr enable @caddy/caddy
+	#sudo yum -y -q install caddy
+	sudo yum -y -q install docker git npm gcc python3 python3-devel python3-pip httpd httpd-devel mod_ssl openssl 
 	sudo yum -y -q update
 	#sudo yum -y install epel-release
     #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux

@@ -177,7 +177,7 @@ case $1 in
 		reboot_box $2
 	;;
 	finish)
-		spin $2
+		#spin $2
 		reload $2
 		prep $2
 		cycle $2 "pickup-finish $2" 
@@ -191,3 +191,4 @@ case $1 in
 		exit
 	;;
 esac
+exit

@@ -76,3 +76,17 @@ combination of "personal" blog posts and "reviews"
 
 tool that will get names of all games in my steam library ->
 tool that will take this list -> collect data to fill out "game" object -> fill out "game" object -> add to "game" table
+
+tool to scrape post entry from google sheets rubric
+post plainly formatted series of questions and answers, like an interview. so 
+SECTION(overall, art, game)
+	HEADING(graphics, audio, etc)
+	  question:
+		my answer
+
+i dont think i need the  database, actually. i need to think about storage/serving content. do i want things to be in the database? or do i want them to be stored on disk/build them each time or only once? 
+build once
+store online, in private github? and then download them onto memory
+tool to build page from rubric
+tool to save page into some storage
+tool to load articles

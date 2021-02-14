@@ -9,6 +9,6 @@ type Post struct {
 }
 
 func (c Post) Show(slug string) revel.Result {
-	c.BuildBlogPost()
+	//c.BuildBlogPost()
 	return c.RenderTemplate("app/views/Blog/BlogPost.html")
 }

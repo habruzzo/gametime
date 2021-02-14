@@ -1,5 +1,5 @@
 conf/remote-aws
-reviews
+#reviews
 node_modules
 package-lock.json
 mod_wsgi-4.7.1

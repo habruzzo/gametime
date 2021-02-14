@@ -1,0 +1,16 @@
+{{set . "title" "Posts"}}
+{{set . "pageTitle" "posts"}}
+{{template "base.html" .}}
+<div class="card-group bottom-wrapper">
+	{{range .postList }}
+	{# TODO SET THIS UP FOR MORE THAN 10 ENTRIES #}
+		<div class="card blog-list-item">
+		    <div class="blog-list-title">{{.title }}</div>
+		    <p class="blog-list-date">{{.author}} | {{.created_on}} </p>
+		    <p class="blog-list-blurb">{{.content}}</p>
+		    <a href='{{ url "Post.{{.slug}}"  }}' class="blog-list-read-more">Read More &rarr;</a>
+		</div>
+	{{end}}
+</div>
+{{template "footer.html" .}}
+

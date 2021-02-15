@@ -10,5 +10,9 @@ type Post struct {
 
 func (c Post) Show(slug string) revel.Result {
 	//c.BuildBlogPost()
-	return c.RenderTemplate("app/views/Blog/BlogPost.html")
+	//jsonMapping := loadSlugs()
+	//file := jsonMapping[slug]
+	//r := models.NewReviewSkeleton(file)
+
+	return c.Render()
 }

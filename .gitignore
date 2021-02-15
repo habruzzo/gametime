@@ -1,8 +1,11 @@
 conf/remote-aws
-#reviews
+holdongametime
 node_modules
 package-lock.json
 mod_wsgi-4.7.1
-holdongametime/holdongametime/settings.py
 django
 tools/manifests.txt
+revel/bin
+revel/pkg
+revel/src
+.vscode

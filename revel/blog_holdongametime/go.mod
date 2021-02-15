@@ -8,7 +8,9 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/garyburd/redigo v1.6.2 // indirect
+	github.com/go-gorp/gorp v2.2.0+incompatible
 	github.com/go-stack/stack v1.8.0 // indirect
+	github.com/google/uuid v1.2.0
 	github.com/inconshreveable/log15 v0.0.0-20201112154412-8562bdadbbac // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/myesui/uuid v1.0.0 // indirect

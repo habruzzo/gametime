@@ -9,7 +9,9 @@ import mechanicalsoup
 import urllib.parse
 import pudb
 import sys
+import json
 
+PATH_PREFIX = "/opt/gametime/reviews/"
 KEY_NAMES = ["title","creator","publisher","release_date","platform","steam_link","status"]
 PLATFORMS = ["pc", "gameboy", "playstation", "xbox", "wii", "switch", "mobile", "other"]
 IP = "52.37.133.146"
@@ -38,14 +40,17 @@ def scrape_basic_data(browser):
 	creator = ""
 	publisher = ""
 	release = ""
-	if ps[0].text.lower().split(":")[0] == "platform":
-		platform = ps[0].text.split(":")[1]
-	if ps[1].text.lower().split(":")[0] == "developer(s)":
-		creator = ps[1].text.split(":")[1]
-	if ps[2].text.lower().split(":")[0] == "publishers(s)":
-		publisher = ps[2].text.split(":")[1]
-	if ps[3].text.lower().split(":")[0] == "releasedate":
-		release = ps[3].text.split(":")[1]
+	try:
+		if ps[0].text.lower().split(":")[0] == "platform":
+			platform = ps[0].text.split(":")[1]
+		if ps[1].text.lower().split(":")[0] == "developer(s)":
+			creator = ps[1].text.split(":")[1]
+		if ps[2].text.lower().split(":")[0] == "publishers(s)":
+			publisher = ps[2].text.split(":")[1]
+		if ps[3].text.lower().split(":")[0] == "releasedate":
+			release = ps[3].text.split(":")[1]
+	except IndexError:
+		pass
 	return platform, creator, publisher, release
 
 
@@ -160,9 +165,24 @@ def main_nope():
 				print(game_list)
 
 def main():
-	title_list = read_title_list()
-	print(len(title_list))
-	print(title_list)
+	if len(sys.argv) > 1 and sys.argv[1] == "build":
+		print("building game list")
+	else:
+		print("scraping and inserting game info")
+		title_list = read_title_list()
+		game_list = []
+		browser = mechanicalsoup.StatefulBrowser()
+		for title in title_list:
+			print(title.text)
+			game = research_basic_game(browser, title.text)
+			report_game_info(game)
+			game = query_continue(game)
+			game_list.append(game)
+		#print(game_list)
+		f = open(PATH_PREFIX + "game_list.json", "w")
+		json.dump(game_list,f)
+		f.close()
+
 
 if __name__ == '__main__':
 	main()

@@ -8,4 +8,6 @@ tools/manifests.txt
 revel/bin
 revel/pkg
 revel/src
+revel/tmp
 .vscode
+revel/blog_holdongametime/target

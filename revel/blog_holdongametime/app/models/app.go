@@ -1,10 +1,10 @@
 package models
 
 import (
-	"strings"
-	"time"
-
 	"github.com/google/uuid"
+
+	"encoding/json"
+	"time"
 )
 
 type GameStatus string
@@ -72,6 +72,10 @@ type Game struct {
 	Status      GameStatus
 }
 
+func (g Game) Value() ([]byte, error) {
+	return json.Marshal(g)
+}
+
 func NewGame(title string, slug string, platform PlatformType, publisher string, creator string, releaseDate string, steamLink string, status GameStatus) *Game {
 	return &Game{
 		Id:          uuid.New(),
@@ -97,32 +101,22 @@ type Post struct {
 	Id          uuid.UUID
 	Title       string
 	Slug        string
-	Game        *Game
+	GameId      uuid.UUID
 	Status      PublishStatus
 	ContentPath string
-	Tags        []Tag
 	Rating      int
 	PublishDate time.Time
 }
 
-func NewPost(title string, game *Game, status PublishStatus, contentPath string, tags []Tag, rating int, publishDate time.Time) *Post {
+func NewPost(title string, gameId uuid.UUID, slug string, status PublishStatus, contentPath string, rating int, publishDate time.Time) *Post {
 	return &Post{
 		Id:          uuid.New(),
 		Title:       title,
-		Slug:        ToSlug(title),
-		Game:        game,
+		Slug:        slug,
+		GameId:      gameId,
 		Status:      status,
 		ContentPath: contentPath,
-		Tags:        tags,
 		Rating:      rating,
 		PublishDate: publishDate,
 	}
-}
-
-func ToSlug(title string) string {
-	slug := strings.ToLower(strings.ReplaceAll(title, " ", "_"))
-	if words := strings.Count(title, " "); words > 3 {
-		slug = slug[:3]
-	}
-	return slug
 }

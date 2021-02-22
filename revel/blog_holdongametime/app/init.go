@@ -1,13 +1,15 @@
 package app
 
 import (
+	"blog_holdongametime/app/controllers"
 	"blog_holdongametime/app/models"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"time"
 
-	gorp "github.com/revel/modules/orm/gorp/app"
+	"github.com/jinzhu/gorm"
+	_ "github.com/lib/pq"
 	"github.com/revel/revel"
 )
 
@@ -88,32 +90,44 @@ func LoadPosts(games []*models.Game) []*models.Post {
 	var pClean []*models.Post
 	for _, v := range p {
 		g := MatchPostToGame(v, games)
-		pClean = append(pClean, models.NewPost(v.Title, g, v.Status, jsonMapping[v.Slug], nil, v.Rating, time.Now()))
+		pClean = append(pClean, models.NewPost(v.Title, g.Id, v.Slug, v.Status, jsonMapping[v.Slug], v.Rating, time.Now()))
 	}
 	return pClean
 }
 
 func InitDB() {
+	var err error
+
 	LoadSlugs()
 	games := LoadGames()
 	posts := LoadPosts(games)
-	gorp.Db.SetDbInit(func(dbGorp *gorp.DbGorp) error {
-		// Register tables
-		gorp.Db.Map.AddTableWithName(models.Game{}, "game")
-		gorp.Db.Map.AddTableWithName(models.Post{}, "post")
-		gorp.Db.Map.CreateTables()
-		for _, v := range games {
-			if err := dbGorp.Insert(v); err != nil {
-				panic(err)
-			}
+	// init db
+
+	controllers.Gdb, err = gorm.Open("postgres", "user=postgres dbname=test_db sslmode=disable")
+	fmt.Println("LOADED DB")
+	controllers.Gdb.LogMode(true) // Print SQL statements
+	if err != nil {
+		fmt.Println("FATAL", err)
+		panic(err)
+	}
+	controllers.Gdb.AutoMigrate(&models.Post{})
+	controllers.Gdb.AutoMigrate(&models.Game{})
+
+	for _, v := range games {
+		if err := controllers.Gdb.Create(v); err != nil {
+			fmt.Println("FATAL", err)
+
+			panic(err)
 		}
-		for _, v := range posts {
-			if err := dbGorp.Insert(v); err != nil {
-				panic(err)
-			}
+	}
+	for _, v := range posts {
+		if err := controllers.Gdb.Create(v); err != nil {
+			fmt.Println("FATAL", err)
+
+			panic(err)
 		}
-		return nil
-	})
+	}
+
 }
 
 func init() {
@@ -142,6 +156,7 @@ func init() {
 	// HOLDEN's
 	jsonMapping = make(map[string]string)
 	revel.OnAppStart(InitDB)
+	revel.OnAppStart(LoadSlugs)
 
 	// revel.OnAppStart(FillCache)
 }

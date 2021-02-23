@@ -47,7 +47,7 @@ func LoadSlugs() {
 	}
 	for _, v := range j {
 		jsonMapping[v.Slug] = v.File
-		fmt.Println(jsonMapping[v.Slug])
+		//fmt.Println(jsonMapping[v.Slug])
 	}
 }
 
@@ -68,16 +68,7 @@ func LoadGames() []*models.Game {
 	return gClean
 }
 
-func MatchPostToGame(p models.PostJson, games []*models.Game) *models.Game {
-	for _, v := range games {
-		if p.Slug == v.Slug {
-			return v
-		}
-	}
-	panic("No matching game")
-}
-
-func LoadPosts(games []*models.Game) []*models.Post {
+func LoadPosts(db *gorm.DB) []*models.Post {
 	data, err := ioutil.ReadFile(jsonPostPath)
 	if err != nil {
 		panic(err)
@@ -89,18 +80,19 @@ func LoadPosts(games []*models.Game) []*models.Post {
 	}
 	var pClean []*models.Post
 	for _, v := range p {
-		g := MatchPostToGame(v, games)
-		pClean = append(pClean, models.NewPost(v.Title, g.Id, v.Slug, v.Status, jsonMapping[v.Slug], v.Rating, time.Now()))
+		var g models.Game
+		result := db.First(&g)
+		if result.Error != nil {
+			fmt.Println("FATAL", result.Error)
+			panic(result.Error)
+		}
+		pClean = append(pClean, models.NewPost(v.Title, g.ID, v.Slug, v.Status, jsonMapping[v.Slug], v.Rating, time.Now()))
 	}
 	return pClean
 }
 
 func InitDB() {
 	var err error
-
-	LoadSlugs()
-	games := LoadGames()
-	posts := LoadPosts(games)
 	// init db
 
 	controllers.Gdb, err = gorm.Open("postgres", "user=postgres dbname=test_db sslmode=disable")
@@ -110,21 +102,28 @@ func InitDB() {
 		fmt.Println("FATAL", err)
 		panic(err)
 	}
-	controllers.Gdb.AutoMigrate(&models.Post{})
 	controllers.Gdb.AutoMigrate(&models.Game{})
+	controllers.Gdb.AutoMigrate(&models.Post{})
+
+	LoadSlugs()
+	games := LoadGames()
 
 	for _, v := range games {
-		if err := controllers.Gdb.Create(v); err != nil {
-			fmt.Println("FATAL", err)
-
-			panic(err)
+		if err := controllers.Gdb.Where("slug=?", v.Slug).First(&models.Game{}).Error; err != nil {
+			if err := controllers.Gdb.Create(v).Error; err != nil {
+				fmt.Println("FATAL", err)
+				panic(err)
+			}
 		}
 	}
-	for _, v := range posts {
-		if err := controllers.Gdb.Create(v); err != nil {
-			fmt.Println("FATAL", err)
 
-			panic(err)
+	posts := LoadPosts(controllers.Gdb)
+	for _, v := range posts {
+		if err := controllers.Gdb.Where("slug=?", v.Slug).First(&models.Post{}).Error; err != nil {
+			if err := controllers.Gdb.Create(v).Error; err != nil {
+				fmt.Println("FATAL", err)
+				panic(err)
+			}
 		}
 	}
 

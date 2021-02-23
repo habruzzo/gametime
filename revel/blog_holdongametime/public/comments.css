@@ -1,6 +1,6 @@
 /*comment part start*/
 .single-blog-area .commententries h3 {
-  color: #191919;
+  color: #0b162a;
   font-family: Geometria;
   font-size: 18px;
   font-style: normal;
@@ -10,7 +10,7 @@
   position: relative;
 }
 .single-blog-area .commententries h3::before {
-  background: #191919 none repeat scroll 0 0;
+  background: #0b162a none repeat scroll 0 0;
   content: "";
   height: 2px;
   position: absolute;
@@ -31,7 +31,7 @@
   position: relative;
 }
 .single-blog-area .commententries ul li article.comment::before {
-  background: #d4dadd none repeat scroll 0 0;
+  background: #FFF5F5 none repeat scroll 0 0;
   content: "";
   height: 1px;
   position: absolute;
@@ -43,11 +43,11 @@
   font-size: 21px;
   font-weight: 500;
   line-height: 10px;
-  color: #191919;
+  color: #0b162a;
   text-decoration: none;
 }
 .single-blog-area .commententries .author-name p {
-  color: #191919;
+  color: #0b162a;
   font-family: Geometria;
   font-size: 13px;
   font-weight: 500;
@@ -58,17 +58,17 @@
   font-size: 15px;
   font-weight: 500;
   line-height: 25px;
-  color: #191919;
+  color: #0b162a;
 }
 .single-blog-area .commententries .reply p span {
-  color: #191919;
+  color: #0b162a;
   font-family: Geometria;
   font-size: 18px;
   font-weight: 500;
   margin-right: 50px;
 }
 .single-blog-area .commententries .reply p span i {
-  color: #191919;
+  color: #0b162a;
   margin-right: 10px;
 }
 .single-blog-area .commententries ul li {
@@ -84,13 +84,13 @@
   margin-left: 70px;
 }
 .single-blog-area form input {
-  border: 1px solid #191919;
+  border: 1px solid #0b162a;
   margin: 0;
   border-radius: 5px;
   width: 100%;
 }
 .single-blog-area form input [placeholder] {
-  color: #191919;
+  color: #0b162a;
   font-family: Geometria;
   font-size: 16px;
   font-weight: 500;
@@ -122,9 +122,9 @@
   right: 0;
 }
 .single-blog-area form .post input[type="submit"] {
-  background: #191919 none repeat scroll 0 0;
+  background: #0b162a none repeat scroll 0 0;
   bottom: 0;
-  color: #d4dadd;
+  color: #FFF5F5;
   font-family: Geometria;
   font-size: 15px;
   font-weight: 500;

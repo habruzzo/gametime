@@ -1,9 +1,12 @@
 package models
 
 import (
-	"github.com/google/uuid"
+	"fmt"
+
+	"github.com/jinzhu/gorm"
 
 	"encoding/json"
+	"hash/fnv"
 	"time"
 )
 
@@ -49,19 +52,21 @@ const (
 )
 
 type Tag struct {
-	id    uuid.UUID
+	gorm.Model
+	id    uint32
 	value string
 }
 
 func NewTag(value string) *Tag {
 	return &Tag{
-		id:    uuid.New(),
+		id:    generateId(value),
 		value: value,
 	}
 }
 
 type Game struct {
-	Id          uuid.UUID
+	gorm.Model
+	//Id          uint32
 	Title       string
 	Slug        string
 	Platform    PlatformType
@@ -78,7 +83,7 @@ func (g Game) Value() ([]byte, error) {
 
 func NewGame(title string, slug string, platform PlatformType, publisher string, creator string, releaseDate string, steamLink string, status GameStatus) *Game {
 	return &Game{
-		Id:          uuid.New(),
+		//Id:          generateId(title),
 		Title:       title,
 		Slug:        slug,
 		Platform:    platform,
@@ -98,19 +103,20 @@ type PostJson struct {
 }
 
 type Post struct {
-	Id          uuid.UUID
+	gorm.Model
+	//Id          uint32
 	Title       string
 	Slug        string
-	GameId      uuid.UUID
+	GameId      uint
 	Status      PublishStatus
 	ContentPath string
 	Rating      int
 	PublishDate time.Time
 }
 
-func NewPost(title string, gameId uuid.UUID, slug string, status PublishStatus, contentPath string, rating int, publishDate time.Time) *Post {
+func NewPost(title string, gameId uint, slug string, status PublishStatus, contentPath string, rating int, publishDate time.Time) *Post {
 	return &Post{
-		Id:          uuid.New(),
+		//Id:          generateId(title),
 		Title:       title,
 		Slug:        slug,
 		GameId:      gameId,
@@ -119,4 +125,14 @@ func NewPost(title string, gameId uuid.UUID, slug string, status PublishStatus, 
 		Rating:      rating,
 		PublishDate: publishDate,
 	}
+}
+
+func (p *Post) Value() string {
+	return fmt.Sprintf("%s %s %s %s %s %s", p.Title, p.Slug, p.GameId, p.Status, p.Rating, p.ContentPath)
+}
+
+func generateId(title string) uint32 {
+	h := fnv.New32a()
+	h.Write([]byte(title))
+	return h.Sum32()
 }

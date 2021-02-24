@@ -6,5 +6,5 @@ do
 	REALNAME=$(echo $i)
 	JUSTFILE=$(echo $REALNAME | rev | cut -d "/" -f 1 | rev)
 	echo $REALNAME$LESS_END $JUSTFILE$CSS_END
-    lessc $REALNAME$LESS_END $JUSTFILE$CSS_END
+    lesscpy $REALNAME$LESS_END > $JUSTFILE$CSS_END
 done	

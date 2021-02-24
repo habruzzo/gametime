@@ -3,7 +3,7 @@
   position: relative;
 }
 .single-blog-area .sidebar-ads p {
-  color: #FFF5F5;
+  color: #fff5f5;
   font-family: Geometria;
   font-size: 30px;
   font-weight: 500;
@@ -13,7 +13,7 @@
   width: 100%;
 }
 .single-blog-area h2.sidebar-title {
-  background: #FFF5F5 none repeat scroll 0 0;
+  background: #fff5f5 none repeat scroll 0 0;
   color: #0b162a;
   font-family: Geometria;
   font-size: 16px;
@@ -41,7 +41,7 @@
   margin-bottom: 7px;
 }
 .single-blog-area .tags p a {
-  color: #FFF5F5;
+  color: #fff5f5;
   display: inline-block;
   text-decoration: none;
 }
@@ -55,7 +55,7 @@
 .single-blog-area .newsletter input[type="submit"] {
   width: 40%;
   background: #0b162a;
-  color: #FFF5F5;
+  color: #fff5f5;
   text-transform: uppercase;
   font-family: Geometria;
   font-size: 15px;
@@ -64,7 +64,7 @@
 .blog-list-item {
   margin-top: 30px;
   margin-bottom: 30px;
-  background: #FFF5F5;
+  background: #fff5f5;
   color: #0b162a;
 }
 .blog-list-title {

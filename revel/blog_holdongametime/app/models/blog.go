@@ -2,38 +2,42 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 )
 
 const JsonPath = "/opt/gametime/reviews/"
 
 type Question struct {
-	question string
-	answer   string
+	Question string `json:"question"`
+	Answer   string `json:"answer"`
 }
 
 type ReviewSection struct {
-	title     string
-	questions []Question
+	Title     string     `json:"title"`
+	Questions []Question `json:"questions"`
 }
 
 type ArtSection struct {
-	graphics ReviewSection
-	sound    ReviewSection
-	story    ReviewSection
-	themes   ReviewSection
+	Title    string        `json:"title"`
+	Graphics ReviewSection `json:"graphics"`
+	Sound    ReviewSection `json:"sound"`
+	Story    ReviewSection `json:"story"`
+	Themes   ReviewSection `json:"themes"`
 }
 
 type GameSection struct {
-	mechanics  ReviewSection
-	difficulty ReviewSection
-	experience ReviewSection
+	Title      string        `json:"title"`
+	Mechanics  ReviewSection `json:"mechanics"`
+	Difficulty ReviewSection `json:"difficulty"`
+	Experience ReviewSection `json:"experience"`
 }
 
 type ReviewSkeleton struct {
-	overall      ReviewSection
-	artSkeleton  ArtSection
-	gameSkeleton GameSection
+	Overall      ReviewSection `json:"overall"`
+	ArtSkeleton  ArtSection    `json:"art"`
+	GameSkeleton GameSection   `json:"game"`
+	Pull         string        `json:"pull"`
 }
 
 func NewReviewSkeleton(path string) *ReviewSkeleton {
@@ -45,7 +49,6 @@ func NewReviewSkeleton(path string) *ReviewSkeleton {
 	}
 	err = json.Unmarshal(data, &r)
 	if err != nil {
-
 		panic(err)
 	}
 	return &r
@@ -54,4 +57,8 @@ func NewReviewSkeleton(path string) *ReviewSkeleton {
 func (r ReviewSkeleton) BuildPostToTemplate() {
 	//r := NewReviewSkeleton(p.contentPath)
 
+}
+
+func (r ReviewSkeleton) Value() string {
+	return fmt.Sprintf("%s", r.Pull)
 }

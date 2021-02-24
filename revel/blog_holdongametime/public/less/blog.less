@@ -12,7 +12,7 @@
     p {
         color: @post-text-color;
         font-family: Geometria;
-        font-size: 15px;
+        font-size: @sm-size-font;
         font-weight: 400;
         line-height: 27px;
         padding-top: 14px;
@@ -42,8 +42,7 @@
     }
     h3 {
         margin: 25px 0 15px;
-    }   
-
+    }
 }
 
 .blog-post-area .blog-post-area-style {
@@ -51,6 +50,10 @@
 }
 
 /*css for single blog page*/
+.single-blog-area {
+    font-size: @sm-size-font;
+    min-height: @min-page-height;
+}
 
 .single-blog-area .border-top {
     border-top: 1px solid @border-color;
@@ -62,7 +65,7 @@
         font-size: 38px;
         font-weight: 500;
         margin-bottom: 60px;
-        padding-top: 12vh;
+        padding-top: 4vh;
         z-index:10;
         @media (max-width:@screen-sm) {
             font-size: 30px;
@@ -71,11 +74,12 @@
     }
     p {
         font-family: Geometria;
-        font-size: 15px;
+        font-size: @sm-size-font;
         font-weight: 500;
         line-height: 35px;
         position: relative;
         text-align: justify;
+        margin-bottom: 5px;
     }
     h3 {
         color: @post-heading-color;
@@ -102,6 +106,9 @@
             color: @post-heading-color;
         }
     }
+    h5 {
+        font-size:@md-size-font;
+    }   
 }
 
 .single-blog-area .blog-area-part p {
@@ -241,7 +248,4 @@ section.blog-post-area h4 span.author-name {
 
 .spacer2 {
     height: 30px;
-}
-
-.spacer3 {
 }

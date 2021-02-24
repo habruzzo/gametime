@@ -91,7 +91,7 @@ def fill_final_list_json(final_list, review_list, name, title, extra_tab=True):
 
 def print_json(review):
     f = open(PATH_PREFIX + FILENAME + ".json", "w")
-    final_list = ['{"review": {\n']
+    final_list = ['{\n']
     fill_final_list_json(final_list, review.game[3], "overall", "Overall", False)
     final_list.append('\t"art":{\n\t\t"title":"Art:",\n')
     fill_final_list_json(final_list, review.art[0], "graphics", "Graphics")
@@ -106,7 +106,8 @@ def print_json(review):
     fill_final_list_json(final_list, review.game[2], "experience", "Experience")
     final_list[-1] = remove_trailing_comma(final_list[-1])
     final_list.append("\t}\n")
-    final_list.append('}\n}')
+    final_list.append('\t"pull":""\n')
+    final_list.append('}')
     f.writelines(final_list)
     f.close()
 

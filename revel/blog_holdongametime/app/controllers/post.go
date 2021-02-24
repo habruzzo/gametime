@@ -10,6 +10,8 @@ type Post struct {
 	GormController
 }
 
+var author = "Me"
+
 func (c Post) Show(slug string) revel.Result {
 	//c.BuildBlogPost()
 	//jsonMapping := loadSlugs()
@@ -17,10 +19,6 @@ func (c Post) Show(slug string) revel.Result {
 	if err := c.DB.Where("slug=?", slug).Find(&p).Error; err != nil {
 		panic(err)
 	}
-	//err := c.rgorp.Txn.SelectOne(p, c.rgorp.Db.SqlStatementBuilder.Select("*").From("post").Where("slug=?", slug))
-	//if err != nil {
-	//	panic(err)
-	//}
-	r := models.NewReviewSkeleton(p.ContentPath)
-	return c.Render(r, p)
+	rev := models.NewReviewSkeleton(p.ContentPath)
+	return c.Render(rev, p, author)
 }

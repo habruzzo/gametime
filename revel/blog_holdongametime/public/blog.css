@@ -8,7 +8,7 @@
 .blog-post-area .single-post p {
   color: #0b162a;
   font-family: Geometria;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 27px;
   padding-top: 14px;
@@ -16,7 +16,7 @@
   text-align: justify;
 }
 .blog-post-area .single-post p::before {
-  background: #FFF5F5 none repeat scroll 0 0;
+  background: #fff5f5 none repeat scroll 0 0;
   content: "";
   height: 1px;
   position: absolute;
@@ -29,7 +29,7 @@
   position: relative;
 }
 .blog-post-area .single-post h4::before {
-  background: #FFF5F5 none repeat scroll 0 0;
+  background: #fff5f5 none repeat scroll 0 0;
   content: "";
   height: 1px;
   position: absolute;
@@ -42,7 +42,10 @@
 .blog-post-area .blog-post-area-style {
   margin: 0 20px 0 40px;
 }
-/*css for single blog page*/
+.single-blog-area {
+  font-size: 18px;
+  min-height: 77vh;
+}
 .single-blog-area .border-top {
   border-top: 1px solid #0b162a;
 }
@@ -52,22 +55,21 @@
   font-size: 38px;
   font-weight: 500;
   margin-bottom: 60px;
-  padding-top: 12vh;
+  padding-top: 4vh;
   z-index: 10;
 }
-@media (max-width: 768px) {
-  .single-blog-area h2 {
-    font-size: 30px;
-    position: relative;
-  }
+@media (max-width:768px) {
+  font-size: 30px;
+  position: relative;
 }
 .single-blog-area p {
   font-family: Geometria;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 35px;
   position: relative;
   text-align: justify;
+  margin-bottom: 5px;
 }
 .single-blog-area h3 {
   color: #0b162a;
@@ -94,6 +96,9 @@
   margin-left: 20px;
   color: #0b162a;
 }
+.single-blog-area h5 {
+  font-size: 24px;
+}
 .single-blog-area .blog-area-part p {
   margin-top: 30px;
 }
@@ -114,7 +119,7 @@
   margin-left: 50px;
 }
 .single-blog-area .ads-area {
-  border-top: 1px solid #F08700;
+  border-top: 1px solid #7f5a83;
   margin-top: 30px;
   padding: 50px 0;
   position: relative;
@@ -125,7 +130,7 @@
   padding: 0 60px;
 }
 .single-blog-area .ads-area p {
-  color: #FFF5F5;
+  color: #fff5f5;
   font-family: Geometria;
   font-size: 33px;
   font-weight: 500;

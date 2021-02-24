@@ -42,19 +42,19 @@ body {
         a {
             color: @header-text-color;
             font-family: "Raleway", sans-serif;
-            font-size: @lg-size-font;
+            font-size: @md-size-font;
             font-weight: 600;
             padding: 26px 25px;
             text-decoration: none;
             text-transform: uppercase;
 
             @media (max-width: @screen-lg) {
-                font-size: @md-size-font;
+                font-size: @sm-size-font;
             }
 
             @media (max-width: @screen-md-ii){
                 font-size: @sm-size-font;
-                padding: @md-size-font;
+                padding: @sm-size-font;
             }
 
         }
@@ -168,7 +168,7 @@ body {
 .bottom-wrapper {
     color:@body-text-color;
     background:@body-bg-color;
-    min-height:@bottom-wrapper-height;
+    //min-height:@bottom-wrapper-height;
     border:none;
 }
 

@@ -12,67 +12,65 @@ SCRIPT_NAME=prep-box.sh
 USER=ec2-user
 
 
-spin ()
-{
-	for i in {1..12}
-	do
-		for j in {1..5}
-		do
-			sleep 1
-		done	
-		echo "."
-	done
-}
+# spin ()
+# {
+# 	for i in {1..12}
+# 	do
+# 		for j in {1..5}
+# 		do
+# 			sleep 1
+# 		done	
+# 		echo "."
+# 	done
+# }
 
-finish_server_startup ()
-{
-	copy_conf_files $1
-	pushd /opt/holdongametime
-	sudo chmod 774 logs/django.log
-	sudo chgrp apache logs/django.log
-	source django/bin/activate
-	#gunicorn -D -b "127.0.0.1:8000" holdongametime.wsgi --log-level DEBUG --log-file error.log
+# finish_server_startup ()
+# {
+# 	copy_conf_files $1
+# 	pushd /opt/holdongametime
+# 	sudo chmod 774 logs/django.log
+# 	sudo chgrp apache logs/django.log
+# 	source django/bin/activate
+# 	#gunicorn -D -b "127.0.0.1:8000" holdongametime.wsgi --log-level DEBUG --log-file error.log
 
-	python manage.py runserver 0.0.0.0:8000 &
-	sudo service httpd start
-	deactivate
-}
+# 	python manage.py runserver 0.0.0.0:8000 &
+# 	sudo service httpd start
+# 	deactivate
+# }
 
-reboot_box ()
-{
-	ip_addr=$1
-	ssh -i $KEY_LOC $USER@$ip_addr "sudo reboot"
-}
+# reboot_box ()
+# {
+# 	ip_addr=$1
+# 	ssh -i $KEY_LOC $USER@$ip_addr "sudo reboot"
+# }
 
-reload ()
-{
-	pushd /opt/gametime/holdongametime
-	ip_addr=$1
-	scp -i $KEY_LOC holdongametime/* $USER@$ip_addr:/opt/holdongametime/holdongametime
-	popd
-}
+# reload ()
+# {
+# 	pushd /opt/gametime/holdongametime
+# 	ip_addr=$1
+# 	scp -i $KEY_LOC holdongametime/* $USER@$ip_addr:/opt/holdongametime/holdongametime
+# 	popd
+# }
 
-copy_conf_files ()
-{	
-	pushd /opt/holdongametime
-	# grep "ALLOWED_HOSTS" holdongametime/settings.py
-	# sed -i "s/%IP_ADDR%/$1/g" holdongametime/settings.py
-	# grep "ALLOWED_HOSTS" holdongametime/settings.py
-	# popd
-	# pushd /etc/httpd/conf
-	# sudo chmod 755 *
-	# sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
+# copy_conf_files ()
+# {	
+# 	# grep "ALLOWED_HOSTS" holdongametime/settings.py
+# 	# sed -i "s/%IP_ADDR%/$1/g" holdongametime/settings.py
+# 	# grep "ALLOWED_HOSTS" holdongametime/settings.py
+# 	# popd
+# 	# pushd /etc/httpd/conf
+# 	# sudo chmod 755 *
+# 	# sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
 
-	# sudo cp -v /home/$USER/conf/httpd.conf /etc/httpd/conf
-	# #sudo cp -v /home/$USER/conf/Caddyfile /etc/caddy
-	# sudo service httpd restart
-	popd
-}
+# 	# sudo cp -v /home/$USER/conf/httpd.conf /etc/httpd/conf
+# 	# #sudo cp -v /home/$USER/conf/Caddyfile /etc/caddy
+# 	# sudo service httpd restart
+# }
 
 install_git_deps ()
 {	
-	pushd /home/$USER/gametime/revel
+	cd /home/$USER/gametime/revel
 	export GOPATH="/home/$USER/gametime/revel"
 	export PATH=$PATH:$GOPATH/bin
 	go get "github.com/revel/revel"
@@ -95,7 +93,7 @@ install_git_deps ()
 	#sudo make install
 	#deactivate
 	#npm install lessc
-	popd
+	cd -
 }
 
 get_git_stuff ()
@@ -109,8 +107,8 @@ get_git_stuff ()
 	git clone git@github.com:habruzzo/gametime.git
 	cd gametime
 	git clone git@github.com:habruzzo/reviews.git
-	cd revel
-
+	sleep 5
+	sudo cp /home/$USER/conf/Caddyfile /etc/caddy
 	#sudo mv gametime/revel/blog_holdongametime /opt
 	#sudo chmod -R 775 /opt
 
@@ -136,12 +134,12 @@ setup_deps ()
     #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
 }
 
-fix_python ()
-{
-	sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-	sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+# fix_python ()
+# {
+# 	sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+# 	sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 
-}	
+# }	
 
 prep ()
 {
@@ -173,9 +171,10 @@ case $1 in
 		get_git_stuff
 		#fix_python
 		install_git_deps
-		copy_conf_files
+		#copy_conf_files
 		#sudo reboot
-		exit
+		
+		#exit
 	;;
 	reload)
 		reload $2

@@ -55,37 +55,45 @@ reload ()
 copy_conf_files ()
 {	
 	pushd /opt/holdongametime
-	grep "ALLOWED_HOSTS" holdongametime/settings.py
-	sed -i "s/%IP_ADDR%/$1/g" holdongametime/settings.py
-	grep "ALLOWED_HOSTS" holdongametime/settings.py
-	popd
-	pushd /etc/httpd/conf
-	sudo chmod 755 *
-	sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
+	# grep "ALLOWED_HOSTS" holdongametime/settings.py
+	# sed -i "s/%IP_ADDR%/$1/g" holdongametime/settings.py
+	# grep "ALLOWED_HOSTS" holdongametime/settings.py
+	# popd
+	# pushd /etc/httpd/conf
+	# sudo chmod 755 *
+	# sudo cp /home/$USER/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
 
-	sudo cp -v /home/$USER/conf/httpd.conf /etc/httpd/conf
-	#sudo cp -v /home/$USER/conf/Caddyfile /etc/caddy
-	sudo service httpd restart
+	# sudo cp -v /home/$USER/conf/httpd.conf /etc/httpd/conf
+	# #sudo cp -v /home/$USER/conf/Caddyfile /etc/caddy
+	# sudo service httpd restart
 	popd
 }
 
 install_git_deps ()
 {	
-	pushd /opt/holdongametime
-	python3 -m venv django
-	source django/bin/activate
-	pip install -r /home/$USER/gametime/requirements.txt
-	sudo chgrp -R ec2-user /usr/lib64/httpd/
-	sudo chmod -R g+w /usr/lib64/httpd/modules
+	pushd /home/$USER/gametime/revel
+	export GOPATH="/home/$USER/gametime/revel"
+	export PATH=$PATH:$GOPATH/bin
+	go get "github.com/revel/revel"
+	go get "github.com/revel/cmd/revel"
 
-	curl -L -O https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz
-	tar -xvzf 4.7.1.tar.gz
-	cd mod_wsgi-4.7.1
-	./configure --with-python=/opt/holdongametime/django/bin/python
-	make
-	sudo make install
-	deactivate
+
+	#pushd /opt/holdongametime
+
+	#python3 -m venv venv
+	#source venv/bin/activate
+	#pip install -r /home/$USER/gametime/requirements.txt
+	#sudo chgrp -R ec2-user /usr/lib64/httpd/
+	#sudo chmod -R g+w /usr/lib64/httpd/modules
+
+	#curl -L -O https://github.com/GrahamDumpleton/mod_wsgi/archive/4.7.1.tar.gz
+	#tar -xvzf 4.7.1.tar.gz
+	#cd mod_wsgi-4.7.1
+	#./configure --with-python=/opt/holdongametime/django/bin/python
+	#make
+	#sudo make install
+	#deactivate
 	#npm install lessc
 	popd
 }
@@ -99,26 +107,30 @@ get_git_stuff ()
 	sleep 5
 	
 	git clone git@github.com:habruzzo/gametime.git
-	
-	sudo mv gametime/holdongametime /opt
-	sudo chmod -R 775 /opt
+	cd gametime
+	git clone git@github.com:habruzzo/reviews.git
+	cd revel
 
-	sudo ln -s /opt/holdongametime gametime/holdongametime
-	sudo chgrp -R apache /opt
+	#sudo mv gametime/revel/blog_holdongametime /opt
+	#sudo chmod -R 775 /opt
 
-	sudo mkdir /srv/http
-	sudo chmod -R 775 /srv
-	sudo ln -s /opt/holdongametime/static /srv/http/static
-	sudo ln -s /opt/holdongametime/templates /srv/http/templates
+	#sudo ln -s /opt/blog_holdongametime gametime/revel/blog_holdongametime
+	#sudo chgrp -R apache /opt
+
+	#sudo mkdir /srv/http
+	#sudo chmod -R 775 /srv
+	#sudo ln -s /opt/holdongametime/static /srv/http/static
+	#sudo ln -s /opt/holdongametime/templates /srv/http/templates
 	popd
 }
 
 setup_deps ()
 {
-	#sudo yum -y -q install yum-plugin-copr
-	#sudo yum -y -q copr enable @caddy/caddy
-	#sudo yum -y -q install caddy
-	sudo yum -y -q install docker git npm gcc python3 python3-devel python3-pip httpd httpd-devel mod_ssl openssl 
+	sudo yum -y -q install yum-plugin-copr
+	sudo yum -y -q copr enable @caddy/caddy
+	sudo yum -y -q install caddy
+	#sudo yum -y -q install docker git npm gcc python3 python3-devel python3-pip httpd httpd-devel mod_ssl openssl 
+	sudo yum -y -q install docker git gcc golang mercurial postgres psql
 	sudo yum -y -q update
 	#sudo yum -y install epel-release
     #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
@@ -162,7 +174,7 @@ case $1 in
 		#fix_python
 		install_git_deps
 		copy_conf_files
-		sudo reboot
+		#sudo reboot
 		exit
 	;;
 	reload)

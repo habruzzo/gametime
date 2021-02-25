@@ -1,5 +1,5 @@
 :80 {
     root /srv/http
-    file_server /static
-    reverse_proxy localhost:8000 
+    file_server /public
+    reverse_proxy localhost:9000 
 }

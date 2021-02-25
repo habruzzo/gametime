@@ -1,0 +1,33 @@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="footer-bg row ">
+            <div class="col-sm offset-sm-1">
+                <div class="d-flex justify-content-sm-start card-group footer-menu">
+                    <ul class="row">
+                       <!-- <li class="col-xs-1"><a class="card" href='{{url "App.About" }}'>About</a></li>
+                        <li class="col-xs-1"><a class="card" href='{{url "App.Backlog" }}'>Backlog</a></li>
+                        <li class="col-xs-1"><a class="card" href='{{url "App.Posts" }}'>Posts</a></li>
+                        <li class="col-xs-1"><a class="card" href='{{url "App.Contact" }}'>FAQ + Contact</a></li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="justify-content-xs-center col-xs-3">
+                <div class="footer-icon">
+                    <p><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{{if .DevMode}}
+{{template "debug.html" .}}
+{{end}}
+</body>
+</html>

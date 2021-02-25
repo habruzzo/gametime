@@ -1,0 +1,11 @@
+{{set . "title" "About"}}
+{{set . "pageTitle" "about holdon (aka me)"}}
+{{template "base.html" .}}
+
+<div class="card bottom-wrapper">
+	<p>
+	Hi, I'm holdon. I really like to play video games, I think they are fun and fascinating pieces of art. Primarily I like to play games with a good story and some kind of innovative game mechanic. Genre blending, trope subversion, and heavy-handed symbolism are all hallmarks of a game you'll probably find on this site. If it looks fun and/or has a good story, I want to play it. I also have a unabashed love of "Hidden Object Point N Click" games. <a target="_blank" rel="noopener noreferrer" href="https://www.bigfishgames.com/download-games/genres/15/hidden-object.html">These</a> are usually much lower quality but they're so fun. My reviews of these games are much simpler accordingly. I have a long backlog of game titles that I've already played and need to write reviews on, and a shorter backlog of games I haven't played yet. You can find those titles in the <a href="{% url 'backlog' %}">backlog</a>. Everything on this site is my opinion (and even then, some of these opinions are not that strong). If you feel anger because of anything you read on this site, consider stepping away and going outside. Everybody else can hang out as long as you take your shoes off by the door. Thanks.
+	</p>
+</div>
+{{template "App/Format.html" .}}
+{{template "footer.html" .}}

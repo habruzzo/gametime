@@ -2,16 +2,8 @@
 {{set . "pageTitle" .p.Title}}
 {{template "base.html" .}}
     <div class="card bottom-wrapper blog-area-part">
-        <p class=" text-muted">{{.author }} | {{.p.PublishDate }}</p>
+        <p class=" text-muted">{{.author }} | {{datetime .p.PublishDate }}</p>
         <div class="spacer"></div>
-
-        <h5>{{.rev.Overall.Title}}</h5>
-        <table>
-            {{range .rev.Overall.Questions}}
-                {{template "Post/section.html" .}}
-            {{end}}
-        </table>
-        <h3><i class="fa fa-quote-left" aria-hidden="true"></i>{{.rev.Pull}}<i class="fa fa-quote-right" aria-hidden="true"></i></h3>
         {{template "Post/sem.html" .}}
         <div class="ads-area">
         <img src="/static/img/ads.jpg" alt="">

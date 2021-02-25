@@ -10,7 +10,7 @@ type Post struct {
 	GormController
 }
 
-var author = "Me"
+const author = "Me"
 
 func (c Post) Show(slug string) revel.Result {
 	//c.BuildBlogPost()

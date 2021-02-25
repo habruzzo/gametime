@@ -98,6 +98,8 @@
 }
 .single-blog-area h5 {
   font-size: 24px;
+  padding: 15px;
+  margin: 0 -15px;
 }
 .single-blog-area .blog-area-part p {
   margin-top: 30px;
@@ -211,4 +213,7 @@ section.blog-post-area h4 span.author-name {
 }
 .spacer2 {
   height: 30px;
+}
+.table td {
+  border: none;
 }

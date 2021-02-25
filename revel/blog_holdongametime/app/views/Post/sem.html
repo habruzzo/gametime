@@ -1,45 +1,54 @@
 <div class="spacer"></div>
 
-<h5>{{.rev.ArtSkeleton.Title}}</h5>
-<h5>{{.rev.ArtSkeleton.Graphics.Title}}</h5>
-<table>
+<h5 class="row border-bottom">{{.rev.OverallSkeleton.Title}}</h5>
+<table class="table">
+    {{range .rev.OverallSkeleton.Overall.Questions}}
+        {{template "Post/section.html" .}}
+    {{end}}
+</table>
+<div class="spacer"></div>
+<h3><i class="fa fa-quote-left" aria-hidden="true"></i>{{.rev.Pull}}<i class="fa fa-quote-right" aria-hidden="true"></i></h3>
+
+<h5 class="row border-bottom">{{.rev.ArtSkeleton.Title}}</h5>
+<h5 class="row border-top border-bottom">{{.rev.ArtSkeleton.Graphics.Title}}</h5>
+<table class="table">
     {{range .rev.ArtSkeleton.Graphics.Questions}}
         {{template "Post/section.html" .}}
     {{end}}
 </table>
-<h5>{{.rev.ArtSkeleton.Sound.Title}}</h5>
-<table>
+<h5 class="row border-bottom">{{.rev.ArtSkeleton.Sound.Title}}</h5>
+<table class="table">
     {{range .rev.ArtSkeleton.Sound.Questions}}
         {{template "Post/section.html" .}}
     {{end}}
 </table>
-<h5>{{.rev.ArtSkeleton.Story.Title}}</h5>
-<table>
+<h5 class="row border-bottom">{{.rev.ArtSkeleton.Story.Title}}</h5>
+<table class="table">
     {{range .rev.ArtSkeleton.Story.Questions}}
         {{template "Post/section.html" .}}
     {{end}}
 </table>
-<h5>{{.rev.ArtSkeleton.Themes.Title}}</h5>
-<table>
+<h5 class="row border-bottom">{{.rev.ArtSkeleton.Themes.Title}}</h5>
+<table class="table">
     {{range .rev.ArtSkeleton.Themes.Questions}}
         {{template "Post/section.html" .}}
     {{end}}
 </table>
-<h5>{{.rev.GameSkeleton.Title}}</h5>
-<h5>{{.rev.GameSkeleton.Mechanics.Title}}</h5>
-<table>
+<h5 class="row border-bottom">{{.rev.GameSkeleton.Title}}</h5>
+<h5 class="row border-top border-bottom">{{.rev.GameSkeleton.Mechanics.Title}}</h5>
+<table class="table">
     {{range .rev.GameSkeleton.Mechanics.Questions}}
         {{template "Post/section.html" .}}
     {{end}}
 </table>
-<h5>{{.rev.GameSkeleton.Difficulty.Title}}</h5>
-<table>
+<h5 class="row border-bottom">{{.rev.GameSkeleton.Difficulty.Title}}</h5>
+<table class="table">
     {{range .rev.GameSkeleton.Difficulty.Questions}}
         {{template "Post/section.html" .}}
     {{end}}
 </table>
-<h5>{{.rev.GameSkeleton.Experience.Title}}</h5>
-<table>
+<h5 class="row border-bottom">{{.rev.GameSkeleton.Experience.Title}}</h5>
+<table class="table">
     {{range .rev.GameSkeleton.Experience.Questions}}
         {{template "Post/section.html" .}}
     {{end}}

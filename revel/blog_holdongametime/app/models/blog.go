@@ -33,11 +33,17 @@ type GameSection struct {
 	Experience ReviewSection `json:"experience"`
 }
 
+type OverallSection struct {
+	Title   string        `json:"title"`
+	Overall ReviewSection `json:"overall"`
+}
+
 type ReviewSkeleton struct {
-	Overall      ReviewSection `json:"overall"`
-	ArtSkeleton  ArtSection    `json:"art"`
-	GameSkeleton GameSection   `json:"game"`
-	Pull         string        `json:"pull"`
+	OverallSkeleton OverallSection `json:"overall"`
+	ArtSkeleton     ArtSection     `json:"art"`
+	GameSkeleton    GameSection    `json:"game"`
+	Pull            string         `json:"pull"`
+	Pics            []string       `json:"imgs"`
 }
 
 func NewReviewSkeleton(path string) *ReviewSkeleton {

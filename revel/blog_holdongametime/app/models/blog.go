@@ -2,7 +2,6 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 )
 
@@ -58,13 +57,4 @@ func NewReviewSkeleton(path string) *ReviewSkeleton {
 		panic(err)
 	}
 	return &r
-}
-
-func (r ReviewSkeleton) BuildPostToTemplate() {
-	//r := NewReviewSkeleton(p.contentPath)
-
-}
-
-func (r ReviewSkeleton) Value() string {
-	return fmt.Sprintf("%s", r.Pull)
 }

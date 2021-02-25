@@ -1,6 +1,3 @@
-https://djangocentral.com/building-a-blog-application-with-django/
-
-https://modwsgi.readthedocs.io/en/develop/user-guides/configuration-guidelines.html#defining-application-groups
 "holdon Game Time"
 
 holdongametime.com
@@ -8,69 +5,49 @@ holdongametime.com
 logo?
 draw something on krita nbd
 
-twitter: holdongametime
+twitter: holdongametime ~
 instagram: holdongametime
 
-django
 to-do:
-
-quick
--add/sort games to lists
--write reviews
--polish site UI 
-	-about MVP --mostly done
-	-backlog not MVP/maybe MVP
-	-posts MVP --mostly done
-	-format not MVP/maybe MVP
-	-home MVP
-	-faq not MVP
-	-why did footer icons disappear? MVP
-	-fix comments format -> not MVP <--add comments back, create comment db
--logo
-
-
-medium
--create mailing list
--deploy publicly MVP ---done!
-	-hook up DNS, not done yet i think
--claim social accounts
--database migration MVP
 
 
 
 slow
 
 TO-DO:
-
+home finish
+contact finish
+docker postgres container
+caddy https
+backlog finish
+mailing list
+ads
+write 4 more reviews
+tags
+comments
+social media
 
 V1:
-https
-write wandersong review
-finish format page-
-finish contact page
-finish home page
-finish posts page
-finish blog page
+home finish
+contact finish
+caddy https
+postgres
 
 V2
-finish game tool
-finish backlog page
-finish review tool
-finish faq tool
-finish mailing list 
+backlog finish
+mailing list
+ads
 write 4 more reviews
-finish ads
-finish tags
+tags
 
 V3
-finish bug tool
-finish comments section
-finish social media bot
-improve ui
-site versioning
+comments
+social media bot
 
-V4:
-
+backlog finish:
+	-get game list from big fish?
+	-fill out games db (migration tool)
+	
 
 combination of "personal" blog posts and "reviews"
 

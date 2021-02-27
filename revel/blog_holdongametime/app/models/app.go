@@ -23,13 +23,6 @@ const (
 	Discarded            = "Discarded"
 )
 
-type PublishStatus string
-
-const (
-	Draft   PublishStatus = "Draft"
-	Publish               = "Publish"
-)
-
 type BugStatus string
 
 const (
@@ -96,10 +89,8 @@ func NewGame(title string, slug string, platform PlatformType, publisher string,
 }
 
 type PostJson struct {
-	Title  string
-	Slug   string
-	Status PublishStatus
-	Rating int
+	Title string
+	Slug  string
 }
 
 type Post struct {
@@ -108,19 +99,17 @@ type Post struct {
 	Title       string
 	Slug        string
 	GameId      uint
-	Status      PublishStatus
 	ContentPath string
 	Rating      int
 	PublishDate time.Time
 }
 
-func NewPost(title string, gameId uint, slug string, status PublishStatus, contentPath string, rating int, publishDate time.Time) *Post {
+func NewPost(title string, gameId uint, slug string, contentPath string, rating int, publishDate time.Time) *Post {
 	return &Post{
 		//Id:          generateId(title),
 		Title:       title,
 		Slug:        slug,
 		GameId:      gameId,
-		Status:      status,
 		ContentPath: contentPath,
 		Rating:      rating,
 		PublishDate: publishDate,

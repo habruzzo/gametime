@@ -73,6 +73,7 @@ install_git_deps ()
 	cd /home/$USER/gametime/revel
 	export GOPATH="/home/$USER/gametime/revel"
 	export PATH=$PATH:$GOPATH/bin
+	echo "go getting"
 	go get "github.com/revel/revel"
 	go get "github.com/revel/cmd/revel"
 

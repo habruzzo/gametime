@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 )
 
-const JsonPath = "/opt/gametime/reviews/"
+const JsonPath = "/opt/gametime/reviews/json/"
 
 type Question struct {
 	Question string `json:"question"`

@@ -1,6 +1,8 @@
 #!/bin/python
-PATH_PREFIX = "/opt/gametime/reviews/"
-FILENAME = "paradise_killer"
+import re
+CSV_PREFIX = "/opt/gametime/reviews/csv/"
+JSON_PREFIX = "/opt/gametime/reviews/json/"
+SLUG = "80_days"
 
 class Segment():
     question = ""
@@ -19,6 +21,7 @@ def fill_list(lst, line):
     col_ctr = 0
     if len(row_list) != 8:
         print("problem")
+        print(line)
         print(len(row_list))
         exit(1)
     for i in lst:
@@ -27,14 +30,17 @@ def fill_list(lst, line):
         col_ctr = col_ctr + 2
     
 def parse_csv ():
-    f = open(PATH_PREFIX + FILENAME + ".csv", "r")
+    f = open(CSV_PATH_PREFIX + SLUG + ".csv", "r")
     r = Review()
     section = 0
     file_list = f.readlines()
     f.close()
+    comma = re.compile(",,,,,,,(.*)")
     for line in file_list:
         if section == 0:
-            if line.startswith(","):
+            if comma.match(line):
+                print("end of part 1")
+                print(line)
                 section = 1
             if not line.startswith("GRAPHICS") and not line.startswith("ART"):
                 fill_list(r.art, line)
@@ -54,7 +60,7 @@ def fill_final_list(final_list, review_list, name, title):
     final_list.append("</{}>\n".format(name))
 
 def print_xml(review):
-    f = open(PATH_PREFIX + FILENAME + ".xml", "w")
+    f = open(PATH_PREFIX + SLUG + ".xml", "w")
     final_list = ["<review>\n"]
     fill_final_list(final_list, review.game[3], "overall", "Overall")
     final_list.append("<art><title>Art:</title>\n")
@@ -90,11 +96,10 @@ def fill_final_list_json(final_list, review_list, name, title, extra_tab=True):
     final_list.append(tab_str[1] + ']\n' + tab_str[0] + '},\n')
 
 def print_json(review):
-    f = open(PATH_PREFIX + FILENAME + ".json", "w")
+    f = open(JSON_PATH_PREFIX + SLUG + ".json", "w")
     final_list = ['{\n']
     final_list.append('\t"overall":{\n\t\t"title":"Overall:",\n')
     fill_final_list_json(final_list, review.game[3], "overall", "Overall")
-    final_list[-1] = remove_trailing_comma(final_list[-1])
     final_list.append('\t"art":{\n\t\t"title":"Art:",\n')
     fill_final_list_json(final_list, review.art[0], "graphics", "Graphics")
     fill_final_list_json(final_list, review.art[1], "sound", "Sound")
@@ -107,7 +112,7 @@ def print_json(review):
     fill_final_list_json(final_list, review.game[1], "difficulty", "Difficulty")
     fill_final_list_json(final_list, review.game[2], "experience", "Experience")
     final_list[-1] = remove_trailing_comma(final_list[-1])
-    final_list.append("\t}\n")
+    final_list.append("\t},\n")
     final_list.append('\t"pull":"",\n')
     final_list.append('\t"imgs":["","",""]')
     final_list.append('}')

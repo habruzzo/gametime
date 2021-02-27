@@ -14,9 +14,9 @@ import (
 )
 
 // HOLDEN's
-const jsonSlugPath = "/opt/gametime/reviews/review_map.json"
-const jsonGamePath = "/opt/gametime/reviews/game_list.json"
-const jsonPostPath = "/opt/gametime/reviews/post_list.json"
+const jsonSlugPath = "/opt/gametime/reviews/json/review_map.json"
+const jsonGamePath = "/opt/gametime/reviews/json/game_list.json"
+const jsonPostPath = "/opt/gametime/reviews/json/post_list.json"
 
 var jsonMapping map[string]string
 

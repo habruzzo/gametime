@@ -13,12 +13,9 @@ type Post struct {
 const author = "Me"
 
 func (c Post) Show(slug string) revel.Result {
-	//c.BuildBlogPost()
-	//jsonMapping := loadSlugs()
-	var p models.Post
-	if err := c.DB.Where("slug=?", slug).Find(&p).Error; err != nil {
-		panic(err)
-	}
-	rev := models.NewReviewSkeleton(p.ContentPath)
+
+	p, pathString := c.GetPostAndFile(slug)
+
+	rev := models.NewReviewSkeleton(pathString)
 	return c.Render(rev, p, author)
 }

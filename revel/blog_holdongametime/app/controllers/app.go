@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"blog_holdongametime/app/models"
-
 	"github.com/revel/revel"
 )
 
@@ -19,12 +17,8 @@ func (c App) About() revel.Result {
 }
 
 func (c App) Posts() revel.Result {
-	var p []models.Post
 	var author = "Me"
-	result := c.DB.Order("publish_date desc").Find(&p)
-	if result.Error != nil {
-		panic(result.Error)
-	}
+	p := c.GetPostList()
 	return c.Render(p, author)
 }
 

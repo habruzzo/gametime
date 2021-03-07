@@ -2,7 +2,7 @@
 {{set . "pageTitle" .p.Title}}
 {{template "base.html" .}}
     <div class="card bottom-wrapper blog-area-part">
-        <p class=" text-muted">{{.author }} | {{datetime .p.PublishDate }}</p>
+        <p class=" text-muted">{{.author }} | {{.p.PublishDate }}</p>
         <div class="spacer"></div>
         {{template "Post/sem.html" .}}
         <div class="ads-area">

@@ -7,7 +7,7 @@
 			<tr class="row">
 				<td class="card col-sm blog-list-item">
 					<div class="blog-list-title">{{.Title }}</div>
-					<p class="blog-list-date">Me | {{datetime .PublishDate}} </p>
+					<p class="blog-list-date">Me | {{.PublishDate}} </p>
 					<a href='{{ url "Post.Show" .Slug}}' class="blog-list-read-more">Read More &rarr;</a>
 				</td>
 			</tr>

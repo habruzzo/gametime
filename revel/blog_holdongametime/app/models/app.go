@@ -2,12 +2,12 @@ package models
 
 import (
 	"fmt"
-
-	"github.com/jinzhu/gorm"
+	"hash/fnv"
 
 	"encoding/json"
-	"hash/fnv"
-	"time"
+
+	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type GameStatus string
@@ -45,21 +45,38 @@ const (
 )
 
 type Tag struct {
-	gorm.Model
-	id    uint32
+	id    uuid.UUID
 	value string
 }
 
 func NewTag(value string) *Tag {
 	return &Tag{
-		id:    generateId(value),
+		id:    uuid.New(),
 		value: value,
 	}
 }
 
-type Game struct {
+type JsonMapping struct {
 	gorm.Model
-	//Id          uint32
+	Slug string `redis:"slug"`
+	File string `redis:"file"`
+}
+
+type Game struct {
+	Id          uuid.UUID    `redis:"id"`
+	Title       string       `redis:"title"`
+	Slug        string       `redis:"slug"`
+	Platform    PlatformType `redis:"platform"`
+	Publisher   string       `redis:"publisher"`
+	Creator     string       `redis:"creator"`
+	ReleaseDate string       `redis:"release"`
+	SteamLink   string       `redis:"steam"`
+	Status      GameStatus   `redis:"status"`
+}
+
+type GormGame struct {
+	gorm.Model
+	Id          string `gorm:"primaryKey"`
 	Title       string
 	Slug        string
 	Platform    PlatformType
@@ -67,7 +84,7 @@ type Game struct {
 	Creator     string
 	ReleaseDate string
 	SteamLink   string
-	Status      GameStatus
+	Status      GameStatus `gorm:"index"`
 }
 
 func (g Game) Value() ([]byte, error) {
@@ -76,7 +93,22 @@ func (g Game) Value() ([]byte, error) {
 
 func NewGame(title string, slug string, platform PlatformType, publisher string, creator string, releaseDate string, steamLink string, status GameStatus) *Game {
 	return &Game{
-		//Id:          generateId(title),
+		Id:          uuid.New(),
+		Title:       title,
+		Slug:        slug,
+		Platform:    platform,
+		Publisher:   publisher,
+		Creator:     creator,
+		ReleaseDate: releaseDate,
+		SteamLink:   steamLink,
+		Status:      status,
+	}
+}
+
+func NewGormGame(title string, slug string, platform PlatformType, publisher string, creator string, releaseDate string, steamLink string, status GameStatus) *GormGame {
+	id := generateId(slug, "game")
+	return &GormGame{
+		Id:          id,
 		Title:       title,
 		Slug:        slug,
 		Platform:    platform,
@@ -89,38 +121,66 @@ func NewGame(title string, slug string, platform PlatformType, publisher string,
 }
 
 type PostJson struct {
-	Title string
-	Slug  string
+	Title       string
+	Slug        string
+	PublishDate string
+	Index       int
 }
 
 type Post struct {
-	gorm.Model
-	//Id          uint32
-	Title       string
-	Slug        string
-	GameId      uint
-	ContentPath string
-	Rating      int
-	PublishDate time.Time
+	Id          uuid.UUID `redis:"id"`
+	Title       string    `redis:"title"`
+	Slug        string    `redis:"slug"`
+	GameId      string    `redis:"gameId"`
+	ContentPath string    `redis:"contentPath"`
+	PublishDate string    `redis:"publishDate"`
+	Index       int       `redis:"postIndex"`
 }
 
-func NewPost(title string, gameId uint, slug string, contentPath string, rating int, publishDate time.Time) *Post {
+type GormPost struct {
+	gorm.Model
+	Id          string `gorm:"primaryKey"`
+	Title       string
+	Slug        string
+	GameId      string
+	ContentPath string
+	PublishDate string
+}
+
+func NewPost(title string, gameId string, slug string, contentPath string, publishDate string, index int) *Post {
 	return &Post{
-		//Id:          generateId(title),
+		Id:          uuid.New(),
 		Title:       title,
 		Slug:        slug,
 		GameId:      gameId,
 		ContentPath: contentPath,
-		Rating:      rating,
+		PublishDate: publishDate,
+		Index:       index,
+	}
+}
+
+func NewGormPost(title string, gameId string, slug string, contentPath string, publishDate string) *GormPost {
+	id := generateId(slug, "post")
+	return &GormPost{
+		Id:          id,
+		Title:       title,
+		Slug:        slug,
+		GameId:      gameId,
+		ContentPath: contentPath,
 		PublishDate: publishDate,
 	}
 }
 
 func (p *Post) Value() string {
-	return fmt.Sprintf("%s %s %s %s %s %s", p.Title, p.Slug, p.GameId, p.Status, p.Rating, p.ContentPath)
+	return fmt.Sprintf("%s %s %s %s", p.Title, p.Slug, p.GameId, p.ContentPath)
 }
 
-func generateId(title string) uint32 {
+func generateId(slug string, prefix string) string {
+	sum := generateHashSum(slug)
+	return fmt.Sprintf("%s-%v", prefix, sum)
+}
+
+func generateHashSum(title string) uint32 {
 	h := fnv.New32a()
 	h.Write([]byte(title))
 	return h.Sum32()

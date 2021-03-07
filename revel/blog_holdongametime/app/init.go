@@ -1,24 +1,8 @@
 package app
 
 import (
-	"blog_holdongametime/app/controllers"
-	"blog_holdongametime/app/models"
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"time"
-
-	"github.com/jinzhu/gorm"
-	_ "github.com/lib/pq"
 	"github.com/revel/revel"
 )
-
-// HOLDEN's
-const jsonSlugPath = "/opt/gametime/reviews/json/review_map.json"
-const jsonGamePath = "/opt/gametime/reviews/json/game_list.json"
-const jsonPostPath = "/opt/gametime/reviews/json/post_list.json"
-
-var jsonMapping map[string]string
 
 var (
 	// AppVersion revel app version (ldflags)
@@ -27,107 +11,6 @@ var (
 	// BuildTime revel app build-time (ldflags)
 	BuildTime string
 )
-
-// HOLDEN's
-type JsonMapping struct {
-	Slug string
-	File string
-}
-
-// HOLDEN's
-func LoadSlugs() {
-	data, err := ioutil.ReadFile(jsonSlugPath)
-	if err != nil {
-		panic(err)
-	}
-	var j []JsonMapping
-	err = json.Unmarshal(data, &j)
-	if err != nil {
-		panic(err)
-	}
-	for _, v := range j {
-		jsonMapping[v.Slug] = v.File
-		//fmt.Println(jsonMapping[v.Slug])
-	}
-}
-
-func LoadGames() []*models.Game {
-	data, err := ioutil.ReadFile(jsonGamePath)
-	if err != nil {
-		panic(err)
-	}
-	var g []models.Game
-	err = json.Unmarshal(data, &g)
-	if err != nil {
-		panic(err)
-	}
-	var gClean []*models.Game
-	for _, v := range g {
-		gClean = append(gClean, models.NewGame(v.Title, v.Slug, v.Platform, v.Publisher, v.Creator, v.ReleaseDate, v.SteamLink, v.Status))
-	}
-	return gClean
-}
-
-func LoadPosts(db *gorm.DB) []*models.Post {
-	data, err := ioutil.ReadFile(jsonPostPath)
-	if err != nil {
-		panic(err)
-	}
-	var p []models.PostJson
-	err = json.Unmarshal(data, &p)
-	if err != nil {
-		panic(err)
-	}
-	var pClean []*models.Post
-	for _, v := range p {
-		var g models.Game
-		result := db.First(&g)
-		if result.Error != nil {
-			fmt.Println("FATAL", result.Error)
-			panic(result.Error)
-		}
-		pClean = append(pClean, models.NewPost(v.Title, g.ID, v.Slug, v.Status, jsonMapping[v.Slug], v.Rating, time.Now()))
-	}
-	return pClean
-}
-
-func InitDB() {
-	var err error
-	// init db
-
-	controllers.Gdb, err = gorm.Open("postgres", "user=postgres dbname=test_db sslmode=disable")
-	fmt.Println("LOADED DB")
-	controllers.Gdb.LogMode(true) // Print SQL statements
-	if err != nil {
-		fmt.Println("FATAL", err)
-		panic(err)
-	}
-	controllers.Gdb.AutoMigrate(&models.Game{})
-	controllers.Gdb.AutoMigrate(&models.Post{})
-
-	LoadSlugs()
-	games := LoadGames()
-
-	for _, v := range games {
-		if err := controllers.Gdb.Where("slug=?", v.Slug).First(&models.Game{}).Error; err != nil {
-			if err := controllers.Gdb.Create(v).Error; err != nil {
-				fmt.Println("FATAL", err)
-				panic(err)
-			}
-		}
-	}
-
-	posts := LoadPosts(controllers.Gdb)
-	for _, v := range posts {
-		if err := controllers.Gdb.Where("slug=?", v.Slug).First(&models.Post{}).Error; err != nil {
-			if err := controllers.Gdb.Create(v).Error; err != nil {
-				fmt.Println("FATAL", err)
-				panic(err)
-			}
-		}
-	}
-
-}
 
 func init() {
 	// Filters is the default set of global filters.
@@ -151,11 +34,6 @@ func init() {
 	// revel.DevMode and revel.RunMode only work inside of OnAppStart. See Example Startup Script
 	// ( order dependent )
 	// revel.OnAppStart(ExampleStartupScript)
-
-	// HOLDEN's
-	jsonMapping = make(map[string]string)
-	revel.OnAppStart(InitDB)
-	revel.OnAppStart(LoadSlugs)
 
 	// revel.OnAppStart(FillCache)
 }

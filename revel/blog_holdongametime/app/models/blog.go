@@ -2,7 +2,10 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
+
+	"gorm.io/gorm"
 )
 
 const JsonPath = "/opt/gametime/reviews/json/"
@@ -14,7 +17,7 @@ type Question struct {
 
 type ReviewSection struct {
 	Title     string     `json:"title"`
-	Questions []Question `json:"questions"`
+	Questions []Question `gorm:"foreignKey:ID"`
 }
 
 type ArtSection struct {
@@ -45,6 +48,12 @@ type ReviewSkeleton struct {
 	Pics            []string       `json:"imgs"`
 }
 
+type Review struct {
+	gorm.Model
+	Path string
+	R    *ReviewSkeleton
+}
+
 func NewReviewSkeleton(path string) *ReviewSkeleton {
 	var r ReviewSkeleton
 	fullPath := JsonPath + path
@@ -54,6 +63,7 @@ func NewReviewSkeleton(path string) *ReviewSkeleton {
 	}
 	err = json.Unmarshal(data, &r)
 	if err != nil {
+		fmt.Println(string(data))
 		panic(err)
 	}
 	return &r

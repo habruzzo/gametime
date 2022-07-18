@@ -176,7 +176,7 @@ def print_json_ho(review):
     f = open(JSON_PREFIX + SLUG + ".json", "w")
     final_list = ['{\n']
     final_list.append('\t"overall":{\n\t\t"title":"Overall:",\n')
-    fill_final_list_json_ho(final_list, review.game[3], "overall", "Overall")
+    fill_final_list_json_ho(final_list, review.game[3], "overall", "Overall", False)
     final_list.append("\t},\n")
     final_list.append('\t"art":{\n\t\t"title":"Art:",\n')
     fill_final_list_json_ho(final_list, review.art[0], "graphics", "Graphics")

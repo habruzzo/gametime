@@ -83,8 +83,9 @@ type GormGame struct {
 	Publisher   string
 	Creator     string
 	ReleaseDate string
-	SteamLink   string
+	GamesDbLink string
 	Status      GameStatus `gorm:"index"`
+	Images      string
 }
 
 func (g Game) Value() ([]byte, error) {
@@ -105,8 +106,8 @@ func NewGame(title string, slug string, platform PlatformType, publisher string,
 	}
 }
 
-func NewGormGame(title string, slug string, platform PlatformType, publisher string, creator string, releaseDate string, steamLink string, status GameStatus) *GormGame {
-	id := generateId(slug, "game")
+func NewGormGame(title string, slug string, platform PlatformType, publisher string, creator string, releaseDate string, gamesDbLink string, status GameStatus, imgs string) *GormGame {
+	id := GenerateId(slug, "game")
 	return &GormGame{
 		Id:          id,
 		Title:       title,
@@ -115,8 +116,9 @@ func NewGormGame(title string, slug string, platform PlatformType, publisher str
 		Publisher:   publisher,
 		Creator:     creator,
 		ReleaseDate: releaseDate,
-		SteamLink:   steamLink,
+		GamesDbLink: gamesDbLink,
 		Status:      status,
+		Images:      imgs,
 	}
 }
 
@@ -142,7 +144,7 @@ type GormPost struct {
 	Id          string `gorm:"primaryKey"`
 	Title       string
 	Slug        string
-	GameId      string
+	Game        *GormGame `gorm:"foreignKey:Id"`
 	ContentPath string
 	PublishDate string
 }
@@ -159,13 +161,13 @@ func NewPost(title string, gameId string, slug string, contentPath string, publi
 	}
 }
 
-func NewGormPost(title string, gameId string, slug string, contentPath string, publishDate string) *GormPost {
-	id := generateId(slug, "post")
+func NewGormPost(title string, game *GormGame, slug string, contentPath string, publishDate string) *GormPost {
+	id := GenerateId(slug, "post")
 	return &GormPost{
 		Id:          id,
 		Title:       title,
 		Slug:        slug,
-		GameId:      gameId,
+		Game:        game,
 		ContentPath: contentPath,
 		PublishDate: publishDate,
 	}
@@ -175,7 +177,7 @@ func (p *Post) Value() string {
 	return fmt.Sprintf("%s %s %s %s", p.Title, p.Slug, p.GameId, p.ContentPath)
 }
 
-func generateId(slug string, prefix string) string {
+func GenerateId(slug string, prefix string) string {
 	sum := generateHashSum(slug)
 	return fmt.Sprintf("%s-%v", prefix, sum)
 }

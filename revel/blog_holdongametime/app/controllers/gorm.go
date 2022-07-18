@@ -30,11 +30,11 @@ func (c *GormController) SetDB() revel.Result {
 	return nil
 }
 
-func (c *GormController) GetPostAndFile(slug string) (models.GormPost, string) {
+func (c *GormController) GetPost(slug string) models.GormPost {
 	var post models.GormPost
 	c.DB.Where("slug=?", slug).First(&post)
 
-	return post, post.ContentPath
+	return post
 }
 
 func (c *GormController) GetPostList() []models.GormPost {
@@ -45,6 +45,22 @@ func (c *GormController) GetPostList() []models.GormPost {
 		panic(result.Error)
 	}
 	return p
+}
+
+func (c *GormController) BuildReviewSkeleton(slug string) *models.ReviewSkeleton {
+	var r models.Review
+	c.DB.Where("id=?", models.GenerateId(slug, "review")).First(&r)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	panic(err)
+	// }
+	var rs models.ReviewSkeleton
+	err := json.Unmarshal(r.JsonBytes, &rs)
+	if err != nil {
+		fmt.Println(string(r.JsonBytes))
+		panic(err)
+	}
+	return &rs
 }
 
 func LoadGormSlugs() []JsonMapping {
@@ -72,7 +88,7 @@ func LoadGormGames() []*models.GormGame {
 	}
 	var gClean []*models.GormGame
 	for _, v := range g {
-		gClean = append(gClean, models.NewGormGame(v.Title, v.Slug, v.Platform, v.Publisher, v.Creator, v.ReleaseDate, v.SteamLink, v.Status))
+		gClean = append(gClean, models.NewGormGame(v.Title, v.Slug, v.Platform, v.Publisher, v.Creator, v.ReleaseDate, v.GamesDbLink, v.Status, v.Images))
 	}
 	return gClean
 }
@@ -97,7 +113,7 @@ func LoadGormPosts(gdb *gorm.DB) []*models.GormPost {
 			panic(result.Error)
 		}
 		path := fmt.Sprintf("%s.json", v.Slug)
-		pClean = append(pClean, models.NewGormPost(v.Title, g.Id, v.Slug, path, v.PublishDate))
+		pClean = append(pClean, models.NewGormPost(v.Title, &g, v.Slug, path, v.PublishDate))
 	}
 	return pClean
 }
@@ -105,11 +121,7 @@ func LoadGormPosts(gdb *gorm.DB) []*models.GormPost {
 func LoadReviews(posts []*models.GormPost) []*models.Review {
 	var rClean []*models.Review
 	for _, v := range posts {
-		review := models.Review{
-			Path: v.ContentPath,
-			R:    models.NewReviewSkeleton(v.ContentPath),
-		}
-		rClean = append(rClean, &review)
+		rClean = append(rClean, models.NewReview(v))
 	}
 	return rClean
 }
@@ -124,7 +136,7 @@ func InitGormDB() {
 	}
 	Gdb.AutoMigrate(&models.GormGame{})
 	Gdb.AutoMigrate(&models.GormPost{})
-	//Gdb.AutoMigrate(&models.Review{})
+	Gdb.AutoMigrate(&models.Review{})
 
 	// slugs := LoadGormSlugs()
 	// for _, v := range slugs {
@@ -156,14 +168,14 @@ func InitGormDB() {
 		}
 	}
 
-	// revs := LoadReviews(posts)
-	// for _, v := range revs {
-	// 	if err := Gdb.Where("path=?", v.Path).First(&models.Review{}).Error; err != nil {
-	// 		if err := Gdb.Create(v).Error; err != nil {
-	// 			fmt.Println("FATAL", err)
-	// 			panic(err)
-	// 		}
-	// 	}
-	// }
+	revs := LoadReviews(posts)
+	for _, v := range revs {
+		if err := Gdb.Where("path=?", v.Path).First(&models.Review{}).Error; err != nil {
+			if err := Gdb.Create(v).Error; err != nil {
+				fmt.Println("FATAL", err)
+				panic(err)
+			}
+		}
+	}
 
 }

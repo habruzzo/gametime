@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"blog_holdongametime/app/models"
-
 	"github.com/revel/revel"
 )
 
@@ -14,8 +12,8 @@ const author = "Me"
 
 func (c Post) Show(slug string) revel.Result {
 
-	p, pathString := c.GetPostAndFile(slug)
+	p := c.GetPost(slug)
 
-	rev := models.NewReviewSkeleton(pathString)
+	rev := c.BuildReviewSkeleton(slug)
 	return c.Render(rev, p, author)
 }

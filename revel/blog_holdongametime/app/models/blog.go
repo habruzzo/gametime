@@ -1,8 +1,6 @@
 package models
 
 import (
-	"encoding/json"
-	"fmt"
 	"io/ioutil"
 
 	"gorm.io/gorm"
@@ -50,21 +48,24 @@ type ReviewSkeleton struct {
 
 type Review struct {
 	gorm.Model
-	Path string
-	R    *ReviewSkeleton
+	Id        string
+	Post      *GormPost `gorm:"foreignKey:Id"`
+	Path      string
+	JsonBytes []byte
 }
 
-func NewReviewSkeleton(path string) *ReviewSkeleton {
-	var r ReviewSkeleton
-	fullPath := JsonPath + path
+func NewReview(p *GormPost) *Review {
+	id := GenerateId(p.Slug, "review")
+	fullPath := JsonPath + p.ContentPath
 	data, err := ioutil.ReadFile(fullPath)
 	if err != nil {
 		panic(err)
 	}
-	err = json.Unmarshal(data, &r)
-	if err != nil {
-		fmt.Println(string(data))
-		panic(err)
+	return &Review{
+		Id:        id,
+		Post:      p,
+		Path:      p.ContentPath,
+		JsonBytes: data,
 	}
-	return &r
+
 }

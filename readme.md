@@ -15,9 +15,8 @@ to-do:
 slow
 
 TO-DO:
-home finish
+home finish --find images
 contact finish
-docker postgres container
 caddy https
 backlog finish
 mailing list
@@ -67,3 +66,15 @@ store online, in private github? and then download them onto memory
 tool to build page from rubric
 tool to save page into some storage
 tool to load articles
+
+review process:
+fill out google sheet
+replace commas with &
+download as csv
+parse csv to json
+add post to list
+load json into db
+
+either add game to json or run game tool
+
+improve tooling!

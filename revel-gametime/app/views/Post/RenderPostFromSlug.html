@@ -1,0 +1,16 @@
+{{set . "title" "post"}}
+{{set . "pageTitle" .prb.Review.Game.Title}}
+{{template "base.html" .}}
+    <div class="card bottom-wrapper blog-area-part">
+        <p class="text-muted">{{.prb.Review.Author.Name }} | {{.prb.Post.Date }}</p>
+        <div class="spacer"></div>
+        {{template "Post/sem.html" .}}
+        <div class="ads-area">
+        <img src="/static/img/ads.jpg" alt="">
+        <p>Your Ad Banner Goes Here</p>
+        </div>
+    </div>
+
+</div>
+{{template "footer.html" .}}
+

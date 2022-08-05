@@ -15,9 +15,8 @@ to-do:
 slow
 
 TO-DO:
-home finish
+home finish --find images
 contact finish
-docker postgres container
 caddy https
 backlog finish
 mailing list
@@ -67,3 +66,50 @@ store online, in private github? and then download them onto memory
 tool to build page from rubric
 tool to save page into some storage
 tool to load articles
+
+review process:
+fill out google sheet
+replace commas with &
+download as csv
+parse csv to json
+add post to list
+load json into db
+
+either add game to json or run game tool
+
+improve tooling!
+
+dgraph schema:
+<review>: uid .
+<reviewAuthor>: string @index(exact) @lang .
+<reviewSlug>: string @index(exact, term, fulltext) @lang .
+<reviewText>: string @lang .
+
+<game>: uid .
+<gameTitle>: string @index(exact, term, fulltext) @lang .
+<gameDetails>: string @index(exact, term, fulltext) @lang .
+
+<post>: uid .
+<postDate>: datetime .
+<postAuthor>: string @index(exact) @lang .
+
+
+type Review {
+	reviewAuthor
+	reviewSlug
+	reviewText
+	game
+}
+
+type Game {
+	gameTitle
+	gameDetails
+}
+
+type Post {
+	review
+	game
+	postDate
+	postAuthor
+}
+

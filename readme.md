@@ -78,3 +78,38 @@ load json into db
 either add game to json or run game tool
 
 improve tooling!
+
+dgraph schema:
+<review>: uid .
+<reviewAuthor>: string @index(exact) @lang .
+<reviewSlug>: string @index(exact, term, fulltext) @lang .
+<reviewText>: string @lang .
+
+<game>: uid .
+<gameTitle>: string @index(exact, term, fulltext) @lang .
+<gameDetails>: string @index(exact, term, fulltext) @lang .
+
+<post>: uid .
+<postDate>: datetime .
+<postAuthor>: string @index(exact) @lang .
+
+
+type Review {
+	reviewAuthor
+	reviewSlug
+	reviewText
+	game
+}
+
+type Game {
+	gameTitle
+	gameDetails
+}
+
+type Post {
+	review
+	game
+	postDate
+	postAuthor
+}
+

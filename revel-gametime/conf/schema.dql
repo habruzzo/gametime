@@ -1,0 +1,38 @@
+review: string @index(exact).
+reviewText: string @lang .
+
+game: uid .
+gameTitle: string @index(exact, term, fulltext) @lang .
+gameDetails: string @index(exact, term, fulltext) @lang .
+
+post: uid .
+author: uid .
+pull: string @index(term, fulltext) @lang .
+img: [string] @index(fulltext) .
+authorName: string @index(exact) @lang .
+slug: string @index(exact, term, fulltext) @lang .
+postDate: datetime @index(hour) .
+
+type Author {
+	authorName
+}
+
+type Review {
+	reviewText
+	game
+	slug
+	author
+	pull
+	img
+	post
+}
+
+type Game {
+	gameTitle
+	gameDetails
+}
+
+type Post {
+	review
+	postDate
+}

@@ -1,0 +1,33 @@
+{{set . "title" "Home"}}
+{{set . "pageTitle" "home"}}
+{{template "base.html" .}}
+
+<div class="card bottom-wrapper">
+    <table class="table">
+        <tr class="link-tile">
+            {{set . "link" "App.About"}}
+            {{set . "text" "About me and this website"}}
+            {{set . "img" "about-img.jpg"}}
+            {{template "App/tile.html" .}}
+        </tr>
+        <tr class="link-tile">
+            {{set . "link" "App.Backlog"}}
+            {{set . "text" "My backlog of game reviews. You can see what I'm working on"}}
+            {{set . "img" "backlog-img.jpg"}}
+            {{template "App/tile.html" .}}
+        </tr>
+        <tr class="link-tile">
+            {{set . "link" "App.Posts"}}
+            {{set . "text" "The master list"}}
+            {{set . "img" "post-img.jpg"}}
+            {{template "App/tile.html" .}}
+        </tr>
+        <tr class="link-tile">
+            {{set . "link" "App.Contact"}}
+            {{set . "text" "How to contact me. Also I have an faq here if you're confused about something"}}
+            {{set . "img" "contact-img.jpg"}}
+            {{template "App/tile.html" .}}
+        </tr>              
+    </table>
+</div>
+{{template "footer.html" .}}

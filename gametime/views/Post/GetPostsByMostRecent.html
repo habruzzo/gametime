@@ -1,0 +1,16 @@
+{{template "base.html" .}}
+<div class="card-group bottom-wrapper">
+	<table class="table">
+		{{range .Prb }}
+			<tr class="row">
+				<td class="card col-sm blog-list-item">
+					<div class="blog-list-title">{{.Review.Game.Title}}</div>
+					<p class="blog-list-date">{{.Review.Author.Name}} | {{.Post.Date}} </p>
+					<a href='{{ post_url .Review.Slug}}' class="blog-list-read-more">Read More &rarr;</a>
+				</td>
+			</tr>
+		{{end}}
+	</table>
+</div>
+{{template "footer.html" .}}
+

@@ -1,0 +1,34 @@
+{{template "base.html" .}}
+<div class="card bottom-wrapper">
+	<p>
+		REVIEW BACKLOG --COMING SOON--
+		<table>
+			{% for game in game_review_list %}
+			{% endfor %}
+			game review backlog
+		</table>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		GAME BACKLOG --COMING SOON--
+		<table>
+			{% for game in game_play_list %}
+			{% endfor %}
+			game play backlog
+			}
+		</table>
+
+		<br>
+		<br>
+		BUG BACKLOG --COMING SOON--
+		<table>
+			{% for bug in bug_list %}
+			{% endfor %}
+			site bug backlog
+			}
+		</table>
+	</p>
+</div>
+{{template "footer.html" .}}

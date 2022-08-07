@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>{{ .Title }}</title>
+     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="/public/responsive.css">
+    <link rel="stylesheet" href="/public/blog.css?">
+    <link rel="stylesheet" href="/public/sidebar.css">
+    <link rel="stylesheet" href="/public/comments.css">
+    <link rel="stylesheet" href="/public/wrapper.css?">
+    <link rel="stylesheet" href="/public/common.css">
+
+
+</head>
+<body class="body">
+    <div class="wrapper">
+        {{template "header.html" .}}
+        <section class="single-blog-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-10 offset-sm-1">
+                        <div class="border-top">
+                            <div class="blog-area">
+                                <h2 class="page-title">
+                                    <div class="page-title-bg">{{ .PageTitle}}</div>
+                                </h2>
+                                <!--<div class="card top-wrapper"></div> -->
+                                <!--<div class="card subtitle-wrapper"></div>-->

@@ -1,0 +1,67 @@
+<div class="spacer"></div>
+
+<h5 class="row border-bottom">Overall</h5>
+<table class="table">
+    {{range .Prb.Review.Overall}}
+        {{template "section.html" .}}
+    {{end}}
+</table>
+<div class="spacer"></div>
+<h3><i class="fa fa-quote-left" aria-hidden="true"></i>{{.Prb.Review.Pull}}<i class="fa fa-quote-right" aria-hidden="true"></i></h3>
+
+<h5 class="row border-bottom">Art</h5>
+<h5 class="row border-top border-bottom">Graphics</h5>
+<table class="table">
+    {{range .Prb.Review.Art.Graphics}}
+        {{template "section.html" .}}
+    {{end}}
+</table>
+<h5 class="row border-bottom">Sound</h5>
+<table class="table">
+    {{range .Prb.Review.Art.Sound}}
+        {{template "section.html" .}}
+    {{end}}
+</table>
+<h5 class="row border-bottom">Story</h5>
+<table class="table">
+    {{range .Prb.Review.Art.Story}}
+        {{template "section.html" .}}
+    {{end}}
+</table>
+<h5 class="row border-bottom">Themes</h5>
+<table class="table">
+    {{range .Prb.Review.Art.Themes}}
+        {{template "section.html" .}}
+    {{end}}
+</table>
+<h5 class="row border-bottom">Gameplay</h5>
+<h5 class="row border-top border-bottom">Mechanics</h5>
+<table class="table">
+    {{range .Prb.Review.Gameplay.Mechanics}}
+        {{template "section.html" .}}
+    {{end}}
+</table>
+<h5 class="row border-bottom">Difficulty</h5>
+<table class="table">
+    {{range .Prb.Review.Gameplay.Difficulty}}
+        {{template "section.html" .}}
+    {{end}}
+</table>
+<h5 class="row border-bottom">Experience</h5>
+<table class="table">
+    {{range .Prb.Review.Gameplay.Experience}}
+        {{template "section.html" .}}
+    {{end}}
+</table>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="image-one">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="image-two">
+        </div>
+    </div>
+</div>

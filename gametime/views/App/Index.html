@@ -1,0 +1,31 @@
+{{template "base.html" .}}
+
+<div class="card bottom-wrapper">
+    <table class="table">
+        <tr class="link-tile">
+            {{$link = "App.About"}}
+            {{$text = "About me and this website"}}
+            {{$img = "about-img.jpg"}}
+            {{template "tile.html" .}}
+        </tr>
+        <tr class="link-tile">
+            {{$link =  "App.Backlog"}}
+            {{$text = "My backlog of game reviews. You can see what I'm working on"}}
+            {{$img = "backlog-img.jpg"}}
+            {{template "tile.html" .}}
+        </tr>
+        <tr class="link-tile">
+            {{$link =  "App.Posts"}}
+            {{$text =  "The master list"}}
+            {{$img = "post-img.jpg"}}
+            {{template "tile.html" .}}
+        </tr>
+        <tr class="link-tile">
+            {{$link =  "App.Contact"}}
+            {{$text =  "How to contact me. Also I have an faq here if you're confused about something"}}
+            {{$img = "contact-img.jpg"}}
+            {{template "tile.html" .}}
+        </tr>              
+    </table>
+</div>
+{{template "footer.html" .}}

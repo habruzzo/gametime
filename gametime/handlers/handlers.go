@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"gametime"
 	"gametime/config"
@@ -14,6 +15,7 @@ import (
 const (
 	APP  = "app"
 	POST = "post"
+	TOOL = "tool"
 )
 
 type headerTitles struct {
@@ -86,6 +88,7 @@ func (h *HandlerMap) Add(m map[string]HandlerFuncWrapper) {
 func (h *Handler) getViews() {
 	var appFiles []string
 	var postFiles []string
+	var toolFiles []string
 	files, err := os.ReadDir("./views")
 	h.log.Info("parsing views")
 	if err != nil {
@@ -97,6 +100,7 @@ func (h *Handler) getViews() {
 		if strings.HasSuffix(filename, ".html") {
 			appFiles = append(appFiles, "./views/"+filename)
 			postFiles = append(postFiles, "./views/"+filename)
+			toolFiles = append(toolFiles, "./views/"+filename)
 		}
 		if file.IsDir() && file.Name() == "App" {
 			aFiles, err := os.ReadDir("./views/App")
@@ -124,6 +128,19 @@ func (h *Handler) getViews() {
 				}
 			}
 		}
+		if file.IsDir() && file.Name() == "Tool" {
+			tFiles, err := os.ReadDir("./views/Tool")
+			if err != nil {
+				h.log.Error(err)
+				continue
+			}
+			for _, tFile := range tFiles {
+				filename := tFile.Name()
+				if strings.HasSuffix(filename, ".html") {
+					toolFiles = append(toolFiles, "./views/Tool/"+filename)
+				}
+			}
+		}
 	}
 
 	tmap := make(map[string]*template.Template)
@@ -145,13 +162,28 @@ func (h *Handler) getViews() {
 			return fmt.Sprintf("%s%s", path, slug)
 		},
 	}).ParseFiles(postFiles...)
-	h.log.Info("parsed the app files to post template")
+	h.log.Info("parsed the files to post template")
 	if err != nil || pt == nil {
 		h.log.Error(err)
 		panic(fmt.Sprintf("error parsing post views!! %v", err))
 	}
+	tt, err := template.New(TOOL).Funcs(template.FuncMap{
+		"url": func(action string) string {
+			return h.hmap.GetPath(action)
+		},
+		"marshal": func(obj interface{}) string {
+			b, _ := json.Marshal(obj)
+			return string(b)
+		},
+	}).ParseFiles(toolFiles...)
+	h.log.Info("parsed the files to tool template")
+	if err != nil || pt == nil {
+		h.log.Error(err)
+		panic(fmt.Sprintf("error parsing tool views!! %v", err))
+	}
 	tmap[APP] = at
 	tmap[POST] = pt
+	tmap[TOOL] = tt
 	h.tmap = tmap
 }
 

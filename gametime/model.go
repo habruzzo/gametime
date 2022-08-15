@@ -25,9 +25,48 @@ type Review struct {
 }
 
 type Game struct {
-	Id      string `json:"uid"`
-	Title   string `json:"title"`
-	Details string `json:"details"`
+	Id      string  `json:"uid"`
+	Title   string  `json:"title"`
+	Status  Status  `json:"status"`
+	Details Details `json:"details"`
+}
+
+type Details struct {
+	Developer   string `json:"developer"`
+	InstallDate string `json:"installed"`
+}
+
+type Status struct {
+	Id   string `json:"uid"`
+	Name string `json:"name"`
+}
+
+var (
+	Unknown   Status = Status{Name: "unknownStatus"}
+	Wishlist  Status = Status{Name: "wishlistStatus"}
+	Installed Status = Status{Name: "installedStatus"}
+	Played    Status = Status{Name: "playedStatus"}
+	Completed Status = Status{Name: "completedStatus"}
+	Reviewed  Status = Status{Name: "reviewedStatus"}
+)
+
+func ToStatus(str string) Status {
+	switch str {
+	case Unknown.Name:
+		return Unknown
+	case Wishlist.Name:
+		return Wishlist
+	case Installed.Name:
+		return Installed
+	case Played.Name:
+		return Played
+	case Completed.Name:
+		return Completed
+	case Reviewed.Name:
+		return Reviewed
+	default:
+		return Unknown
+	}
 }
 
 type Art struct {

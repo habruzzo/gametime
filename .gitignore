@@ -1,13 +1,6 @@
-conf/remote-aws
-holdongametime
+config/remote-aws
 node_modules
 package-lock.json
-mod_wsgi-4.7.1
-django
 tools/manifests.txt
-revel/bin
-revel/pkg
-revel/src
-revel/tmp
 .vscode
-revel/blog_holdongametime/target
+.idea

@@ -28,6 +28,7 @@ var Component = wire.NewSet(
 	handlers.NewApi,
 	handlers.NewApp,
 	handlers.NewPost,
+	handlers.NewTool,
 	handlers.NewHandler,
 
 	logrus.New,
@@ -39,6 +40,7 @@ var Component = wire.NewSet(
 	wire.Bind(new(app.ApiHandler), new(*handlers.Api)),
 	wire.Bind(new(app.AppHandler), new(*handlers.App)),
 	wire.Bind(new(app.PostHandler), new(*handlers.Post)),
+	wire.Bind(new(app.ToolHandler), new(*handlers.Tool)),
 )
 
 func ProvideRunner() *app.Runner {

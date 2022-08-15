@@ -29,11 +29,12 @@ social media
 V1:
 home finish
 contact finish
-caddy https
-postgres
+backlog finish
+https
+data dump and reload tool
+ci/cd automated deployments
 
 V2
-backlog finish
 mailing list
 ads
 write 4 more reviews
@@ -51,6 +52,7 @@ backlog finish:
 combination of "personal" blog posts and "reviews"
 
 tool that will get names of all games in my steam library ->
+https://store.steampowered.com/account/licenses/
 tool that will take this list -> collect data to fill out "game" object -> fill out "game" object -> add to "game" table
 
 tool to scrape post entry from google sheets rubric
@@ -79,37 +81,7 @@ either add game to json or run game tool
 
 improve tooling!
 
-dgraph schema:
-<review>: uid .
-<reviewAuthor>: string @index(exact) @lang .
-<reviewSlug>: string @index(exact, term, fulltext) @lang .
-<reviewText>: string @lang .
-
-<game>: uid .
-<gameTitle>: string @index(exact, term, fulltext) @lang .
-<gameDetails>: string @index(exact, term, fulltext) @lang .
-
-<post>: uid .
-<postDate>: datetime .
-<postAuthor>: string @index(exact) @lang .
+Make a UI for editing data?
 
 
-type Review {
-	reviewAuthor
-	reviewSlug
-	reviewText
-	game
-}
-
-type Game {
-	gameTitle
-	gameDetails
-}
-
-type Post {
-	review
-	game
-	postDate
-	postAuthor
-}
 

@@ -7,7 +7,6 @@ const (
 	Unrecoverable
 	Recoverable
 	Retriable
-	Unknown
 )
 
 type Error struct {

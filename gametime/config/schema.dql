@@ -3,13 +3,15 @@ reviewText: string @lang .
 
 game: uid .
 gameTitle: string @index(exact, term, fulltext) @lang .
-gameDetails: string @index(exact, term, fulltext) @lang .
+gameDetailsText: string @index(exact, term, fulltext) @lang .
+gameStatus: uid .
 
 post: uid .
 author: uid .
 pull: string @index(term, fulltext) @lang .
 img: [string] @index(fulltext) .
 authorName: string @index(exact) @lang .
+statusName: string @index(exact, term) @lang .
 slug: string @index(exact, term, fulltext) @lang .
 postDate: datetime @index(hour) .
 
@@ -29,7 +31,12 @@ type Review {
 
 type Game {
 	gameTitle
-	gameDetails
+	gameDetailsText
+	gameStatus
+}
+
+type GameStatus {
+	statusName
 }
 
 type Post {

@@ -20,3 +20,14 @@ services:
     command: dgraph alpha --my=alpha:7080 --zero=zero:5080 --security whitelist=10.0.0.0/8,172.0.0.0/8,192.168.0.0/16,127.0.0.1
     environment:
       - DGRAPH_ALPHA_EXPORT=/dgraph/exports
+  caddy:
+    image: caddy:latest
+    volumes:
+      - ./gametime/public:/public
+      - ./Caddyfile-docker-dev:/etc/caddy/Caddyfile
+    ports:
+      - 8081:80
+      - 8082:443
+      - 2019:2019
+    extra_hosts:
+      - host.docker.internal:host-gateway

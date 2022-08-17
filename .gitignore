@@ -1,4 +1,4 @@
-config/remote-aws
+config
 node_modules
 package-lock.json
 tools/manifests.txt

@@ -1,0 +1,7 @@
+:80 {
+      reverse_proxy host.docker.internal:9000
+}
+
+holdongametime.com {
+      reverse_proxy host.docker.internal:9000
+}

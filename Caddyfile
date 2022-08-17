@@ -1,5 +1,7 @@
-:80 {
-    root /srv/http
-    file_server /public
-    reverse_proxy localhost:9000 
+:8081 {
+      reverse_proxy localhost:9000
+}
+
+holdongametime.com {
+      reverse_proxy localhost:9000
 }

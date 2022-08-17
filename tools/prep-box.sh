@@ -17,6 +17,9 @@ server_startup ()
   pushd /home/$USER
   cp .secret gametime/
   cd gametime
+  git pull
+  git submodule update
+
   make box.dev.down
   make box.docker.dev
   make run
@@ -37,6 +40,7 @@ get_git_stuff ()
 	cd gametime
 	git submodule init
   git submodule update
+  make get-dgraph
 	sleep 5
 	popd
 }

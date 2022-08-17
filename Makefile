@@ -43,3 +43,19 @@ box.dev.down:
 box.down:
 	docker-compose -p gametime down
 
+box.backup: dump
+	cd gametime/reviews
+	git add .
+	git commit -m "backup `date`"
+	git push
+
+build.review:
+	./tools/review_builder.py
+
+push.review:
+	git add .
+	git commit -m "add review"
+	git push
+
+
+review: build.review push.review

@@ -53,8 +53,8 @@ def fill_list(lst, line):
         i.append(segment)
         col_ctr = col_ctr + 2
     
-def parse_csv (r, slug):
-    f = open(CSV_PREFIX + slug + ".csv", "r")
+def parse_csv (r, filename):
+    f = open(CSV_PREFIX + filename + ".csv", "r")
     section = 0
     file_list = []
     f.seek(0)
@@ -88,8 +88,8 @@ def parse_title_row(line, review):
     review.slug = item[3]
     review.author = item[5]
 
-def parse_csv_ho (r, slug):
-    f = open(CSV_PREFIX + slug + ".csv", "r")
+def parse_csv_ho (r, filename):
+    f = open(CSV_PREFIX + filename + ".csv", "r")
     section = 0
     file_list = []
     file_list.clear()
@@ -161,8 +161,7 @@ def fill_final_list_json(final_list, review_list, name, title, extra_tab=True):
     final_list[-1] = remove_trailing_comma(final_list[-1])
     final_list.append(tab_str[1] + '],\n')
 
-def print_json(review, slug):
-    f = open(JSON_PREFIX + slug.lower() + ".json", "w")
+def print_json(review):
     final_list = ['{\n']
     fill_final_list_json(final_list, review.game[3], "overall", "Overall", False)
     final_list.append('\t"Art": {\n')
@@ -182,9 +181,10 @@ def print_json(review, slug):
     final_list.append('\t"game":{"title":"' + review.title + '"},\n')
     final_list.append('\t"author":{"name":"' + review.author + '"},\n')
     final_list.append('\t"slug":"' + review.slug + '",\n')
-
     final_list.append('\t"imgs":["","",""]\n')
     final_list.append('}')
+
+    f = open(JSON_PREFIX + review.slug.lower() + ".json", "w")
     f.writelines(final_list)
     f.close()
 
@@ -204,8 +204,7 @@ def fill_final_list_json_ho(final_list, review_list, name, title, another_coming
         final_list.append(tab_str[1] + ']\n')
 
 
-def print_json_ho(review, slug):
-    f = open(JSON_PREFIX + slug.lower() + ".json", "w")
+def print_json_ho(review):
     final_list = ['{\n']
     fill_final_list_json_ho(final_list, review.game[3], "overall", "Overall", True, False)
     final_list.append('\t"Art": {\n')
@@ -223,6 +222,8 @@ def print_json_ho(review, slug):
     final_list.append('\t"slug":"' + review.slug + '",\n')
     final_list.append('\t"imgs":["","",""]\n')
     final_list.append('}')
+
+    f = open(JSON_PREFIX + review.slug.lower() + ".json", "w")
     f.writelines(final_list)
     f.close()
 
@@ -239,30 +240,32 @@ def run_all():
     for i in range(len(fileset)):
         review_list.append(Review())
     print(review_list)
-    for index, slug in enumerate(fileset):
-        print("##########################",slug)
-        if "_h_o" in slug:
+    for index, filename in enumerate(fileset):
+        print("##########################",filename)
+        if "_h_o" in filename:
             print(index)
-            parse_csv_ho(review_list[index], slug)
-            print_json_ho(review_list[index], slug)
+            parse_csv_ho(review_list[index], filename)
+            print_json_ho(review_list[index])
         else:
             print(index)
-            parse_csv(review_list[index], slug)
-
-            print_json(review_list[index], slug)
+            parse_csv(review_list[index], filename)
+            print_json(review_list[index], filename)
 
 def main():
     ra = input("run all reviews?(y/n, default n): ")
     if ra == "y":
         run_all()
         exit(0)
-    slug = input("game slug (note: no spaces, use _)?: ")
+    filename = input("file name: ")
     ho = input("hidden object(y/n, default n): ")
     if ho == "y":
-        print_json_ho(parse_csv_ho(slug), slug)
+        r = Review()
+        parse_csv_ho(r, filename)
+        print_json_ho(r)
         exit(0)
     else:
-        print_json(parse_csv(slug), slug)
+        parse_csv(r, filename)
+        print_json(r)
         exit(0)
     
 

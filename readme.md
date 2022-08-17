@@ -108,7 +108,7 @@ verify everything works
 
 "publish review":
 ping endpoint to trigger new review is available, some sort of os flag is set, or a job is run or something
-oh yeah i could do exec and "make ___" and that tool will do the import
+oh yeah i could do golang exec and a make command and the tool will do the import
 google workspace api: account auth, replace stupid commas, pull down new sheet csv
 run review builder
 git push review

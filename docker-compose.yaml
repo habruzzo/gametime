@@ -12,10 +12,13 @@ services:
     image: dgraph/dgraph:latest
     volumes:
       - /tmp/data:/dgraph
+      - ./reviews/db/data:/dgraph/exports
     ports:
       - 8080:8080
       - 9080:9080
     restart: on-failure
+    environment:
+      - DGRAPH_ALPHA_EXPORT=/dgraph/exports
     command: dgraph alpha --my=alpha:7080 --zero=zero:5080 --security whitelist=10.0.0.0/8,172.0.0.0/8,192.168.0.0/16,127.0.0.1
   gametime:
     image: gametime:latest

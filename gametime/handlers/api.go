@@ -88,7 +88,7 @@ func (a Api) Dump() http.HandlerFunc {
 
 func (a Api) checkAuth(r *http.Request) bool {
 	authHeader := r.Header.Get("Authorization")
-	if authHeader != "cG90YXRv" {
+	if authHeader != a.cfg.Auth {
 		a.log.Error("no auth", authHeader)
 		return false
 	}

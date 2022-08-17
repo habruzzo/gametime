@@ -11,11 +11,12 @@ services:
   alpha:
     image: dgraph/dgraph:latest
     volumes:
-      - .reviews/db/data:/dgraph
+      - /tmp/data:/dgraph
+      - ./reviews/db/data:/dgraph/exports
     ports:
       - 8080:8080
       - 9080:9080
     restart: on-failure
     command: dgraph alpha --my=alpha:7080 --zero=zero:5080 --security whitelist=10.0.0.0/8,172.0.0.0/8,192.168.0.0/16,127.0.0.1
     environment:
-      - DGRAPH_ALPHA_EXPORT=/dgraph
+      - DGRAPH_ALPHA_EXPORT=/dgraph/exports

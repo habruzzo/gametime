@@ -22,3 +22,12 @@ down:
 run:
 	cd gametime; make run
 
+dump:
+	curl -v http://localhost:9000/dump -X POST -H"Authorization: "
+
+load-backup:
+	dgraph live --files ./reviews/db/data
+
+get-dgraph:
+	curl https://get.dgraph.io -sSf | bash
+

@@ -15,6 +15,7 @@ type Db struct {
 type Config struct {
 	Dgraph Db
 	Port   string
+	Auth   string
 }
 
 func LoadConfig() *Config {
@@ -36,9 +37,11 @@ func LoadConfig() *Config {
 	if db.Password == "" {
 		db.Password = ""
 	}
+	auth := os.Getenv("AUTH_API_SECRET")
 	return &Config{
 		Dgraph: db,
 		Port:   "9000",
+		Auth:   auth,
 	}
 }
 

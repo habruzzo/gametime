@@ -2,4 +2,4 @@ build:
 	go build -o bin/gametime ./cmd/gametime
 
 run: build
-	./bin/gametime
+	source ../.secret && ./bin/gametime

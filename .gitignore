@@ -4,3 +4,4 @@ package-lock.json
 tools/manifests.txt
 .vscode
 .idea
+.secret

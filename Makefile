@@ -31,3 +31,15 @@ load-backup:
 get-dgraph:
 	curl https://get.dgraph.io -sSf | bash
 
+box.docker.up: box.down docker.clean docker.build
+	docker-compose -p gametime up -d --remove-orphans
+
+box.docker.dev:
+	docker-compose -f docker-compose-dev.yaml -p gametime-dev up -d --remove-orphans
+
+box.dev.down:
+	docker-compose -p gametime-dev down
+
+box.down:
+	docker-compose -p gametime down
+

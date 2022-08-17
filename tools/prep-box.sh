@@ -14,9 +14,14 @@ USER=ec2-user
 
 server_startup ()
 {
-  make dev.down
-  make docker.dev
+  pushd /home/$USER
+  cp .secret gametime/
+  cd gametime
+  make box.dev.down
+  make box.docker.dev
   make run
+
+  popd
 }
 
 get_git_stuff ()
@@ -32,10 +37,7 @@ get_git_stuff ()
 	cd gametime
 	git submodule init
   git submodule update
-
-	git clone git@github.com:habruzzo/reviews.git
 	sleep 5
-	sudo cp /home/$USER/conf/Caddyfile /etc/caddy
 	popd
 }
 
@@ -59,6 +61,7 @@ prep ()
 	echo "$0"
 	scp -i $KEY_LOC $0 $USER@$ip_addr:~/$SCRIPT_NAME
 	scp -r -i $KEY_LOC config $USER@$ip_addr:~/config
+	scp -i $KEY_LOC .secret $USER@$ip_addr:~/.secret
 }
 
 cycle ()

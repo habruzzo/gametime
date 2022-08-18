@@ -26,19 +26,19 @@ dump:
 	curl -v http://localhost:9000/dump -X POST -H"Authorization: "
 
 load-backup:
-	dgraph live --files ./reviews/db/data
+	docker run -it --name dgraph-live --rm -v "`pwd`/reviews/db/data:/dump" --net gametime-dev_default dgraph/dgraph:latest dgraph live -f /dump -a alpha:9080 -z zero:5080
 
-get-dgraph:
-	curl https://get.dgraph.io -sSf | bash
+box.load-backup:
+	docker run -it --name dgraph-live --rm -v "`pwd`/reviews/db/data:/dump" --net gametime-box_default dgraph/dgraph:latest dgraph live -f /dump -a alpha:9080 -z zero:5080
 
 box.docker.up: box.down docker.clean docker.build
 	docker-compose -p gametime up -d --remove-orphans
 
 box.docker.dev:
-	docker-compose -f docker-compose-dev.yaml -p gametime-dev up -d --remove-orphans
+	docker-compose -f docker-compose-box.yaml -p gametime-box up -d --remove-orphans
 
 box.dev.down:
-	docker-compose -p gametime-dev down
+	docker-compose -p gametime-box down
 
 box.down:
 	docker-compose -p gametime down
@@ -53,9 +53,21 @@ build.review:
 	./tools/review_builder.py
 
 push.review:
+	cd ~/gametime/reviews
 	git add .
 	git commit -m "add review"
 	git push
+	cd ..
+	git submodule update
 
 
 review: build.review push.review
+
+prep-start:
+	./tools/prep-box.sh start
+
+prep-restart:
+	./tools/prep-box.sh restart
+
+tunnel:
+	ssh

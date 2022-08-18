@@ -5,7 +5,7 @@ REMOTE_KEY_LOC=/opt/gametime/config/remote-aws
 REMOTE_WORKDIR=/opt/gametime
 SCRIPT_NAME=prep-box.sh
 USER=ec2-user
-
+IP_ADDR="52.88.59.140"
 # reboot_box ()
 # {
 # 	ip_addr=$1
@@ -19,10 +19,11 @@ server_startup ()
   cd gametime
   git pull
   git submodule update
-
+  sudo systemctl start docker
+  sudo chmod 666 /var/run/docker.sock
   make box.dev.down
   make box.docker.dev
-  make run
+  make run &
 
   popd
 }
@@ -40,7 +41,6 @@ get_git_stuff ()
 	cd gametime
 	git submodule init
   git submodule update
-  make get-dgraph
 	sleep 5
 	popd
 }
@@ -52,38 +52,36 @@ setup_deps ()
 #	sudo yum -y -q install caddy
 	sudo yum -y -q install docker git go make
 	sudo yum -y -q update
+	sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
     #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
 }
 
 prep ()
 {
-	ip_addr=$1
-	if [ $1 == "" ]
-	then
-		read -ep "What IP do you want to access?" ip_addr
-	fi
-	echo "$0"
-	scp -i $KEY_LOC $0 $USER@$ip_addr:~/$SCRIPT_NAME
-	scp -r -i $KEY_LOC config $USER@$ip_addr:~/config
-	scp -i $KEY_LOC .secret $USER@$ip_addr:~/.secret
+  echo "Starting prep"
+  if [[ $IP_ADDR == "" ]]
+  then
+    if [[ $1 == "" ]]
+    then
+      read -ep "What IP do you want to access?" IP_ADDR;
+    else IP_ADDR=$1
+    fi
+  fi
+	scp -i $KEY_LOC $0 $USER@$IP_ADDR:~/$SCRIPT_NAME
+	scp -r -i $KEY_LOC config $USER@$IP_ADDR:~/config
+	scp -i $KEY_LOC .secret $USER@$IP_ADDR:~/.secret
 }
 
 cycle ()
 {
-  	ip_addr=$1
-  	if [ $1 == "" ]
-  	then
-  		read -ep "What IP do you want to access?" ip_addr
-  	fi
-  	echo "$0"
-	ssh -i $KEY_LOC $USER@$ip_addr "chmod u+x $SCRIPT_NAME;./$SCRIPT_NAME $2"
+	ssh -i $KEY_LOC $USER@$IP_ADDR "./$SCRIPT_NAME $1"
 }
 
 case $1 in
 	start)
-		echo "Starting prep"
 		prep $2
-		cycle $2 "pickup"
+		cycle "pickup"
 	;;
 	pickup)
 		echo "Starting pickup"
@@ -95,10 +93,10 @@ case $1 in
 	;;
 	restart)
 		prep $2
-		cycle $2 "pickup-restart $2"
+		cycle "pickup-restart"
 	;;
 	pickup-restart)
-		server_startup $2
+		server_startup
 	;;
 	*)
 	  echo 'start or restart; start <box ip> or restart <box ip>'

@@ -5,7 +5,7 @@ REMOTE_KEY_LOC=/opt/gametime/config/remote-aws
 REMOTE_WORKDIR=/opt/gametime
 SCRIPT_NAME=prep-box.sh
 USER=ec2-user
-IP_ADDR="52.88.59.140"
+IP_ADDR="100.21.176.3"
 # reboot_box ()
 # {
 # 	ip_addr=$1
@@ -17,7 +17,7 @@ server_startup ()
   pushd /home/$USER
   cp .secret gametime/
   cd gametime
-  git pull
+  git pull -f
   git submodule update
   sudo systemctl start docker
   sudo chmod 666 /var/run/docker.sock

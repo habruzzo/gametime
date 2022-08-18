@@ -5,3 +5,4 @@ tools/manifests.txt
 .vscode
 .idea
 .secret
+gametime/bin

@@ -1,33 +1,24 @@
 {{template "base.html" .}}
 <div class="card bottom-wrapper">
 	<p>
-		REVIEW BACKLOG --COMING SOON--
-		<table>
-			{% for game in game_review_list %}
-			{% endfor %}
-			game review backlog
-		</table>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		GAME BACKLOG --COMING SOON--
-		<table>
-			{% for game in game_play_list %}
-			{% endfor %}
-			game play backlog
-			}
-		</table>
+		<h4>GAME BACKLOG</h4>
+	<p>I put an abridged list of all the games in my steam library here, along with their "status". If it's on this list, I either plan on reviewing it at some point,
+	or I am leaving it in for context and so you can see what kinds of games I play, even if I choose not to review them. Each game is marked with a status.
+		<ul>Unknown: speaks for itself</ul>
+		<ul>Wishlist: its on my wishlist, i dont own the game</ul>
+		<ul>Installed: i bought/installed it but i havent played it yet. or ive barely started it.</ul>
+		<ul>Played Some: i played like, the first 10-40% of the game, in terms of content and gameplay</ul>
+		<ul>Played Most: ive played like 50-80% of the game, i have a good sense of where its going (This is where i usually stop with games, even if i like them, tbh)</ul>
+		<ul>Completed: the credits rolled. the game is over. even if i didnt get 100% bonus content, i still count it completed</ul>
+		<ul>Reviewed: i wrote a review and posted it here</ul>
+		<ul>Wont Review: i wont be reviewing this game, probably for some specific reason, unless i change my mind i guess</ul>
 
-		<br>
-		<br>
-		BUG BACKLOG --COMING SOON--
+	</p>
 		<table>
-			{% for bug in bug_list %}
-			{% endfor %}
-			site bug backlog
-			}
+			<tr><td><h5>Title</h5></td><td><h5>Status</h5></td><td><h5>Details: Any of (developer, install date, notes)</h5></td></tr>
+			{{ range .Games }}
+			<tr><td>{{ .Title }}</td><td>{{ .Status.Name }}</td><td>{{ .Details }}</td></tr>
+			{{ end }}
 		</table>
 	</p>
 </div>

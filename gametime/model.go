@@ -1,6 +1,7 @@
 package gametime
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -34,6 +35,7 @@ type Game struct {
 type Details struct {
 	Developer   string `json:"developer"`
 	InstallDate string `json:"installed"`
+	Notes       string `json:"notes"`
 }
 
 type Status struct {
@@ -42,12 +44,14 @@ type Status struct {
 }
 
 var (
-	Unknown   Status = Status{Name: "unknownStatus"}
-	Wishlist  Status = Status{Name: "wishlistStatus"}
-	Installed Status = Status{Name: "installedStatus"}
-	Played    Status = Status{Name: "playedStatus"}
-	Completed Status = Status{Name: "completedStatus"}
-	Reviewed  Status = Status{Name: "reviewedStatus"}
+	Unknown    Status = Status{Name: "unknownStatus"}
+	Wishlist   Status = Status{Name: "wishlistStatus"}
+	Installed  Status = Status{Name: "installedStatus"}
+	PlayedSome Status = Status{Name: "playedSomeStatus"}
+	PlayedMost Status = Status{Name: "playedMostStatus"}
+	Completed  Status = Status{Name: "completedStatus"}
+	Reviewed   Status = Status{Name: "reviewedStatus"}
+	WontReview Status = Status{Name: "wontReviewStatus"}
 )
 
 func ToStatus(str string) Status {
@@ -58,15 +62,24 @@ func ToStatus(str string) Status {
 		return Wishlist
 	case Installed.Name:
 		return Installed
-	case Played.Name:
-		return Played
+	case PlayedSome.Name:
+		return PlayedSome
+	case PlayedMost.Name:
+		return PlayedMost
 	case Completed.Name:
 		return Completed
 	case Reviewed.Name:
 		return Reviewed
+	case WontReview.Name:
+		return WontReview
 	default:
 		return Unknown
 	}
+}
+
+func ToDetails(str string) (d Details) {
+	json.Unmarshal([]byte(str), &d)
+	return d
 }
 
 type Art struct {
@@ -91,4 +104,9 @@ type Question struct {
 type Author struct {
 	Id   string `json:"uid"`
 	Name string `json:"name"`
+}
+
+type Issue struct {
+	Id     string `json:"uid"`
+	Status string `json:"status"`
 }

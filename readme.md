@@ -32,7 +32,7 @@ contact finish
 backlog finish
 https
 data dump and reload tool (done)
-ci/cd automated deployments
+ci/cd automated deployments 
 
 V2
 mailing list

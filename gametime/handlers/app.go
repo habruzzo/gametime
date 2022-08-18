@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"gametime"
+	"gametime/db"
 	"net/http"
 )
 
@@ -98,6 +100,12 @@ func (c *App) Backlog() http.HandlerFunc {
 			w.WriteHeader(500)
 			return
 		}
+		type Data struct {
+			headerTitles
+			Games []gametime.Game
+		}
+		c.dgraph = db.NewDgraph(c.log, c.cfg)
+		g := c.dgraph.GetGames()
 		backlog := c.tmap[APP].Lookup("Backlog.html")
 		if backlog == nil {
 			c.log.Error("error rendering templates for backlog 2")
@@ -105,7 +113,7 @@ func (c *App) Backlog() http.HandlerFunc {
 			return
 		}
 
-		backlog.ExecuteTemplate(w, "Backlog.html", headerTitles{Title: "Backlog", PageTitle: "backlog"})
+		backlog.ExecuteTemplate(w, "Backlog.html", Data{headerTitles: headerTitles{Title: "Backlog", PageTitle: "backlog"}, Games: g})
 		return
 	}
 }

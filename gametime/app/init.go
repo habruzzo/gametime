@@ -122,7 +122,9 @@ func loadStatuses(d *db.Dgraph) {
 	d.InsertStatus(gametime.Unknown)
 	d.InsertStatus(gametime.Wishlist)
 	d.InsertStatus(gametime.Installed)
-	d.InsertStatus(gametime.Played)
+	d.InsertStatus(gametime.PlayedSome)
+	d.InsertStatus(gametime.PlayedMost)
+	d.InsertStatus(gametime.WontReview)
 	d.InsertStatus(gametime.Completed)
 	d.InsertStatus(gametime.Reviewed)
 }

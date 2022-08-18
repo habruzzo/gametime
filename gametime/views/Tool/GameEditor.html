@@ -31,7 +31,7 @@
             <div id="item" class="row obj-wrapper">
                 <span> <p>Title: </p>{{ .Title }} </span>
                 <span> <p>  Id: </p>{{ .Id }} </span>
-                <input type="text" class="col-md details" value={{ marshal .Details }}>
+                <input type="text" class="col-md details" name="details_{{.Id}}" value={{ marshal .Details }}>
                 <div class="col-md status">
                     <script>
                         statuses.push('{{ .Status.Name }}')
@@ -51,8 +51,12 @@
                         <input id="status_{{.Id}}_i" type="radio" name="status_{{.Id}}" value="installedStatus">
                         </div>
                         <div class="col-xs">
-                        <label for="status_{{.Id}}_p">Played</label>
-                        <input id="status_{{.Id}}_p" type="radio" name="status_{{.Id}}" value="playedStatus">
+                        <label for="status_{{.Id}}_ps">PlayedSome</label>
+                        <input id="status_{{.Id}}_ps" type="radio" name="status_{{.Id}}" value="playedSomeStatus">
+                        </div>
+                        <div class="col-xs">
+                            <label for="status_{{.Id}}_pm">PlayedMost</label>
+                            <input id="status_{{.Id}}_pm" type="radio" name="status_{{.Id}}" value="playedMostStatus">
                         </div>
                         <div class="col-xs">
                         <label for="status_{{.Id}}_c">Completed</label>
@@ -61,6 +65,10 @@
                         <div class="col-xs">
                         <label for="status_{{.Id}}_r">Reviewed</label>
                         <input id="status_{{.Id}}_r" type="radio" name="status_{{.Id}}" value="reviewedStatus">
+                        </div>
+                        <div class="col-xs">
+                            <label for="status_{{.Id}}_wr">WontReview</label>
+                            <input id="status_{{.Id}}_wr" type="radio" name="status_{{.Id}}" value="wontReviewStatus">
                         </div>
                     </div> 
                 </div>
@@ -78,7 +86,7 @@
     var items = document.getElementsByClassName("status")
     console.log(items.length)
     for (var j = 0; j < items.length; j++) {
-        for (var i = 0; i < 6; i++) {
+        for (var i = 0; i < 8; i++) {
             var radios = document.getElementsByName(ids[j])
             if (radios[i].value === statuses[j]) {
                 console.log("match")

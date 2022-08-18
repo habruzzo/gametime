@@ -64,7 +64,8 @@ type Dauthor struct {
 	DgraphType DType  `json:"dgraph.type"`
 }
 
-type Dbug struct {
+type Dissue struct {
+	Uid string `json:"uid,omitempty"`
 }
 
 type Dfaq struct {

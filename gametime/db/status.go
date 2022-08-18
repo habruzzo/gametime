@@ -90,8 +90,12 @@ func (d *Dgraph) dstatusToStatus(ds DgameStatus) gametime.Status {
 		s := gametime.Installed
 		s.Id = ds.Uid
 		return s
-	case gametime.Played.Name:
-		s := gametime.Played
+	case gametime.PlayedSome.Name:
+		s := gametime.PlayedSome
+		s.Id = ds.Uid
+		return s
+	case gametime.PlayedMost.Name:
+		s := gametime.PlayedMost
 		s.Id = ds.Uid
 		return s
 	case gametime.Completed.Name:
@@ -100,6 +104,10 @@ func (d *Dgraph) dstatusToStatus(ds DgameStatus) gametime.Status {
 		return s
 	case gametime.Reviewed.Name:
 		s := gametime.Reviewed
+		s.Id = ds.Uid
+		return s
+	case gametime.WontReview.Name:
+		s := gametime.WontReview
 		s.Id = ds.Uid
 		return s
 	default:

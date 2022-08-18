@@ -117,6 +117,18 @@ func (d *Dgraph) getGames() []Dgame {
 	return dgame.Dgame
 }
 
+//func (d *Dgraph) GetGamesForBacklog() []gametime.Game {
+//	d.log.Info("get games for backlog (app)")
+//
+//	dg := d.getGamesForBacklog()
+//
+//}
+
+//func (d *Dgraph) getGamesForBacklog() []Dgame {
+//	d.log.Info("get games for backlog")
+//
+//}
+
 func (d *Dgraph) GetGameByTitle(Title string) gametime.Game {
 	d.log.Info("get game by title (app)")
 

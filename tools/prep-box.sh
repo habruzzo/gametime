@@ -19,10 +19,10 @@ server_startup ()
   cd gametime
   git pull -f
   git submodule update
-  sudo systemctl start docker
-  sudo chmod 666 /var/run/docker.sock
+  sudo systemctl restart docker
   make box.dev.down
   make box.docker.dev
+  sleep 5
   make run &
 
   popd
@@ -54,6 +54,8 @@ setup_deps ()
 	sudo yum -y -q update
 	sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
+	sudo chmod 666 /var/run/docker.sock
+
     #sudo sed -i "s/SELINUX=.*/SELINUX=disabled/g" /etc/sysconfig/selinux
 }
 

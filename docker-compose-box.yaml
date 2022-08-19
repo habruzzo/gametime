@@ -31,4 +31,4 @@ services:
       - 2019:2019
     extra_hosts:
       - host.docker.internal:host-gateway
-    command: caddy trust && caddy reload
+    command: caddy start -config /etc/caddy/Caddyfile && caddy trust && caddy reload -config /etc/caddy/Caddyfile
